@@ -1,19 +1,11 @@
 <template>
-  <div
-    class="d-flex flex-column"
-    style="min-height: 100%; justify-content: space-between"
-  >
-    <nav
-      class="navbar navbar-light navbar-expand"
-      style="background-color: #343a40 !important; padding: 0.5rem 1rem"
-    >
+  <div class="d-flex flex-column login-flex">
+    <nav class="navbar navbar-light navbar-expand login-nav">
       <div class="header-nav">
-        <a href="http://freedvs.com/" class="navbar-brand" style="color: white"
-          >Benchkiller</a
-        >
+        <a href="http://freedvs.com/" class="navbar-brand">Benchkiller</a>
       </div>
     </nav>
-    <main class="container" style="max-width: 1140px">
+    <main class="container">
       <div class="row">
         <div class="col-md-6">
           <form style="margin-block-end: 1em">
@@ -60,9 +52,7 @@
       </div>
     </main>
     <footer>
-      <div class="container" style="padding-bottom: 1em">
-        © Benchkiller 2021
-      </div>
+      <div class="container">© Benchkiller 2021</div>
     </footer>
   </div>
 </template>
@@ -76,17 +66,4 @@ export default {
 };
 </script>
 
-<style scoped>
-main {
-  flex: 1 1 auto;
-}
-.container {
-  max-width: 1140px;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: 354px;
-  margin-left: 354px;
-  padding-top: 2em;
-}
-</style>
+<style></style>
