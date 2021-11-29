@@ -1,45 +1,26 @@
 <template>
   <div class="d-flex flex-column login-flex">
-    <nav class="navbar navbar-light navbar-expand login-nav">
-      <div class="header-nav">
-        <a href="http://freedvs.com/" class="navbar-brand">Benchkiller</a>
-      </div>
+    <nav class="navbar navbar-light navbar-expand-mb login-nav">
+      <a href="/" class="navbar-brand">Benchkiller</a>
     </nav>
     <main class="container">
       <div class="row">
         <div class="col-md-6">
-          <form style="margin-block-end: 1em">
+          <form>
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label"
+              <label for="userTelegram" class="form-label"
                 >Ваш никнейм в telegram</label
               >
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
+              <input type="url" class="form-control" id="userTelegram" />
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label"
-                >Пароль</label
-              >
-              <input
-                type="password"
-                class="form-control"
-                id="exampleInputPassword1"
-              />
+              <label for="userPassword" class="form-label">Пароль</label>
+              <input type="password" class="form-control" id="userPassword" />
             </div>
-            <button
-              type="submit"
-              class="btn btn-success"
-              style="background-color: #28a745"
-            >
-              Войти
-            </button>
+            <button type="submit" class="btn btn-success">Войти</button>
           </form>
           <div class="alert alert-primary" role="alert">
-            Впервые у нас? Перейдите в нашего
+            <span>Впервые у нас? Перейдите в нашего </span>
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -52,7 +33,11 @@
       </div>
     </main>
     <footer>
-      <div class="container">© Benchkiller 2021</div>
+      <div class="container">
+        © Benchkiller 2021<span v-if="currentYear > 2021">
+          - {{ currentYear }}</span
+        >
+      </div>
     </footer>
   </div>
 </template>
@@ -61,9 +46,9 @@
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+      currentYear: new Date().getFullYear(),
+    };
   },
 };
 </script>
-
-<style></style>
