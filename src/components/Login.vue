@@ -8,26 +8,24 @@
         <div class="col-md-6">
           <form>
             <div class="mb-3">
-              <label for="userTelegram" class="form-label"
-                >Ваш никнейм в telegram</label
-              >
+              <label for="userTelegram" class="form-label">{{ $t('message.nickname')}}</label>
               <input type="url" class="form-control" id="userTelegram" />
             </div>
             <div class="mb-3">
-              <label for="userPassword" class="form-label">Пароль</label>
+              <label for="userPassword" class="form-label">{{ $t('message.password')}}</label>
               <input type="password" class="form-control" id="userPassword" />
             </div>
-            <button type="submit" class="btn btn-success">Войти</button>
+            <button type="submit" class="btn btn-success">{{ $t('message.enterButton')}}</button>
           </form>
           <div class="alert alert-primary" role="alert">
-            <span>Впервые у нас? Перейдите в нашего </span>
+            <span>{{ $t('message.alertMessage1')}}</span>
             <a
               target="_blank"
               rel="noopener noreferrer"
               href="https://t.me/benchkiller_test_bot"
-              >бота</a
+              >{{ $t('message.botLink')}}</a
             >
-            и сгенерируйте себе пароль.
+            {{ $t('message.alertMessage2')}}
           </div>
         </div>
       </div>
