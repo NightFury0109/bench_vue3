@@ -10,20 +10,22 @@ const messages = {
     message: {
       nickname: "Ваш никнейм в telegram",
       password: "Пароль",
-      enterButton: "Войти",
+      loginButton: "Войти",
       alertMessage1: "Впервые у нас? Перейдите в нашего ",
       botLink: "бота",
-      alertMessage2: " и сгенерируйте себе пароль."
+      alertMessage2: " и сгенерируйте себе пароль.",
+      dangerAlert: "Неверный логин или пароль",
     },
   },
   en: {
     message: {
       nickname: "Your Telegram account",
       password: "Password",
-      enterButton: "Log in",
+      loginButton: "Log in",
       alertMessage1: "No account? Check out our ",
       botLink: "bot",
-      alertMessage2: " and generate your password."
+      alertMessage2: " and generate your password.",
+      dangerAlert: "Invalid login or password",
     },
   },
 };

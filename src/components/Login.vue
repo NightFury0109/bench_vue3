@@ -6,26 +6,60 @@
     <main class="container">
       <div class="row">
         <div class="col-md-6">
-          <form>
+          <form @submit.prevent="onSubmit">
             <div class="mb-3">
-              <label for="userTelegram" class="form-label">{{ $t('message.nickname')}}</label>
-              <input type="url" class="form-control" id="userTelegram" />
+              <label for="userTelegram" class="form-label">{{
+                $t("message.nickname")
+              }}</label>
+              <input
+                type="url"
+                class="form-control"
+                id="userTelegram"
+                v-model="userTelegram"
+              />
             </div>
             <div class="mb-3">
-              <label for="userPassword" class="form-label">{{ $t('message.password')}}</label>
-              <input type="password" class="form-control" id="userPassword" />
+              <label for="userPassword" class="form-label">{{
+                $t("message.password")
+              }}</label>
+              <input
+                type="password"
+                class="form-control"
+                id="userPassword"
+                v-model="userPassword"
+              />
             </div>
-            <button type="submit" class="btn btn-success">{{ $t('message.enterButton')}}</button>
+            <button
+              type="submit"
+              id="liveToastBtn"
+              class="btn btn-success"
+              @click="login"
+            >
+              {{ $t("message.loginButton") }}
+            </button>
           </form>
           <div class="alert alert-primary" role="alert">
-            <span>{{ $t('message.alertMessage1')}}</span>
+            <span>{{ $t("message.alertMessage1") }}</span>
             <a
               target="_blank"
               rel="noopener noreferrer"
               href="https://t.me/benchkiller_test_bot"
-              >{{ $t('message.botLink')}}</a
+              >{{ $t("message.botLink") }}</a
             >
-            {{ $t('message.alertMessage2')}}
+            {{ $t("message.alertMessage2") }}
+          </div>
+        </div>
+      </div>
+      <div class="show position-fixed toast-block">
+        <div
+          id="liveToast"
+          class="toast danger-toast"
+          role="alert"
+          ref="danger"
+          data-bs-delay="10000"
+        >
+          <div class="toast-body">
+            {{ $t("message.dangerAlert") }}
           </div>
         </div>
       </div>
@@ -41,12 +75,23 @@
 </template>
 
 <script>
+// import { ref } from "vue";
+import bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+
 export default {
   name: "Login",
   data() {
     return {
+      userTelegram: "",
+      userPassword: "",
       currentYear: new Date().getFullYear(),
     };
+  },
+  methods: {
+    login() {
+      const toast = new bootstrap.Toast(this.$refs.danger);
+      toast.show();
+    },
   },
 };
 </script>
