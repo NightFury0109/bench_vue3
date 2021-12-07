@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { createI18n } from "vue-i18n";
 
+// Не понимаю, нужен ли импорт bootstrap'a в main.js, если я импортировала в style.scss. Если закомментировать 6 и 7 строчки, bootstrap стили всё так же работают.
 import "bootstrap/scss/bootstrap.scss";
 import "bootstrap";
 
