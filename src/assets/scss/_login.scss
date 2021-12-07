@@ -38,15 +38,13 @@ form {
     background-color: #cce5ff !important;
 }
 
-.toast-block{
-    box-shadow: none !important;
-}
-
-.danger-toast {
+.toast {
+    position: fixed;
     color: #721c24 !important;
     background-color: #f8d7da !important;
     border-color: #f5c6cb !important;
-    top: 100px !important;
+    top: 65px !important;
+    right: 10px !important;
 }
 
 .btn-success {

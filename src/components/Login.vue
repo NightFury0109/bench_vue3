@@ -4,6 +4,7 @@
       <a href="/" class="navbar-brand">Benchkiller</a>
     </nav>
     <main class="container">
+      <Toast v-if="showToast" />
       <div class="row">
         <div class="col-md-6">
           <form @submit.prevent="onSubmit">
@@ -12,7 +13,7 @@
                 $t("message.nickname")
               }}</label>
               <input
-                type="url"
+                type="text"
                 class="form-control"
                 id="userTelegram"
                 v-model="userTelegram"
@@ -29,12 +30,7 @@
                 v-model="userPassword"
               />
             </div>
-            <button
-              type="submit"
-              id="liveToastBtn"
-              class="btn btn-success"
-              @click="login"
-            >
+            <button type="submit" id="liveToastBtn" class="btn btn-success">
               {{ $t("message.loginButton") }}
             </button>
           </form>
@@ -50,19 +46,6 @@
           </div>
         </div>
       </div>
-      <div class="show position-fixed toast-block">
-        <div
-          id="liveToast"
-          class="toast danger-toast"
-          role="alert"
-          ref="danger"
-          data-bs-delay="10000"
-        >
-          <div class="toast-body">
-            {{ $t("message.dangerAlert") }}
-          </div>
-        </div>
-      </div>
     </main>
     <footer>
       <div class="container">
@@ -75,23 +58,33 @@
 </template>
 
 <script>
-// import { ref } from "vue";
-import bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import { ref } from "vue";
+import Toast from "@/components/Toast";
+import _ from "underscore";
 
 export default {
-  name: "Login",
-  data() {
-    return {
-      userTelegram: "",
-      userPassword: "",
-      currentYear: new Date().getFullYear(),
+  components: { Toast },
+  setup() {
+    const currentYear = new Date().getFullYear();
+    const userTelegram = ref("");
+    const userPassword = ref("");
+    const showToast = ref(false);
+
+    const onSubmit = () => {
+      console.log("test");
+      if (_.isEmpty(userTelegram.value) && _.isEmpty(userPassword.value)) {
+        console.log("succed");
+        showToast.value = true;
+        setTimeout(() => (showToast.value = false), 10000);
+      }
     };
-  },
-  methods: {
-    login() {
-      const toast = new bootstrap.Toast(this.$refs.danger);
-      toast.show();
-    },
+    return {
+      currentYear,
+      onSubmit,
+      showToast,
+      userTelegram,
+      userPassword,
+    };
   },
 };
 </script>
