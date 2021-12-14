@@ -1,0 +1,11 @@
+{
+    "message": {
+      "nickname": "Your Telegram account",
+      "password": "Password",
+      "loginButton": "Log in",
+      "alertMessage1": "No account? Check out our ",
+      "botLink": "bot",
+      "alertMessage2": " and generate your password.",
+      "dangerAlert": "Invalid login or password"
+    }
+  }

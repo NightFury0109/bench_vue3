@@ -10,7 +10,7 @@
           <form @submit.prevent="onSubmit">
             <div class="mb-3">
               <label for="userTelegram" class="form-label">{{
-                $t("message.nickname")
+                t("message.nickname")
               }}</label>
               <input
                 type="text"
@@ -21,7 +21,7 @@
             </div>
             <div class="mb-3">
               <label for="userPassword" class="form-label">{{
-                $t("message.password")
+                t("message.password")
               }}</label>
               <input
                 type="password"
@@ -31,18 +31,18 @@
               />
             </div>
             <button type="submit" id="liveToastBtn" class="btn btn-success">
-              {{ $t("message.loginButton") }}
+              {{ t("message.loginButton") }}
             </button>
           </form>
           <div class="alert alert-primary" role="alert">
-            <span>{{ $t("message.alertMessage1") }}</span>
+            <span>{{ t("message.alertMessage1") }}</span>
             <a
               target="_blank"
               rel="noopener noreferrer"
               href="https://t.me/benchkiller_test_bot"
-              >{{ $t("message.botLink") }}</a
+              >{{ t("message.botLink") }}</a
             >
-            {{ $t("message.alertMessage2") }}
+            {{ t("message.alertMessage2") }}
           </div>
         </div>
       </div>
@@ -71,9 +71,7 @@ export default {
     const showToast = ref(false);
 
     const onSubmit = () => {
-      console.log("test");
       if (_.isEmpty(userTelegram.value) && _.isEmpty(userPassword.value)) {
-        console.log("succed");
         showToast.value = true;
         setTimeout(() => (showToast.value = false), 10000);
       }
