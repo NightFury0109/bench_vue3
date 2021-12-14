@@ -1,12 +1,8 @@
 html,
 body {
-  height: 100% !important;
-  font-family: $font-family !important;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
+  height: 100%;
+  font-family: $font-family;
   color: $text-color;
-  text-align: left;
 }
 
 #app {

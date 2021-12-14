@@ -1,61 +1,29 @@
 .login-flex {
   min-height: 100%;
-  justify-content: space-between;
-};
-
-.login-nav {
-  background-color: $navbar-background !important;
-  padding: 8px 16px;
 }
 
-.navbar-brand {
-  color: $white !important;
+.login-nav {
+  background-color: $navbar-background;
 }
 
 .container {
   max-width: 1140px !important;
-  padding-right: 15px !important;
-  padding-left: 15px !important;
-  padding-top: 2rem;
-}
-
-.row {
-  margin-left: -15px !important;
-  margin-right: -15px !important;
-}
-
-.col-md-6 {
-  padding-left: 15px !important;
-  padding-right: 15px !important;
-}
-
-form {
-  margin-block-end: 1em;
 }
 
 .alert-primary {
-  padding: 0.75rem 1.25rem !important;
-  background-color: #cce5ff !important;
+  padding: 0.75rem 1.25rem;
+  background-color: #cce5ff;
 }
 
-.toast {
-  position: fixed;
-  color: #721c24 !important;
-  background-color: #f8d7da !important;
-  border-color: #f5c6cb !important;
-  top: 65px !important;
-  right: 10px !important;
+.toast-notification {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  top: 65px;
+  right: 10px;
 }
 
 .btn-success {
-  background-color: $btn-success-color !important;
-  border-color: $btn-success-color !important;
-}
-
-a {
-  text-decoration: none !important;
-}
-
-footer {
-  padding-bottom: 1em;
+  background-color: $btn-success-color;
+  border-color: $btn-success-color;
 }

@@ -1,16 +1,16 @@
 <template>
-  <div class="d-flex flex-column login-flex">
-    <nav class="navbar navbar-light navbar-expand-mb login-nav">
+  <div class="d-flex flex-column login-flex justify-content-between">
+    <nav class="navbar navbar-dark navbar-expand-mb login-nav py-2 px-3">
       <a href="/" class="navbar-brand">Benchkiller</a>
     </nav>
     <main class="container">
       <Toast v-if="showToast" />
-      <div class="row">
-        <div class="col-md-6">
-          <form @submit.prevent="onSubmit">
+      <div class="row mx-n3">
+        <div class="col-md-6 form px-3">
+          <form class="form mb-3" @submit.prevent="onSubmit">
             <div class="mb-3">
               <label for="userTelegram" class="form-label">{{
-                t("message.nickname")
+                $t("message.nickname")
               }}</label>
               <input
                 type="text"
@@ -21,7 +21,7 @@
             </div>
             <div class="mb-3">
               <label for="userPassword" class="form-label">{{
-                t("message.password")
+                $t("message.password")
               }}</label>
               <input
                 type="password"
@@ -31,23 +31,24 @@
               />
             </div>
             <button type="submit" id="liveToastBtn" class="btn btn-success">
-              {{ t("message.loginButton") }}
+              {{ $t("message.loginButton") }}
             </button>
           </form>
           <div class="alert alert-primary" role="alert">
-            <span>{{ t("message.alertMessage1") }}</span>
+            <span>{{ $t("message.alertMessage1") }}</span>
             <a
+              class="text-decoration-none"
               target="_blank"
               rel="noopener noreferrer"
               href="https://t.me/benchkiller_test_bot"
-              >{{ t("message.botLink") }}</a
+              >{{ $t("message.botLink") }}</a
             >
-            {{ t("message.alertMessage2") }}
+            {{ $t("message.alertMessage2") }}
           </div>
         </div>
       </div>
     </main>
-    <footer>
+    <footer class="footer pb-3">
       <div class="container">
         © Benchkiller 2021<span v-if="currentYear > 2021">
           - {{ currentYear }}</span
@@ -61,7 +62,6 @@
 import { ref } from "vue";
 import Toast from "@/components/Toast";
 import _ from "underscore";
-
 export default {
   components: { Toast },
   setup() {
@@ -69,7 +69,6 @@ export default {
     const userTelegram = ref("");
     const userPassword = ref("");
     const showToast = ref(false);
-
     const onSubmit = () => {
       if (_.isEmpty(userTelegram.value) && _.isEmpty(userPassword.value)) {
         showToast.value = true;
