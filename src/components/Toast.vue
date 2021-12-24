@@ -5,7 +5,7 @@
       class="toast toast-notification show position-fixed"
       role="alert"
     >
-      <div class="toast-body">
+      <div class="alert-danger toast-body">
         {{ $t("message.dangerAlert") }}
       </div>
     </div>

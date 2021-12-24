@@ -1,6 +1,8 @@
 <template>
   <div class="d-flex flex-column login-flex justify-content-between">
-    <nav class="navbar navbar-dark navbar-expand-mb login-nav py-2 px-3">
+    <nav
+      class="navbar navbar-dark bg-dark navbar-expand-mb login-nav py-2 px-3"
+    >
       <a href="/" class="navbar-brand">Benchkiller</a>
     </nav>
     <main class="container">
