@@ -5,7 +5,7 @@
     >
       <a href="/" class="navbar-brand">Benchkiller</a>
     </nav>
-    <main class="container">
+    <main class="container-xl">
       <Toast v-if="showToast" />
       <div class="row mx-n3">
         <div class="col-md-6 form px-3">
@@ -51,7 +51,7 @@
       </div>
     </main>
     <footer class="footer pb-3">
-      <div class="container">
+      <div class="container-xl">
         © Benchkiller 2021<span v-if="currentYear > 2021">
           - {{ currentYear }}</span
         >
@@ -64,6 +64,10 @@
 import { ref } from "vue";
 import Toast from "@/components/Toast";
 import _ from "underscore";
+const axios = require("axios").default;
+
+// axios.<method> will now provide autocomplete and parameter typings
+
 export default {
   components: { Toast },
   setup() {
@@ -72,6 +76,21 @@ export default {
     const userPassword = ref("");
     const showToast = ref(false);
     const onSubmit = () => {
+      axios({
+        method: "POST",
+        url: "http://freedvs.com/benchkiller/api/user_tokens",
+        auth: {
+          login: userTelegram.value,
+          password: userPassword.value,
+        },
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
       if (_.isEmpty(userTelegram.value) && _.isEmpty(userPassword.value)) {
         showToast.value = true;
         setTimeout(() => (showToast.value = false), 10000);

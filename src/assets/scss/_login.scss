@@ -2,9 +2,10 @@
   min-height: 100%;
 }
 
-.container {
-  max-width: 1140px !important;
-}
+//Changed class "container" to "container-xl" which has the same max-width as below (max-width: 1140px). Should I keep it?
+// .container {
+//   max-width: 1140px !important;
+// }
 
 .toast-notification {
   top: 65px;
