@@ -61,12 +61,10 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import Toast from "@/components/Toast";
 import _ from "underscore";
-const axios = require("axios").default;
-
-// axios.<method> will now provide autocomplete and parameter typings
+import * as api from "../modules/api";
 
 export default {
   components: { Toast },
@@ -75,33 +73,41 @@ export default {
     const userTelegram = ref("");
     const userPassword = ref("");
     const showToast = ref(false);
-    const onSubmit = () => {
-      axios({
-        method: "POST",
-        url: "http://freedvs.com/benchkiller/api/user_tokens",
-        auth: {
-          login: userTelegram.value,
-          password: userPassword.value,
+
+    let user = reactive({
+      login: userTelegram.value,
+      password: userPassword.value,
+    });
+
+    function onSubmit() {
+      api.post(
+        "user_tokens",
+        {
+          auth: {
+            login: user.login,
+            password: user.password,
+          },
         },
-      })
-        .then(function (response) {
+        (response) => {
           console.log(response);
-        })
-        .catch(function (error) {
+        },
+        (error) => {
           console.log(error);
-        });
+        }
+      );
 
       if (_.isEmpty(userTelegram.value) && _.isEmpty(userPassword.value)) {
         showToast.value = true;
         setTimeout(() => (showToast.value = false), 10000);
       }
-    };
+    }
     return {
       currentYear,
       onSubmit,
       showToast,
       userTelegram,
       userPassword,
+      user,
     };
   },
 };
