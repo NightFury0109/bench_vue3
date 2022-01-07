@@ -10,7 +10,7 @@
       <div class="row mx-n3">
         <div class="col-lg-12">
           <div class="row">
-            <div class="col-md-6 form px-3">
+            <div class="col-md-5 form px-3">
               <form class="form mb-3" @submit.prevent="onSubmit">
                 <div class="mb-3">
                   <label for="userTelegram" class="form-label">{{
@@ -92,12 +92,8 @@ export default {
             password: user.password,
           },
         },
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
+        (response) => console.log(response),
+        (error) => console.log(error)
       );
 
       if (_.isEmpty(userTelegram.value) && _.isEmpty(userPassword.value)) {
