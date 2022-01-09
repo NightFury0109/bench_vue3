@@ -1,52 +1,8 @@
 .login-flex {
-    min-height: 100%;
-    justify-content: space-between;
-};
-
-.login-nav {
-    background-color: $navbar-background !important;
-    padding: 8px 16px;
+  min-height: 100%;
 }
 
-.navbar-brand {
-    color: $white !important;
-}
-
-.container {
-    max-width: 1140px !important;
-    padding-right: 15px !important;
-    padding-left: 15px !important;
-    padding-top: 2rem;
-}
-
-.row {
-    margin-left: -15px !important;
-    margin-right: -15px !important;
-}
-
-.col-md-6 {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-}
-
-form {
-    margin-block-end: 1em;
-}
-
-.alert {
-    padding: 0.75rem 1.25rem !important;
-    background-color: #cce5ff !important;
-}
-
-.btn-success {
-    background-color: #28a745 !important;
-    border-color: #28a745 !important;
-}
-
-a {
-    text-decoration: none !important;
-}
-
-footer {
-    padding-bottom: 1em;
+.toast-notification {
+  top: 65px;
+  right: 10px;
 }

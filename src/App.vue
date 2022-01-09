@@ -3,16 +3,12 @@
 </template>
 
 <script>
-import Login from "./components/Login.vue";
-
+import Login from "@/components/Login.vue";
 export default {
-  name: "App",
-  components: {
-    Login,
-  },
+  components: { Login },
 };
 </script>
 
 <style lang="scss">
-@import "/src/assets/scss/style.scss";
+@import "@/assets/scss/style.scss";
 </style>
