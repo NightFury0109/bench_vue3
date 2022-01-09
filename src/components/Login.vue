@@ -13,25 +13,25 @@
             <div class="col-md-5 form px-3">
               <form class="form mb-3" @submit.prevent="onSubmit">
                 <div class="mb-3">
-                  <label for="userTelegram" class="form-label">{{
+                  <label for="telegram" class="form-label">{{
                     $t("message.nickname")
                   }}</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="userTelegram"
-                    v-model="userTelegram"
+                    id="telegram"
+                    v-model="telegram"
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="userPassword" class="form-label">{{
+                  <label for="password" class="form-label">{{
                     $t("message.password")
                   }}</label>
                   <input
                     type="password"
                     class="form-control"
-                    id="userPassword"
-                    v-model="userPassword"
+                    id="password"
+                    v-model="password"
                   />
                 </div>
                 <button type="submit" id="liveToastBtn" class="btn btn-success">
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, toRefs } from "vue";
 import Toast from "@/components/Toast";
 import _ from "underscore";
 import * as api from "../modules/api";
@@ -74,13 +74,11 @@ export default {
   components: { Toast },
   setup() {
     const currentYear = new Date().getFullYear();
-    const userTelegram = ref("");
-    const userPassword = ref("");
     const showToast = ref(false);
 
-    let user = reactive({
-      login: userTelegram.value,
-      password: userPassword.value,
+    const user = reactive({
+      telegram: "",
+      password: "",
     });
 
     function onSubmit() {
@@ -88,7 +86,7 @@ export default {
         "user_tokens",
         {
           auth: {
-            login: user.login,
+            login: user.telegram,
             password: user.password,
           },
         },
@@ -96,7 +94,7 @@ export default {
         (error) => console.log(error)
       );
 
-      if (_.isEmpty(userTelegram.value) && _.isEmpty(userPassword.value)) {
+      if (_.isEmpty(user.telegram) && _.isEmpty(user.password)) {
         showToast.value = true;
         setTimeout(() => (showToast.value = false), 10000);
       }
@@ -105,9 +103,7 @@ export default {
       currentYear,
       onSubmit,
       showToast,
-      userTelegram,
-      userPassword,
-      user,
+      ...toRefs(user),
     };
   },
 };
