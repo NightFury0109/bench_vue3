@@ -1,11 +1,8 @@
 <template>
+  <div class="text">1</div>
   <router-view></router-view>
 </template>
 
 <script>
 export default {};
 </script>
-
-<style lang="scss">
-@import '@/assets/scss/style.scss';
-</style>

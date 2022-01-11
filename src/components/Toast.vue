@@ -6,7 +6,7 @@
       role="alert"
     >
       <div class="alert-danger toast-body">
-        {{ $t("message.dangerAlert") }}
+        {{ $t('message.dangerAlert') }}
       </div>
     </div>
   </div>

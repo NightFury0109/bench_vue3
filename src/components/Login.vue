@@ -4,6 +4,13 @@
       class="navbar navbar-dark bg-dark navbar-expand-mb login-nav py-2 px-3"
     >
       <a href="/" class="navbar-brand">Benchkiller</a>
+      <ul class="navbar-nav me-auto mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#" @click="getOffers">
+            Проекты и команды
+          </a>
+        </li>
+      </ul>
     </nav>
     <main class="container pt-5">
       <Toast v-if="showToast" />
@@ -14,7 +21,7 @@
               <form class="form mb-3" @submit.prevent="onSubmit">
                 <div class="mb-3">
                   <label for="telegram" class="form-label">{{
-                    $t("message.nickname")
+                    $t('message.nickname')
                   }}</label>
                   <input
                     type="text"
@@ -25,7 +32,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="password" class="form-label">{{
-                    $t("message.password")
+                    $t('message.password')
                   }}</label>
                   <input
                     type="password"
@@ -35,19 +42,19 @@
                   />
                 </div>
                 <button type="submit" id="liveToastBtn" class="btn btn-success">
-                  {{ $t("message.loginButton") }}
+                  {{ $t('message.loginButton') }}
                 </button>
               </form>
               <div class="alert alert-primary">
-                <span>{{ $t("message.alertMessage1") }}</span>
+                <span>{{ $t('message.alertMessage1') }}</span>
                 <a
                   class="text-decoration-none"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://t.me/benchkiller_test_bot"
-                  >{{ $t("message.botLink") }}</a
+                  >{{ $t('message.botLink') }}</a
                 >
-                {{ $t("message.alertMessage2") }}
+                {{ $t('message.alertMessage2') }}
               </div>
             </div>
           </div>
@@ -65,25 +72,27 @@
 </template>
 
 <script>
-import { ref, reactive, toRefs } from "vue";
-import Toast from "@/components/Toast";
-import _ from "underscore";
-import * as api from "../modules/api";
+import { ref, reactive, toRefs } from 'vue';
+import Toast from '@/components/Toast';
+import _ from 'underscore';
+import * as api from '../modules/api';
+import { useRouter } from 'vue-router';
 
 export default {
   components: { Toast },
   setup() {
     const currentYear = new Date().getFullYear();
     const showToast = ref(false);
+    const router = useRouter();
 
     const user = reactive({
-      telegram: "",
-      password: "",
+      telegram: '',
+      password: '',
     });
 
     function onSubmit() {
       api.post(
-        "user_tokens",
+        'user_tokens',
         {
           auth: {
             login: user.telegram,
@@ -99,11 +108,18 @@ export default {
         setTimeout(() => (showToast.value = false), 10000);
       }
     }
+
+    function getOffers() {
+      router.push({
+        name: 'offers',
+      });
+    }
     return {
       currentYear,
       onSubmit,
       showToast,
       ...toRefs(user),
+      getOffers,
     };
   },
 };

@@ -1,4 +1,4 @@
-const axios = require("axios").default;
+const axios = require('axios').default;
 
 export const post = (path, params, success, failure) => {
   return axios
