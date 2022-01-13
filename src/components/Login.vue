@@ -6,9 +6,12 @@
       <a href="/" class="navbar-brand">Benchkiller</a>
       <ul class="navbar-nav me-auto mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#" @click="getOffers">
+          <router-link
+            :to="{ path: '/offers', query: { collection: 'lookfor' } }"
+            class="nav-link"
+          >
             Проекты и команды
-          </a>
+          </router-link>
         </li>
       </ul>
     </nav>
@@ -76,14 +79,12 @@ import { ref, reactive, toRefs } from 'vue';
 import Toast from '@/components/Toast';
 import _ from 'underscore';
 import * as api from '../modules/api';
-import { useRouter } from 'vue-router';
 
 export default {
   components: { Toast },
   setup() {
     const currentYear = new Date().getFullYear();
     const showToast = ref(false);
-    const router = useRouter();
 
     const user = reactive({
       telegram: '',
@@ -109,17 +110,11 @@ export default {
       }
     }
 
-    function getOffers() {
-      router.push({
-        name: 'offers',
-      });
-    }
     return {
       currentYear,
       onSubmit,
       showToast,
       ...toRefs(user),
-      getOffers,
     };
   },
 };
