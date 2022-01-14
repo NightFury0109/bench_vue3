@@ -1,20 +1,6 @@
 <template>
   <div class="d-flex flex-column login-flex justify-content-between">
-    <nav
-      class="navbar navbar-dark bg-dark navbar-expand-mb login-nav py-2 px-3"
-    >
-      <a href="/" class="navbar-brand">Benchkiller</a>
-      <ul class="navbar-nav me-auto mb-lg-0">
-        <li class="nav-item">
-          <router-link
-            :to="{ path: '/offers', query: { collection: 'lookfor' } }"
-            class="nav-link"
-          >
-            Проекты и команды
-          </router-link>
-        </li>
-      </ul>
-    </nav>
+    <Header />
     <main class="container pt-5">
       <Toast v-if="showToast" />
       <div class="row mx-n3">
@@ -75,13 +61,14 @@
 </template>
 
 <script>
+import Header from './Header.vue';
 import { ref, reactive, toRefs } from 'vue';
 import Toast from '@/components/Toast';
 import _ from 'underscore';
 import * as api from '../modules/api';
 
 export default {
-  components: { Toast },
+  components: { Toast, Header },
   setup() {
     const currentYear = new Date().getFullYear();
     const showToast = ref(false);

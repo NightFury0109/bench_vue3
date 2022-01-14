@@ -19,5 +19,3 @@ export const get = (path, params, success, failure) => {
     .then(success)
     .catch(failure);
 };
-
-// axios.defaults.headers.common['Authorization'] = process.env.AUTH_TOKEN;
