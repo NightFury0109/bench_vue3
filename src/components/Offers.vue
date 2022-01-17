@@ -11,12 +11,12 @@
         role="tab"
         aria-controls="home"
         aria-selected="true"
-        >Проекты</router-link
+        >Предложения</router-link
       >
     </li>
     <li class="nav-item">
       <router-link
-        :to="{ path: '/offers/?collectionavailable' }"
+        :to="{ path: '/offers', query: { collection: 'available' } }"
         class="nav-link"
         id="profile-tab"
         data-bs-toggle="tab"
@@ -36,9 +36,7 @@
       role="tabpanel"
       aria-labelledby="home-tab"
     >
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil est libero
-      doloribus doloremque voluptas amet porro culpa cumque veniam illo suscipit
-      ad in rem nostrum, sit, error repudiandae animi fuga?
+      <Projects />
     </div>
     <div
       class="tab-pane fade"
@@ -46,14 +44,9 @@
       role="tabpanel"
       aria-labelledby="profile-tab"
     >
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur
-      cupiditate non unde ut minus sed, dolore possimus commodi, asperiores
-      omnis veritatis porro. Totam, aperiam? Labore eaque delectus commodi
-      inventore nisi.
+      <Teams />
     </div>
   </div>
-  <Projects />
-  <Teams />
 </template>
 
 <script>

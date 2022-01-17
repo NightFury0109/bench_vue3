@@ -1,51 +1,45 @@
 <template>
-  <table class="table">
+  <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Содержание</th>
+        <th scope="col">Дата</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
+        <th scope="row">{{ project.title }}</th>
+        <td>{{ project.text }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core';
+import { reactive, toRefs } from '@vue/reactivity';
 import * as api from '../modules/api';
 
 export default {
   setup() {
-    onMounted(() => {
-      api.get(
-        'offers',
-        {
-          params: { collection: 'lookfor' },
-        },
-        (response) => console.log(response),
-        (error) => console.log(error)
-      );
+    let project = reactive({
+      title: '',
+      text: '',
     });
+    api.get(
+      'offers',
+      {
+        params: { collection: 'lookfor' },
+      },
+      function (response) {
+        console.log(response),
+          (project.title = response.data.data.attributes.title),
+          (project.text = response.data.data.attributes.text);
+      },
+      (error) => console.log(error)
+    );
+    return {
+      ...toRefs(project),
+    };
   },
 };
 </script>

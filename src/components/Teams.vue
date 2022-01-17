@@ -40,7 +40,7 @@ export default {
       api.get(
         'offers',
         {
-          params: { collectionavailable: `` },
+          params: { collection: 'available' },
         },
         (response) => console.log(response),
         (error) => console.log(error)
