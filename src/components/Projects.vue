@@ -8,8 +8,8 @@
     </thead>
     <tbody>
       <tr>
-        <th scope="row">{{ project.title }}</th>
-        <td>{{ project.text }}</td>
+        <th scope="row">1</th>
+        <td>2</td>
       </tr>
     </tbody>
   </table>
@@ -17,6 +17,7 @@
 
 <script>
 import { reactive, toRefs } from '@vue/reactivity';
+import { onMounted } from 'vue';
 import * as api from '../modules/api';
 
 export default {
@@ -25,18 +26,16 @@ export default {
       title: '',
       text: '',
     });
-    api.get(
-      'offers',
-      {
-        params: { collection: 'lookfor' },
-      },
-      function (response) {
-        console.log(response),
-          (project.title = response.data.data.attributes.title),
-          (project.text = response.data.data.attributes.text);
-      },
-      (error) => console.log(error)
-    );
+    onMounted(() => {
+      api.get(
+        'offers',
+        {
+          params: { collection: 'lookfor' },
+        },
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+    });
     return {
       ...toRefs(project),
     };

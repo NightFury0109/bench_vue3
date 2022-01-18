@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <router-link
@@ -51,9 +52,10 @@
 
 <script>
 import Projects from './Projects.vue';
-import Teams from './Projects.vue';
+import Teams from './Teams.vue';
+import Header from './Header.vue';
 
 export default {
-  components: { Projects, Teams },
+  components: { Header, Projects, Teams },
 };
 </script>
