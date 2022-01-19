@@ -2,8 +2,7 @@
   <Header />
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-      <router-link
-        :to="{ path: '/offers', query: { collection: 'lookfor' } }"
+      <button
         class="nav-link active"
         id="home-tab"
         data-bs-toggle="tab"
@@ -12,12 +11,12 @@
         role="tab"
         aria-controls="home"
         aria-selected="true"
-        >Предложения</router-link
       >
+        Предложения
+      </button>
     </li>
-    <li class="nav-item">
-      <router-link
-        :to="{ path: '/offers', query: { collection: 'available' } }"
+    <li class="nav-item" role="presentation">
+      <button
         class="nav-link"
         id="profile-tab"
         data-bs-toggle="tab"
@@ -26,8 +25,9 @@
         role="tab"
         aria-controls="profile"
         aria-selected="false"
-        >Команды</router-link
       >
+        Команды
+      </button>
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
