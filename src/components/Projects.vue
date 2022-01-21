@@ -8,37 +8,32 @@
     </thead>
     <tbody>
       <tr>
-        <th scope="row">1</th>
-        <td>2</td>
+        <td>{{}}</td>
+        <td>{{}}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-import { reactive, toRefs } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import * as api from '../modules/api';
 
 export default {
   setup() {
-    let project = reactive({
-      title: '',
-      text: '',
-    });
     onMounted(() => {
       api.get(
         'offers',
         {
           params: { collection: 'lookfor' },
         },
-        (response) => console.log(response),
+        (response) => {
+          console.log(response.data.data);
+        },
         (error) => console.log(error)
       );
     });
-    return {
-      ...toRefs(project),
-    };
+    return {};
   },
 };
 </script>

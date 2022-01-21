@@ -31,21 +31,21 @@
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core';
-import * as api from '../modules/api';
+// import { onMounted } from '@vue/runtime-core';
+// import * as api from '../modules/api';
 
 export default {
   setup() {
-    onMounted(() => {
-      api.get(
-        'offers',
-        {
-          params: { collection: 'available' },
-        },
-        (response) => console.log(response),
-        (error) => console.log(error)
-      );
-    });
+    // onMounted(() => {
+    //   api.get(
+    //     'offers',
+    //     {
+    //       params: { collection: 'available' },
+    //     },
+    //     (response) => console.log(response),
+    //     (error) => console.log(error)
+    //   );
+    // });
   },
 };
 </script>
