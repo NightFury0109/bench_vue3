@@ -1,51 +1,43 @@
 <template>
-  <table class="table">
+  <table v-if="dataReceived" class="container table table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Содержание</th>
+        <th scope="col">Дата</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
+      <tr :key="team" v-for="team in teams.value">
+        <td>{{ team.attributes.title }}{{ team.attributes.text }}</td>
+        <td>{{ new Date(team.attributes['created-at']) }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-// import { onMounted } from '@vue/runtime-core';
-// import * as api from '../modules/api';
+import { onMounted } from '@vue/runtime-core';
+import { ref } from 'vue';
+import * as api from '../modules/api';
 
 export default {
   setup() {
-    // onMounted(() => {
-    //   api.get(
-    //     'offers',
-    //     {
-    //       params: { collection: 'available' },
-    //     },
-    //     (response) => console.log(response),
-    //     (error) => console.log(error)
-    //   );
-    // });
+    const dataReceived = ref(false);
+    const teams = {};
+    onMounted(() => {
+      api.get(
+        'offers',
+        {
+          params: { collection: 'available' },
+        },
+        (response) => {
+          teams.value = response.data.data;
+          dataReceived.value = true;
+        },
+        (error) => console.log(error)
+      );
+    });
+    return { teams, dataReceived };
   },
 };
 </script>
