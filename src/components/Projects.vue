@@ -2,19 +2,28 @@
   <table v-if="dataReady" class="container table table-striped table-hover">
     <thead>
       <tr>
+        <th scope="col"></th>
         <th scope="col">Содержание</th>
-        <th scope="col">Дата</th>
+        <th scope="col" class="text-center">Дата</th>
       </tr>
     </thead>
     <tbody>
       <tr :key="offer" v-for="offer in offers.value">
         <td>
-          <p class="fw-bold mb-3">{{ offer.attributes.title }}</p>
-          <pre class="text-muted" style="white-space: break-spaces">{{
+          <input
+            class="form-check-input mt-3"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+        </td>
+        <td class="p-3">
+          <p class="text-muted mb-3">{{ offer.attributes.title }}</p>
+          <pre class="fst-normal" style="white-space: break-spaces">{{
             offer.attributes.text
           }}</pre>
         </td>
-        <td>
+        <td class="p-3">
           {{ new Date(offer.attributes['created-at']).toLocaleDateString() }}
         </td>
       </tr>
