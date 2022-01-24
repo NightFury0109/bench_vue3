@@ -3,8 +3,8 @@
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Содержание</th>
-        <th scope="col">Дата</th>
+        <th scope="col" class="text-start fw-light py-4">Содержание</th>
+        <th scope="col" class="text-center fw-light py-4">Дата</th>
       </tr>
     </thead>
     <tbody>
@@ -17,14 +17,14 @@
             id="flexCheckDefault"
           />
         </td>
-        <td>
+        <td class="p-3">
           <p class="fw-bold mb-3">{{ team.attributes.title }}</p>
           <pre class="text-muted" style="white-space: break-spaces">{{
             team.attributes.text
           }}</pre>
         </td>
         <td>
-          {{ new Date(team.attributes['created-at']).toLocaleDateString() }}
+          {{ new Date(team.attributes['created-at']).toLocaleString() }}
         </td>
       </tr>
     </tbody>

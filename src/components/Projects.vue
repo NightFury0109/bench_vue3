@@ -3,8 +3,8 @@
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Содержание</th>
-        <th scope="col" class="text-center">Дата</th>
+        <th scope="col" class="text-start fw-light py-4">Содержание</th>
+        <th scope="col" class="text-center fw-light py-4">Дата</th>
       </tr>
     </thead>
     <tbody>
@@ -18,13 +18,13 @@
           />
         </td>
         <td class="p-3">
-          <p class="text-muted mb-3">{{ offer.attributes.title }}</p>
-          <pre class="fst-normal" style="white-space: break-spaces">{{
+          <p class="fw-lighter mb-3">{{ offer.attributes.title }}</p>
+          <pre class="fw-normal" style="white-space: break-spaces">{{
             offer.attributes.text
           }}</pre>
         </td>
         <td class="p-3">
-          {{ new Date(offer.attributes['created-at']).toLocaleDateString() }}
+          {{ new Date(offer.attributes['created-at']).toLocaleString() }}
         </td>
       </tr>
     </tbody>
