@@ -9,8 +9,10 @@
     <tbody>
       <tr :key="team" v-for="team in teams.value">
         <td>
-          <p class="text-uppercase">{{ team.attributes.title }}</p>
-          <p class="fw-light">{{ team.attributes.text }}</p>
+          <p class="fw-bold mb-3">{{ team.attributes.title }}</p>
+          <pre class="text-muted" style="white-space: break-spaces">{{
+            team.attributes.text
+          }}</pre>
         </td>
         <td>
           {{ new Date(team.attributes['created-at']).toLocaleDateString() }}
@@ -30,11 +32,29 @@ export default {
     const dataReceived = ref(false);
     const teams = {};
     onMounted(() => {
+      // axios
+      //   .get(
+      //     process.env.VUE_APP_API_URL + 'offers',
+      //     {
+      //       params: {
+      //         collection: 'available',
+      //       },
+      //     },
+      //     {
+      //       headers: {
+      //         Authorization: 'Bearer ' + process.env.VUE_APP_AUTH_TOKEN,
+      //       },
+      //     }
+      //   )
+      //   .then((res) => {
+      //     teams.value = res.data.data;
+      //     dataReceived.value = true;
+      //     console.log(res);
+      //   })
+      //   .catch((error) => console.log(error));
       api.get(
         'offers',
-        {
-          params: { collection: 'available' },
-        },
+        { collection: 'available' },
         (response) => {
           teams.value = response.data.data;
           dataReceived.value = true;

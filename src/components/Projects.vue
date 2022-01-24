@@ -1,8 +1,5 @@
 <template>
-  <table
-    v-if="dataReady"
-    class="container table table-striped table-hover table-bordered"
-  >
+  <table v-if="dataReady" class="container table table-striped table-hover">
     <thead>
       <tr>
         <th scope="col">Содержание</th>
@@ -12,8 +9,10 @@
     <tbody>
       <tr :key="offer" v-for="offer in offers.value">
         <td>
-          <p class="text-uppercase">{{ offer.attributes.title }}</p>
-          <p class="fw-light">{{ offer.attributes.text }}</p>
+          <p class="fw-bold mb-3">{{ offer.attributes.title }}</p>
+          <pre class="text-muted" style="white-space: break-spaces">{{
+            offer.attributes.text
+          }}</pre>
         </td>
         <td>
           {{ new Date(offer.attributes['created-at']).toLocaleDateString() }}
@@ -34,12 +33,11 @@ export default {
     onMounted(() => {
       api.get(
         'offers',
-        {
-          params: { collection: 'lookfor' },
-        },
+        { collection: 'lookfor' },
         (response) => {
           offers.value = response.data.data;
           dataReady.value = true;
+          console.log(response);
         },
         (error) => console.log(error)
       );
