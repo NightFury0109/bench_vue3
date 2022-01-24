@@ -1,24 +1,7 @@
-# bench
+# Benchkiller
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+Benchkiller helps you to find projects to work on by companies whom are interested in outstaffing IT-specialists.
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).

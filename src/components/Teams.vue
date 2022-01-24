@@ -8,8 +8,13 @@
     </thead>
     <tbody>
       <tr :key="team" v-for="team in teams.value">
-        <td>{{ team.attributes.title }}{{ team.attributes.text }}</td>
-        <td>{{ new Date(team.attributes['created-at']) }}</td>
+        <td>
+          <p class="text-uppercase">{{ team.attributes.title }}</p>
+          <p class="fw-light">{{ team.attributes.text }}</p>
+        </td>
+        <td>
+          {{ new Date(team.attributes['created-at']).toLocaleDateString() }}
+        </td>
       </tr>
     </tbody>
   </table>
@@ -33,6 +38,7 @@ export default {
         (response) => {
           teams.value = response.data.data;
           dataReceived.value = true;
+          console.log(response);
         },
         (error) => console.log(error)
       );
