@@ -65,13 +65,15 @@ import Header from './Header.vue';
 import { ref, reactive, toRefs } from 'vue';
 import Toast from '@/components/Toast';
 import _ from 'underscore';
-import * as api from '../modules/api';
+import * as api from '../api/api';
+import { useStore } from 'vuex';
 
 export default {
   components: { Toast, Header },
   setup() {
     const currentYear = new Date().getFullYear();
     const showToast = ref(false);
+    const store = useStore();
 
     const user = reactive({
       telegram: '',
@@ -79,6 +81,8 @@ export default {
     });
 
     function onSubmit() {
+      const token = ref('');
+
       api.post(
         'user_tokens',
         {
@@ -87,7 +91,12 @@ export default {
             password: user.password,
           },
         },
-        (response) => console.log(response),
+        (response) => {
+          console.log(response);
+          token.value = response.data['auth_token'].token;
+          store.dispatch('getToken', token.value);
+          console.log(token.value);
+        },
         (error) => console.log(error)
       );
 
@@ -96,7 +105,6 @@ export default {
         setTimeout(() => (showToast.value = false), 10000);
       }
     }
-
     return {
       currentYear,
       onSubmit,

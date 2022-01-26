@@ -19,7 +19,7 @@
         </td>
         <td class="p-3">
           <p class="fw-bold mb-3">{{ team.attributes.title }}</p>
-          <pre class="text-muted" style="white-space: break-spaces">{{
+          <pre class="fw-normal" style="white-space: pre-wrap">{{
             team.attributes.text
           }}</pre>
         </td>
@@ -34,7 +34,7 @@
 <script>
 import { onMounted } from '@vue/runtime-core';
 import { ref } from 'vue';
-import * as api from '../modules/api';
+import * as api from '../api/api';
 
 export default {
   setup() {
@@ -47,7 +47,6 @@ export default {
         (response) => {
           teams.value = response.data.data;
           dataReceived.value = true;
-          console.log(response);
         },
         (error) => console.log(error)
       );

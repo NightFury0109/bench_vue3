@@ -18,8 +18,8 @@
           />
         </td>
         <td class="p-3">
-          <p class="fw-lighter mb-3">{{ offer.attributes.title }}</p>
-          <pre class="fw-normal" style="white-space: break-spaces">{{
+          <p class="fw-bold mb-3">{{ offer.attributes.title }}</p>
+          <pre class="fw-normal" style="white-space: pre-wrap">{{
             offer.attributes.text
           }}</pre>
         </td>
@@ -33,7 +33,7 @@
 
 <script>
 import { onMounted, ref } from 'vue';
-import * as api from '../modules/api';
+import * as api from '../api/api';
 
 export default {
   setup() {
@@ -46,7 +46,6 @@ export default {
         (response) => {
           offers.value = response.data.data;
           dataReady.value = true;
-          console.log(response);
         },
         (error) => console.log(error)
       );

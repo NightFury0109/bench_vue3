@@ -1,4 +1,5 @@
 const axios = require('axios').default;
+import store from '../store';
 
 export const post = (path, params, success, failure) => {
   return axios
@@ -12,7 +13,7 @@ export const get = (path, params, success, failure) => {
     .get(process.env.VUE_APP_API_URL + `${path}`, {
       params,
       headers: {
-        Authorization: 'Bearer ' + process.env.VUE_APP_AUTH_TOKEN,
+        Authorization: 'Bearer ' + store.state.tokens[0],
       },
     })
     .then(success)
