@@ -13,7 +13,7 @@ export const get = (path, params, success, failure) => {
     .get(process.env.VUE_APP_API_URL + `${path}`, {
       params,
       headers: {
-        Authorization: 'Bearer ' + store.state.tokens[0],
+        Authorization: 'Bearer ' + store.state.user.token,
       },
     })
     .then(success)

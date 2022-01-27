@@ -81,8 +81,11 @@ export default {
     });
 
     function onSubmit() {
-      const token = ref('');
-
+      const userData = reactive({
+        username: '',
+        token: '',
+        id: '',
+      });
       api.post(
         'user_tokens',
         {
@@ -93,9 +96,10 @@ export default {
         },
         (response) => {
           console.log(response);
-          token.value = response.data['auth_token'].token;
-          store.dispatch('getToken', token.value);
-          console.log(token.value);
+          userData.username = response.data.user.username;
+          userData.token = response.data['auth_token'].token;
+          userData.id = response.data.user.uuid;
+          store.dispatch('login', userData);
         },
         (error) => console.log(error)
       );
