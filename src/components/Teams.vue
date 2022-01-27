@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr :key="team" v-for="team in teams.value">
+      <tr :key="team" v-for="team in teams.flat()">
         <td>
           <input
             class="form-check-input mt-3"
@@ -23,7 +23,7 @@
             team.attributes.text
           }}</pre>
         </td>
-        <td>
+        <td class="p-3">
           {{ new Date(team.attributes['created-at']).toLocaleString() }}
         </td>
       </tr>
@@ -44,13 +44,13 @@ import * as api from '../api/api';
 export default {
   setup() {
     const dataReceived = ref(false);
-    const teams = {};
+    const teams = [];
     onMounted(() => {
       api.get(
         'offers',
         { collection: 'available' },
         (response) => {
-          teams.value = response.data.data;
+          teams.push(response.data.data);
           dataReceived.value = true;
         },
         (error) => console.log(error)

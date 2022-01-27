@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr :key="offer" v-for="offer in offers.flat()">
+      <tr :key="offer" v-for="offer in offers.value">
         <td>
           <input
             class="form-check-input mt-3"
@@ -37,25 +37,5 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
-import * as api from '../api/api';
-
-export default {
-  setup() {
-    const dataReady = ref(false);
-    const offers = [];
-    onMounted(() => {
-      api.get(
-        'offers',
-        { collection: 'lookfor' },
-        (response) => {
-          offers.push(response.data.data);
-          dataReady.value = true;
-        },
-        (error) => console.log(error)
-      );
-    });
-    return { offers, dataReady };
-  },
-};
+export default {};
 </script>
