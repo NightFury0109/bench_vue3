@@ -72,6 +72,7 @@ import Toast from '@/components/Toast';
 import _ from 'underscore';
 import * as api from '../api/api';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 export default {
   components: { Toast, Header },
@@ -79,6 +80,7 @@ export default {
     const currentYear = new Date().getFullYear();
     const showToast = ref(false);
     const store = useStore();
+    const router = useRouter();
 
     const user = reactive({
       telegram: '',
@@ -101,10 +103,12 @@ export default {
         },
         (response) => {
           console.log(response);
+          localStorage.setItem('token', response.data['auth_token'].token);
           userData.username = response.data.user.username;
           userData.token = response.data['auth_token'].token;
           userData.id = response.data.user.uuid;
           store.dispatch('login', userData);
+          router.push('/offers');
         },
         (error) => console.log(error)
       );
