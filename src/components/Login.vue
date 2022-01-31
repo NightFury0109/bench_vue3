@@ -30,7 +30,12 @@
                     v-model="password"
                   />
                 </div>
-                <button type="submit" id="liveToastBtn" class="btn btn-success">
+                <button
+                  type="submit"
+                  id="liveToastBtn"
+                  class="btn btn-success"
+                  @keyup.enter="onSubmit"
+                >
                   {{ $t('message.loginButton') }}
                 </button>
               </form>

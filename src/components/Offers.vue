@@ -1,82 +1,48 @@
 <template>
   <Header />
-  <ul class="nav nav-tabs container pt-4" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link"
-        @click.prevent="setActive('projects')"
-        :class="{ active: isActive('projects') }"
-        id="projects-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#projects"
-        type="button"
-        role="tab"
-        aria-controls="home"
-        aria-selected="true"
-      >
-        Предложения
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link"
-        @click.prevent="setActive('teams')"
-        :class="{ active: isActive('teams') }"
-        id="teams-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#teams"
-        type="button"
-        role="tab"
-        aria-controls="profile"
-        aria-selected="false"
-      >
-        Команды
-      </button>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-    <div
-      class="tab-pane fade"
-      :class="{ 'active show': isActive('projects') }"
-      id="projects"
-      role="tabpanel"
-      aria-labelledby="projects-tab"
-    >
-      <Projects />
-    </div>
-    <div
-      class="tab-pane fade"
-      :class="{ 'active show': isActive('teams') }"
-      id="teams"
-      role="tabpanel"
-      aria-labelledby="teams-tab"
-    >
-      <Teams v-if="getTeams" />
-    </div>
-  </div>
+  <Tabs>
+    <Table title="Предложения" :tableData="tableData"></Table>
+    <Table title="Команды" :tableData="tableData"></Table>
+  </Tabs>
 </template>
 
 <script>
-import { ref } from 'vue';
-import Projects from './Projects.vue';
-import Teams from './Teams.vue';
 import Header from './Header.vue';
+import Tabs from './Tabs.vue';
+import Table from './Table.vue';
+import { onMounted } from '@vue/runtime-core';
+import * as api from '../api/api';
+import { provide } from 'vue';
 
 export default {
-  components: { Header, Projects, Teams },
+  components: { Header, Tabs, Table },
   setup() {
-    const activeItem = ref('projects');
-    const getTeams = ref(false);
-    function isActive(menuItem) {
-      return activeItem.value === menuItem;
-    }
-    function setActive(menuItem) {
-      activeItem.value = menuItem;
-      activeItem.value === 'teams'
-        ? (getTeams.value = true)
-        : (getTeams.value = false);
-    }
-    return { activeItem, setActive, isActive, getTeams };
+    const tableData = [];
+    onMounted(() => {
+      api.get(
+        'offers',
+        { collection: 'lookfor' },
+        ({ data }) => {
+          tableData.push(data.data);
+        },
+        (error) => console.log(error)
+      );
+    });
+
+    // if (selectedTitle.value == 'Команды') {
+    //   tableData.splice(0);
+    //   api.get(
+    //     'offers',
+    //     { collection: 'available' },
+    //     ({ data }) => {
+    //       tableData.push(data.data);
+    //     },
+    //     (error) => console.log(error)
+    //   );
+    // }
+
+    provide('tableData', tableData);
+    return { tableData };
   },
 };
 </script>
