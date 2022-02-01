@@ -13,9 +13,13 @@ export const get = (path, params, success, failure) => {
     .get(process.env.VUE_APP_API_URL + `${path}`, {
       params,
       headers: {
-        Authorization: 'Bearer ' + store.state.user.token,
+        Authorization: 'Bearer ' + store.state.accessToken,
       },
     })
     .then(success)
     .catch(failure);
 };
+
+// export const api = axios.create({
+//   baseURL: process.env.VUE_APP_API_URL,
+// });

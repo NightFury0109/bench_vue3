@@ -1,23 +1,45 @@
 import { createStore } from 'vuex';
+const axios = require('axios').default;
 
 export default createStore({
   state: {
-    user: {
-      username: '',
-      token: '',
-      id: '',
-    },
+    accessToken: null,
+    loggingIn: false,
+    loginError: null,
   },
   mutations: {
-    LOGIN(state, userData) {
-      state.user.token = userData.token;
-      state.user.username = userData.username;
-      state.user.id = userData.id;
+    loginStart: (state) => (state.loggingIn = true),
+    loginStop: (state, errorMessage) => {
+      state.loggingIn = false;
+      state.loginError = errorMessage;
+    },
+    updateAccessToken: (state, accessToken) => {
+      state.accessToken = accessToken;
     },
   },
   actions: {
-    login({ commit }, userData) {
-      commit('LOGIN', userData);
+    doLogin({ commit }, loginData) {
+      commit('loginStart');
+
+      axios
+        .post('http://freedvs.com/benchkiller/api/user_tokens', {
+          ...loginData,
+        })
+        .then((response) => {
+          localStorage.setItem(
+            'accessToken',
+            response.data['auth_token'].token
+          );
+          commit('loginStop', null);
+          commit('updateAccessToken', response.data['auth_token'].token);
+        })
+        .catch((error) => {
+          commit('loginStop', error.response.data.error);
+          commit('updateAccessToken', null);
+        });
+    },
+    fetchAccessToken({ commit }) {
+      commit('updateAccessToken', localStorage.getItem('accessToken'));
     },
   },
 });

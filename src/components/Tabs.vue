@@ -25,7 +25,7 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div
-        class="tab-pane fade"
+        class="tab-pane fade active show"
         id="projects"
         role="tabpanel"
         aria-labelledby="data-tab"
