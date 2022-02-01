@@ -18,6 +18,7 @@
           role="tab"
           aria-controls="home"
           aria-selected="true"
+          @click.prevent="switchTab"
         >
           {{ title }}
         </button>
@@ -25,10 +26,13 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div
-        class="tab-pane fade active show"
+        class="tab-pane fade"
+        :class="{ 'active show': selectedTitle === title }"
         id="projects"
         role="tabpanel"
         aria-labelledby="data-tab"
+        v-for="title in tabTitles"
+        :key="title"
       >
         <slot />
       </div>
@@ -38,13 +42,18 @@
 
 <script>
 import { ref, provide } from 'vue';
+import { defineEmits } from 'vue';
+
 export default {
   setup(props, { slots }) {
     const tabTitles = ref(slots.default().map((tab) => tab.props.title));
     const selectedTitle = ref(tabTitles.value[0]);
-
+    const emit = defineEmits(['getTeams']);
+    let switchTab = () => {
+      emit('getTeams');
+    };
     provide('selectedTitle', selectedTitle);
-    return { tabTitles, selectedTitle };
+    return { tabTitles, selectedTitle, switchTab };
   },
 };
 </script>

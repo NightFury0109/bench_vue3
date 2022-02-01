@@ -28,9 +28,8 @@ export default {
         (error) => console.log(error)
       );
     });
+
     provide('tableData', tableData);
   },
-
-  // типизировать значение provide (массив данных)
 };
 </script>
