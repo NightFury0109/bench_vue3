@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-const axios = require('axios').default;
+import * as api from '../api/api';
 
 export default createStore({
   state: {
@@ -21,8 +21,8 @@ export default createStore({
     doLogin({ commit }, loginData) {
       commit('loginStart');
 
-      axios
-        .post('http://freedvs.com/benchkiller/api/user_tokens', {
+      api
+        .post('user_tokens', {
           ...loginData,
         })
         .then((response) => {

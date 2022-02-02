@@ -30,7 +30,7 @@ export default {
     });
 
     function getTeams() {
-      tableData = [];
+      tableData.length = 0;
       api.get(
         'offers',
         { collection: 'available' },
