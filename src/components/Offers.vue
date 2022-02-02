@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <Tabs>
+  <Tabs @switch-tab="getTeams">
     <Table title="Предложения"></Table>
     <Table title="Команды"></Table>
   </Tabs>
@@ -17,7 +17,7 @@ import { provide, reactive } from 'vue';
 export default {
   components: { Header, Tabs, Table },
   setup() {
-    const tableData = reactive([]);
+    let tableData = reactive([]);
     onMounted(() => {
       api.get(
         'offers',
@@ -29,7 +29,19 @@ export default {
       );
     });
 
+    function getTeams() {
+      tableData = [];
+      api.get(
+        'offers',
+        { collection: 'available' },
+        ({ data }) => {
+          tableData.push(data.data);
+        },
+        (error) => console.log(error)
+      );
+    }
     provide('tableData', tableData);
+    return { getTeams };
   },
 };
 </script>
