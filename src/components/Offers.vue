@@ -12,30 +12,30 @@ import Tabs from './Tabs.vue';
 import Table from './Table.vue';
 import { onMounted } from '@vue/runtime-core';
 import * as api from '../api/api';
-import { provide, reactive } from 'vue';
+import { provide, ref } from 'vue';
 
 export default {
   components: { Header, Tabs, Table },
   setup() {
-    let tableData = reactive([]);
+    const tableData = ref([]);
     onMounted(() => {
       api.get(
         'offers',
         { collection: 'lookfor' },
         ({ data }) => {
-          tableData.push(data.data);
+          tableData.value.push(data.data);
         },
         (error) => console.log(error)
       );
     });
 
     function getTeams() {
-      tableData.length = 0;
+      tableData.value = [];
       api.get(
         'offers',
         { collection: 'available' },
         ({ data }) => {
-          tableData.push(data.data);
+          tableData.value.push(data.data);
         },
         (error) => console.log(error)
       );
