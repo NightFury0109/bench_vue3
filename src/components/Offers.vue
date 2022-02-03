@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <Tabs @switch-tab="getTeams">
+  <Tabs @switch-tab="switchTab">
     <Table title="Предложения"></Table>
     <Table title="Команды"></Table>
   </Tabs>
@@ -29,19 +29,22 @@ export default {
       );
     });
 
-    function getTeams() {
+    function switchTab(selected) {
       tableData.value = [];
-      api.get(
-        'offers',
-        { collection: 'available' },
-        ({ data }) => {
-          tableData.value.push(data.data);
-        },
-        (error) => console.log(error)
-      );
+      if (selected == 'Команды') {
+        api.get(
+          'offers',
+          { collection: 'available' },
+          ({ data }) => {
+            tableData.value.push(data.data);
+          },
+          (error) => console.log(error)
+        );
+      }
     }
+
     provide('tableData', tableData);
-    return { getTeams };
+    return { switchTab };
   },
 };
 </script>

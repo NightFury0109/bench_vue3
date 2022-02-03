@@ -48,15 +48,14 @@
 import { ref, provide } from 'vue';
 
 export default {
+  emits: ['switchTab'],
   setup(props, { slots, emit }) {
-    const tabTitles = ref(slots.default().map((tab) => tab.props.title));
+    const tabTitles = ref(slots.default().map((table) => table.props.title));
     const selectedTitle = ref(tabTitles.value[0]);
 
-    function switchTab() {
-      if (selectedTitle.value == 'Команды') {
-        emit('switchTab');
-      }
-    }
+    const switchTab = () => {
+      emit('switchTab', selectedTitle.value);
+    };
 
     provide('selectedTitle', selectedTitle);
     return { tabTitles, selectedTitle, switchTab };
