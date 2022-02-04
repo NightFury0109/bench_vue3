@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-import store from '../store';
+import store from '../store/index';
 
 export const post = (path, params, success, failure) => {
   return axios
@@ -20,6 +20,10 @@ export const get = (path, params, success, failure) => {
     .catch(failure);
 };
 
-// export const api = axios.create({
+// const api = axios.create({
 //   baseURL: process.env.VUE_APP_API_URL,
 // });
+
+// api.defaults.headers.get['Authorization'] = 'Bearer ' + store.state.accessToken;
+
+// export default api;

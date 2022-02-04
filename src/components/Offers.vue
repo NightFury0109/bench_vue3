@@ -1,24 +1,71 @@
 <template>
   <Header />
-  <Tabs @switch-tab="switchTab">
-    <Table title="Предложения"></Table>
-    <Table title="Команды"></Table>
-  </Tabs>
+  <ul class="nav nav-tabs container pt-4" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="home-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#home"
+        type="button"
+        role="tab"
+        aria-controls="home"
+        aria-selected="true"
+        @click.prevent="getProjects"
+      >
+        Предложения
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="profile-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#profile"
+        type="button"
+        role="tab"
+        aria-controls="profile"
+        aria-selected="false"
+        @click.prevent="getTeams"
+      >
+        Команды
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="home"
+      role="tabpanel"
+      aria-labelledby="home-tab"
+    >
+      <Table />
+    </div>
+    <div
+      class="tab-pane fade"
+      id="profile"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      <Table />
+    </div>
+  </div>
 </template>
 
 <script>
 import Header from './Header.vue';
-import Tabs from './Tabs.vue';
 import Table from './Table.vue';
 import { onMounted } from '@vue/runtime-core';
 import * as api from '../api/api';
 import { provide, ref } from 'vue';
 
 export default {
-  components: { Header, Tabs, Table },
+  components: { Header, Table },
   setup() {
     const tableData = ref([]);
-    onMounted(() => {
+
+    const getProjects = () => {
+      tableData.value = [];
       api.get(
         'offers',
         { collection: 'lookfor' },
@@ -27,24 +74,23 @@ export default {
         },
         (error) => console.log(error)
       );
-    });
+    };
 
-    function switchTab(selected) {
+    onMounted(getProjects);
+
+    const getTeams = () => {
       tableData.value = [];
-      if (selected == 'Команды') {
-        api.get(
-          'offers',
-          { collection: 'available' },
-          ({ data }) => {
-            tableData.value.push(data.data);
-          },
-          (error) => console.log(error)
-        );
-      }
-    }
-
-    provide('tableData', tableData);
-    return { switchTab };
+      api.get(
+        'offers',
+        { collection: 'available' },
+        ({ data }) => {
+          tableData.value.push(data.data);
+        },
+        (error) => console.log(error)
+      );
+    };
+    provide('offers', tableData);
+    return { getProjects, getTeams, tableData };
   },
 };
 </script>
