@@ -11,6 +11,10 @@
       "tab1": "Offers",
       "tab2": "Teams",
       "thead1": "Content",
-      "thead2": "Date"
+      "thead2": "Date",
+      "logOut": "Log Out",
+      "loginTitle": "Login | Benchkiller",
+      "projectsTitle": "Projects | Benchkiller",
+      "teamsTitle": "Teams | Benchkiller"
     }
   }

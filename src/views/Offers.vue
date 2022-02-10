@@ -1,5 +1,6 @@
 <template>
   <Header />
+  <p class="h1 container pt-4">Поиск по постам</p>
   <ul class="nav nav-tabs container pt-4" id="offersTabs" role="tablist">
     <li class="nav-item" role="presentation">
       <button
@@ -53,8 +54,8 @@
 </template>
 
 <script>
-import Header from './Header.vue';
-import Table from './Table.vue';
+import Header from '@/components/Header.vue';
+import Table from '@/components/Table.vue';
 import { onMounted } from '@vue/runtime-core';
 import * as api from '../api/api';
 import { provide, ref } from 'vue';
@@ -65,6 +66,7 @@ export default {
     const tableData = ref([]);
 
     const getProjects = () => {
+      document.title = 'Проекты | Benchkiller';
       tableData.value = [];
       api.get(
         'offers',
@@ -79,6 +81,7 @@ export default {
     onMounted(getProjects);
 
     const getTeams = () => {
+      document.title = 'Команды | Benchkiller';
       tableData.value = [];
       api.get(
         'offers',

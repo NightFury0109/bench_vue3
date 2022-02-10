@@ -1,12 +1,15 @@
 <template>
-  <table class="container table table-striped table-hover" v-if="offers.length">
+  <table
+    class="container table table-bordered table-striped table-hover"
+    v-if="offers.length"
+  >
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col" class="text-start fw-light py-4">
+        <th scope="col" class="text-start fw-light py-4 fw-bold">
           {{ $t('message.thead1') }}
         </th>
-        <th scope="col" class="text-center fw-light py-4">
+        <th scope="col" class="text-center fw-light py-4 fw-bold">
           {{ $t('message.thead2') }}
         </th>
       </tr>
@@ -45,6 +48,7 @@ import { inject } from 'vue';
 export default {
   setup() {
     const offers = inject('offers');
+    // const showTable = _.some([offers]);
     return { offers };
   },
 };

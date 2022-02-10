@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import Header from './Header.vue';
-import { ref, reactive, toRefs, computed } from 'vue';
+import Header from '@/components/Header.vue';
+import { ref, reactive, toRefs, computed, onMounted } from 'vue';
 import Toast from '@/components/Toast';
 import _ from 'underscore';
 import { mapState, useStore } from 'vuex';
@@ -80,6 +80,9 @@ export default {
       password: '',
     });
 
+    onMounted(() => {
+      document.title = 'Авторизация  | Benchkiller';
+    });
     computed(() => mapState(['loggedIn', 'loginError', 'accessToken']));
 
     function loginSubmit() {

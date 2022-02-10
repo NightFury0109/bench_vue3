@@ -11,6 +11,10 @@
       "tab1": "Предложения",
       "tab2": "Команды",
       "thead1": "Содержание",
-      "thead2": "Дата"
+      "thead2": "Дата",
+      "logOut": "Выйти",
+      "loginTitle": "Авторизация | Benchkiller",
+      "projectsTitle": "Проекты | Benchkiller",
+      "teamsTitle": "Команды | Benchkiller"
     }
   }

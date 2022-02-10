@@ -1,18 +1,23 @@
 <template>
   <header>
-    <nav
-      class="navbar navbar-dark bg-dark navbar-expand-mb login-nav py-2 px-3"
-    >
-      <router-link :to="{ name: 'offers' }" class="navbar-brand"
-        >Benchkiller</router-link
-      >
-      <ul class="navbar-nav me-auto mb-lg-0">
-        <li class="nav-item">
-          <router-link :to="{ path: '/offers' }" class="nav-link">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <router-link :to="{ name: 'offers' }" class="navbar-brand"
+          >Benchkiller</router-link
+        >
+        <div class="navbar-nav flex-row flex-grow-1">
+          <router-link
+            :to="{ path: '/offers' }"
+            class="nav-link"
+            aria-current="page"
+          >
             {{ $t('message.navLink') }}
           </router-link>
-        </li>
-      </ul>
+          <router-link :to="{ path: '/' }" class="nav-link ms-auto">
+            {{ $t('message.logOut') }}
+          </router-link>
+        </div>
+      </div>
     </nav>
   </header>
   <router-view></router-view>
