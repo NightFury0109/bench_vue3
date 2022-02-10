@@ -24,6 +24,6 @@ export const get = (path, params, success, failure) => {
 //   baseURL: process.env.VUE_APP_API_URL,
 // });
 
-// api.defaults.headers.get['Authorization'] = 'Bearer ' + store.state.accessToken;
+// api.defaults.headers.get['Authorization'] = `Bearer ${store.state.accessToken}`;
 
 // export default api;

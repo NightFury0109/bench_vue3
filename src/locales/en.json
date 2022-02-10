@@ -6,6 +6,11 @@
       "alertMessage1": "No account? Check out our ",
       "botLink": "bot",
       "alertMessage2": " and generate your password.",
-      "dangerAlert": "Invalid login or password"
+      "dangerAlert": "Invalid login or password",
+      "navLink": "Projects and Teams",
+      "tab1": "Offers",
+      "tab2": "Teams",
+      "thead1": "Content",
+      "thead2": "Date"
     }
   }

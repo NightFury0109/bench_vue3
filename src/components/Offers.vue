@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <ul class="nav nav-tabs container pt-4" id="myTab" role="tablist">
+  <ul class="nav nav-tabs container pt-4" id="offersTabs" role="tablist">
     <li class="nav-item" role="presentation">
       <button
         class="nav-link active"
@@ -13,7 +13,7 @@
         aria-selected="true"
         @click.prevent="getProjects"
       >
-        Предложения
+        {{ $t('message.tab1') }}
       </button>
     </li>
     <li class="nav-item" role="presentation">
@@ -28,11 +28,11 @@
         aria-selected="false"
         @click.prevent="getTeams"
       >
-        Команды
+        {{ $t('message.tab2') }}
       </button>
     </li>
   </ul>
-  <div class="tab-content" id="myTabContent">
+  <div class="tab-content" id="offersTabsContent">
     <div
       class="tab-pane fade show active"
       id="home"

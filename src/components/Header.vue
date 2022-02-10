@@ -9,7 +9,7 @@
       <ul class="navbar-nav me-auto mb-lg-0">
         <li class="nav-item">
           <router-link :to="{ path: '/offers' }" class="nav-link">
-            Проекты и команды
+            {{ $t('message.navLink') }}
           </router-link>
         </li>
       </ul>

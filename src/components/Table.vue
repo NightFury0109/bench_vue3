@@ -3,8 +3,12 @@
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col" class="text-start fw-light py-4">Содержание</th>
-        <th scope="col" class="text-center fw-light py-4">Дата</th>
+        <th scope="col" class="text-start fw-light py-4">
+          {{ $t('message.thead1') }}
+        </th>
+        <th scope="col" class="text-center fw-light py-4">
+          {{ $t('message.thead2') }}
+        </th>
       </tr>
     </thead>
     <tbody>
