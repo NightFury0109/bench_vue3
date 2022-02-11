@@ -67,6 +67,7 @@ import Toast from '@/components/Toast';
 import _ from 'underscore';
 import { mapState, useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 export default {
   components: { Toast, Header },
@@ -81,7 +82,7 @@ export default {
     });
 
     onMounted(() => {
-      document.title = 'Авторизация  | Benchkiller';
+      document.title = t('message.loginTitle') + ' | Benchkiller';
     });
     computed(() => mapState(['loggedIn', 'loginError', 'accessToken']));
 
@@ -102,11 +103,14 @@ export default {
         setTimeout(() => (showToast.value = false), 10000);
       }
     }
+
+    const { t } = useI18n();
     return {
       currentYear,
       loginSubmit,
       showToast,
       ...toRefs(user),
+      t,
     };
   },
 };

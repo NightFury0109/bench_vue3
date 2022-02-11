@@ -12,9 +12,10 @@
       "tab2": "Команды",
       "thead1": "Содержание",
       "thead2": "Дата",
+      "searchH": "Поиск по постам",
       "logOut": "Выйти",
-      "loginTitle": "Авторизация | Benchkiller",
-      "projectsTitle": "Проекты | Benchkiller",
-      "teamsTitle": "Команды | Benchkiller"
+      "loginTitle": "Авторизация",
+      "projectsTitle": "Проекты",
+      "teamsTitle": "Команды"
     }
   }

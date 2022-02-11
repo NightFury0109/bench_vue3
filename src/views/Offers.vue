@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <p class="h1 container pt-4">Поиск по постам</p>
+  <p class="h1 container pt-4">{{ $t('message.searchH') }}</p>
   <ul class="nav nav-tabs container pt-4" id="offersTabs" role="tablist">
     <li class="nav-item" role="presentation">
       <button
@@ -58,15 +58,18 @@ import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import { onMounted } from '@vue/runtime-core';
 import * as api from '../api/api';
+import { useI18n } from 'vue-i18n';
 import { provide, ref } from 'vue';
 
 export default {
   components: { Header, Table },
   setup() {
+    const { t } = useI18n();
+
     const tableData = ref([]);
 
     const getProjects = () => {
-      document.title = 'Проекты | Benchkiller';
+      document.title = t('message.projectsTitle') + ' | Benchkiller';
       tableData.value = [];
       api.get(
         'offers',
@@ -81,7 +84,7 @@ export default {
     onMounted(getProjects);
 
     const getTeams = () => {
-      document.title = 'Команды | Benchkiller';
+      document.title = t('message.teamsTitle') + ' | Benchkiller';
       tableData.value = [];
       api.get(
         'offers',
@@ -92,8 +95,9 @@ export default {
         (error) => console.log(error)
       );
     };
+
     provide('offers', tableData);
-    return { getProjects, getTeams, tableData };
+    return { getProjects, getTeams, tableData, t };
   },
 };
 </script>
