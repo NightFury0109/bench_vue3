@@ -57,9 +57,9 @@
 import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import { onMounted } from '@vue/runtime-core';
-import * as api from '../api/api';
 import { useI18n } from 'vue-i18n';
 import { provide, ref } from 'vue';
+import { getOffers } from '../api/offers';
 
 export default {
   components: { Header, Table },
@@ -70,30 +70,14 @@ export default {
 
     const getProjects = () => {
       document.title = t('message.projectsTitle') + ' | Benchkiller';
-      tableData.value = [];
-      api.get(
-        'offers',
-        { collection: 'lookfor' },
-        ({ data }) => {
-          tableData.value.push(data.data);
-        },
-        (error) => console.log(error)
-      );
+      getOffers('lookfor', tableData);
     };
 
     onMounted(getProjects);
 
     const getTeams = () => {
       document.title = t('message.teamsTitle') + ' | Benchkiller';
-      tableData.value = [];
-      api.get(
-        'offers',
-        { collection: 'available' },
-        ({ data }) => {
-          tableData.value.push(data.data);
-        },
-        (error) => console.log(error)
-      );
+      getOffers('available', tableData);
     };
 
     provide('offers', tableData);
