@@ -12,10 +12,10 @@
       "tab2": "Teams",
       "thead1": "Content",
       "thead2": "Date",
-      "searchH": "Search by Posts",
+      "searchH": "Search",
       "logOut": "Log Out",
-      "loginTitle": "Login | Benchkiller",
-      "projectsTitle": "Projects | Benchkiller",
-      "teamsTitle": "Teams | Benchkiller"
+      "loginTitle": "Login",
+      "projectsTitle": "Projects",
+      "teamsTitle": "Teams"
     }
   }

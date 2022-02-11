@@ -41,5 +41,8 @@ export default createStore({
     fetchAccessToken({ commit }) {
       commit('updateAccessToken', localStorage.getItem('accessToken'));
     },
+    logOut({ commit }) {
+      commit('updateAccessToken', localStorage.removeItem('accessToken'));
+    },
   },
 });

@@ -80,8 +80,24 @@ export default {
       getOffers('available', tableData);
     };
 
+    const loadMore = () => {
+      for (let i = 0; ; i++) {
+        tableData.value.push();
+      }
+    };
+
+    const handleScroll = () => {
+      if (
+        window.scrollY + window.innerHeight >=
+        document.body.scrollHeight - 50
+      ) {
+        const new_data = loadMore();
+        tableData.value = [...tableData, ...new_data];
+      }
+    };
+
     provide('offers', tableData);
-    return { getProjects, getTeams, tableData, t };
+    return { getProjects, getTeams, tableData, t, loadMore, handleScroll };
   },
 };
 </script>
