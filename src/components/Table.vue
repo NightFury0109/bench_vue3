@@ -26,9 +26,9 @@
         </td>
         <td class="p-3">
           <p class="fw-bold mb-3">{{ offer.attributes.title }}</p>
-          <pre class="fw-normal" style="white-space: pre-wrap">{{
-            offer.attributes.text
-          }}</pre>
+          <p class="fw-light" style="white-space: pre-wrap">
+            {{ offer.attributes.text }}
+          </p>
         </td>
         <td class="p-3">
           {{ new Date(offer.attributes['created-at']).toLocaleString() }}
