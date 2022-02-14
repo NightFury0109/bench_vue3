@@ -11,3 +11,14 @@ export const getOffers = (collection, offers) => {
     (error) => console.log(error)
   );
 };
+
+export const getOffersPagination = (collection, offers, page) => {
+  api.get(
+    'offers',
+    { collection: collection, page: page },
+    ({ data }) => {
+      offers.value.push(data.data);
+    },
+    (error) => console.log(error)
+  );
+};

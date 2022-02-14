@@ -41,6 +41,15 @@
       aria-labelledby="home-tab"
     >
       <Table />
+      <VueEternalLoading :load="load">
+        <template #loading>
+          <div class="text-center pt-5 my-loading">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </template>
+      </VueEternalLoading>
     </div>
     <div
       class="tab-pane fade"
@@ -60,9 +69,11 @@ import { onMounted } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { provide, ref } from 'vue';
 import { getOffers } from '../api/offers';
+import { VueEternalLoading } from '@ts-pro/vue-eternal-loading';
+import { getOffersPagination } from '../api/offers';
 
 export default {
-  components: { Header, Table },
+  components: { Header, Table, VueEternalLoading },
   setup() {
     const { t } = useI18n();
 
@@ -80,24 +91,20 @@ export default {
       getOffers('available', tableData);
     };
 
-    const loadMore = () => {
-      for (let i = 0; ; i++) {
-        tableData.value.push();
-      }
-    };
-
-    const handleScroll = () => {
-      if (
-        window.scrollY + window.innerHeight >=
-        document.body.scrollHeight - 50
-      ) {
-        const new_data = loadMore();
-        tableData.value = [...tableData, ...new_data];
-      }
-    };
-
     provide('offers', tableData);
-    return { getProjects, getTeams, tableData, t, loadMore, handleScroll };
+
+    let page = 1;
+
+    function loadUsers(page) {
+      getOffersPagination('lookfor', tableData, page);
+    }
+    async function load({ loaded }) {
+      const loadedUsers = await loadUsers(page);
+      tableData.value.push(...loadedUsers);
+      page += 1;
+      loaded(loadedUsers.length);
+    }
+    return { getProjects, getTeams, tableData, t, page, load };
   },
 };
 </script>

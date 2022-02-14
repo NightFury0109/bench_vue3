@@ -36,15 +36,11 @@
       </tr>
     </tbody>
   </table>
-  <div v-else class="text-center pt-5">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
 </template>
 
 <script>
 import { inject } from 'vue';
+
 export default {
   setup() {
     const offers = inject('offers');
