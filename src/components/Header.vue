@@ -14,7 +14,7 @@
             {{ $t('message.navLink') }}
           </router-link>
           <router-link :to="{ path: '/' }" class="nav-link ms-auto">
-            {{ $t('message.logOut') }}
+            <span @click="logOut">{{ $t('message.logOut') }}</span>
           </router-link>
         </div>
       </div>
@@ -24,5 +24,15 @@
 </template>
 
 <script>
-export default {};
+import { useStore } from 'vuex';
+
+export default {
+  setup() {
+    const store = useStore();
+    const logOut = () => {
+      store.dispatch('logOut');
+    };
+    return { logOut };
+  },
+};
 </script>

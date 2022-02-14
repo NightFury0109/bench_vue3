@@ -15,6 +15,7 @@
                   <input
                     type="text"
                     class="form-control"
+                    autocomplete="telegram"
                     id="telegram"
                     v-model="telegram"
                   />
@@ -26,6 +27,7 @@
                   <input
                     type="password"
                     class="form-control"
+                    autocomplete="password"
                     id="password"
                     v-model="password"
                   />

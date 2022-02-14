@@ -42,7 +42,8 @@ export default createStore({
       commit('updateAccessToken', localStorage.getItem('accessToken'));
     },
     logOut({ commit }) {
-      commit('updateAccessToken', localStorage.removeItem('accessToken'));
+      localStorage.removeItem('accessToken');
+      commit('loginStop', 'logged out');
     },
   },
 });
