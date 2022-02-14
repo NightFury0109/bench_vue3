@@ -11,7 +11,9 @@
             class="nav-link"
             aria-current="page"
           >
-            {{ $t('message.navLink') }}
+            <span v-show="store.state.accessToken">{{
+              $t('message.navLink')
+            }}</span>
           </router-link>
           <router-link :to="{ path: '/' }" class="nav-link ms-auto">
             <span @click="logOut">{{ $t('message.logOut') }}</span>
@@ -32,7 +34,7 @@ export default {
     const logOut = () => {
       store.dispatch('logOut');
     };
-    return { logOut };
+    return { logOut, store };
   },
 };
 </script>
