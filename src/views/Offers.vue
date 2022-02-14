@@ -93,18 +93,17 @@ export default {
 
     provide('offers', tableData);
 
+    const PAGE_SIZE = 25;
     let page = 1;
 
-    function loadUsers(page) {
-      getOffersPagination('lookfor', tableData, page);
-    }
-    async function load({ loaded }) {
-      const loadedUsers = await loadUsers(page);
+    function load({ loaded }) {
+      const loadedUsers = getOffersPagination('lookfor', tableData, page);
       tableData.value.push(...loadedUsers);
       page += 1;
-      loaded(loadedUsers.length);
+      loaded(getOffersPagination.length, PAGE_SIZE);
     }
-    return { getProjects, getTeams, tableData, t, page, load };
+
+    return { getProjects, getTeams, tableData, t, load };
   },
 };
 </script>
