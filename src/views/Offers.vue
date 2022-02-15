@@ -89,20 +89,20 @@ export default {
     const axios = require('axios').default;
 
     let page = 1;
-    const load = async ($state) => {
+    const load = ($state) => {
       console.log('loading...');
 
       try {
-        await axios
+        axios
           .get(
-            'http://freedvs.com/benchkiller/api/offers?collection=available&page=' +
+            'http://freedvs.com/benchkiller/api/offers?collection=lookfor&page=' +
               page,
             { headers: { Authorization: 'Bearer ' + store.state.accessToken } }
           )
           .then((res) => {
-            if (res.data.data.flat().length < 25) $state.complete();
+            if (res.data.data[0].length < 25) $state.complete();
             else {
-              tableData.value.push(...res.data.data[0]);
+              tableData.value.push(...res.data.data);
               $state.loaded();
             }
           });
