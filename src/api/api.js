@@ -9,7 +9,7 @@ export const post = (path, params, success, failure) => {
 };
 
 export const get = (path, params, success, failure) => {
-  return axios
+  axios
     .get(process.env.VUE_APP_API_URL + `${path}`, {
       params,
       headers: {

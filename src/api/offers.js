@@ -12,13 +12,12 @@ export const getOffers = (collection, offers) => {
   );
 };
 
-export const getOffersPagination = (offers, { collection, page }) => {
-  api.get(
+export const getOffersPagination = (offers, collection, page) => {
+  return api.get(
     'offers',
-    { collection, page },
+    { collection: collection, page: page },
     ({ data }) => {
       offers.value.push(data.data);
-      return data.data;
     },
     (error) => console.log(error)
   );

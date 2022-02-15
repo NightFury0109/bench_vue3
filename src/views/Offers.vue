@@ -41,15 +41,7 @@
       aria-labelledby="home-tab"
     >
       <Table />
-      <VueEternalLoading :load="load">
-        <template #loading>
-          <div class="text-center pt-5 my-loading">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </template>
-      </VueEternalLoading>
+      <VueEternalLoading :load="load"> </VueEternalLoading>
     </div>
     <div
       class="tab-pane fade"
@@ -65,12 +57,13 @@
 <script>
 import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
-import { onMounted } from '@vue/runtime-core';
+// import { onMounted } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { provide, ref } from 'vue';
-import { getOffers } from '../api/offers';
+// import { getOffers } from '../api/offers';
 import { VueEternalLoading } from '@ts-pro/vue-eternal-loading';
-import { getOffersPagination } from '../api/offers';
+// import { getOffersPagination } from '../api/offers';
+import store from '../store/index';
 
 export default {
   components: { Header, Table, VueEternalLoading },
@@ -79,31 +72,51 @@ export default {
 
     const tableData = ref([]);
 
-    const getProjects = () => {
-      document.title = t('message.projectsTitle') + ' | Benchkiller';
-      getOffers('lookfor', tableData);
-    };
+    // const getProjects = () => {
+    //   document.title = t('message.projectsTitle') + ' | Benchkiller';
+    //   getOffers('lookfor', tableData);
+    // };
 
-    onMounted(getProjects);
+    // onMounted(getProjects);
 
-    const getTeams = () => {
-      document.title = t('message.teamsTitle') + ' | Benchkiller';
-      getOffers('available', tableData);
-    };
+    // const getTeams = () => {
+    //   document.title = t('message.teamsTitle') + ' | Benchkiller';
+    //   getOffers('available', tableData);
+    // };
 
     provide('offers', tableData);
 
     const PAGE_SIZE = 25;
     let page = 1;
 
-    function load({ loaded }) {
-      const loadedUsers = getOffersPagination('lookfor', tableData, page);
-      tableData.value.push(...loadedUsers);
-      page += 1;
-      loaded(getOffersPagination.length, PAGE_SIZE);
+    const axios = require('axios').default;
+
+    async function loadUsers(page) {
+      await axios
+        .get(
+          `http://freedvs.com/benchkiller/api/offers?collection=lookfor&page=${page}`,
+          {
+            headers: {
+              Authorization: 'Bearer ' + store.state.accessToken,
+            },
+          }
+        )
+        .then((res) => {
+          tableData.value.push(res.data.data);
+          console.log(tableData.value);
+        });
     }
 
-    return { getProjects, getTeams, tableData, t, load };
+    console.log(loadUsers(page));
+
+    async function load({ loaded }) {
+      const loadedUsers = await loadUsers(page);
+      tableData.value.push(loadedUsers);
+      page += 1;
+      loaded(loadedUsers.length, PAGE_SIZE);
+    }
+
+    return { tableData, t, load };
   },
 };
 </script>
