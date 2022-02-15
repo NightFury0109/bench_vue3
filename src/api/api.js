@@ -8,16 +8,13 @@ export const post = (path, params, success, failure) => {
     .catch(failure);
 };
 
-export const get = (path, params, success, failure) => {
-  axios
-    .get(process.env.VUE_APP_API_URL + `${path}`, {
-      params,
-      headers: {
-        Authorization: 'Bearer ' + store.state.accessToken,
-      },
-    })
-    .then(success)
-    .catch(failure);
+export const get = (path, params) => {
+  axios.get(process.env.VUE_APP_API_URL + `${path}`, {
+    params,
+    headers: {
+      Authorization: 'Bearer ' + store.state.accessToken,
+    },
+  });
 };
 
 // const api = axios.create({

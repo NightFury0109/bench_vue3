@@ -12,13 +12,6 @@ export const getOffers = (collection, offers) => {
   );
 };
 
-export const getOffersPagination = (offers, collection, page) => {
-  return api.get(
-    'offers',
-    { collection: collection, page: page },
-    ({ data }) => {
-      offers.value.push(data.data);
-    },
-    (error) => console.log(error)
-  );
+export const getOffersPagination = (collection, page) => {
+  api.get('offers', { collection: collection, page: page });
 };

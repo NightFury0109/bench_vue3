@@ -41,7 +41,7 @@
       aria-labelledby="home-tab"
     >
       <Table />
-      <VueEternalLoading :load="load"> </VueEternalLoading>
+      <InfiniteLoading :tableData="tableData" @infinite="load" />
     </div>
     <div
       class="tab-pane fade"
@@ -60,13 +60,14 @@ import Table from '@/components/Table.vue';
 // import { onMounted } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { provide, ref } from 'vue';
-// import { getOffers } from '../api/offers';
-import { VueEternalLoading } from '@ts-pro/vue-eternal-loading';
-// import { getOffersPagination } from '../api/offers';
 import store from '../store/index';
+// import { getOffers } from '../api/offers';
+// import { getOffersPagination } from '../api/offers';
+import InfiniteLoading from 'v3-infinite-loading';
+import 'v3-infinite-loading/lib/style.css';
 
 export default {
-  components: { Header, Table, VueEternalLoading },
+  components: { Header, Table, InfiniteLoading },
   setup() {
     const { t } = useI18n();
 
@@ -85,36 +86,31 @@ export default {
     // };
 
     provide('offers', tableData);
-
-    const PAGE_SIZE = 25;
-    let page = 1;
-
     const axios = require('axios').default;
 
-    async function loadUsers(page) {
-      await axios
-        .get(
-          `http://freedvs.com/benchkiller/api/offers?collection=lookfor&page=${page}`,
-          {
-            headers: {
-              Authorization: 'Bearer ' + store.state.accessToken,
-            },
-          }
-        )
-        .then((res) => {
-          tableData.value.push(res.data.data);
-          console.log(tableData.value);
-        });
-    }
+    let page = 1;
+    const load = async ($state) => {
+      console.log('loading...');
 
-    console.log(loadUsers(page));
-
-    async function load({ loaded }) {
-      const loadedUsers = await loadUsers(page);
-      tableData.value.push(loadedUsers);
-      page += 1;
-      loaded(loadedUsers.length, PAGE_SIZE);
-    }
+      try {
+        await axios
+          .get(
+            'http://freedvs.com/benchkiller/api/offers?collection=available&page=' +
+              page,
+            { headers: { Authorization: 'Bearer ' + store.state.accessToken } }
+          )
+          .then((res) => {
+            if (res.data.data.flat().length < 25) $state.complete();
+            else {
+              tableData.value.push(...res.data.data[0]);
+              $state.loaded();
+            }
+          });
+        page++;
+      } catch (error) {
+        $state.error();
+      }
+    };
 
     return { tableData, t, load };
   },
