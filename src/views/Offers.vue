@@ -41,7 +41,16 @@
       aria-labelledby="home-tab"
     >
       <Table />
-      <InfiniteLoading :tableData="tableData" @infinite="load" />
+      <div class="text-center py-5 my-loading">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+          <InfiniteLoading
+            :tableData="tableData"
+            @infinite="load"
+            style="display: none"
+          />
+        </div>
+      </div>
     </div>
     <div
       class="tab-pane fade"
@@ -50,6 +59,16 @@
       aria-labelledby="profile-tab"
     >
       <Table />
+      <div class="text-center py-5 my-loading">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+          <InfiniteLoading
+            :tableData="tableData"
+            @infinite="load"
+            style="display: none"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,12 +76,11 @@
 <script>
 import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
-// import { onMounted } from '@vue/runtime-core';
+import { onMounted } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { provide, ref } from 'vue';
-import store from '../store/index';
-// import { getOffers } from '../api/offers';
-// import { getOffersPagination } from '../api/offers';
+// import store from '../store/index';
+import { getOffersWithPagination } from '../api/offers';
 import InfiniteLoading from 'v3-infinite-loading';
 import 'v3-infinite-loading/lib/style.css';
 
@@ -73,46 +91,61 @@ export default {
 
     const tableData = ref([]);
 
-    // const getProjects = () => {
-    //   document.title = t('message.projectsTitle') + ' | Benchkiller';
-    //   getOffers('lookfor', tableData);
-    // };
+    const getProjects = () => {
+      document.title = t('message.projectsTitle') + ' | Benchkiller';
+    };
 
-    // onMounted(getProjects);
-
-    // const getTeams = () => {
-    //   document.title = t('message.teamsTitle') + ' | Benchkiller';
-    //   getOffers('available', tableData);
-    // };
+    onMounted(getProjects);
 
     provide('offers', tableData);
-    const axios = require('axios').default;
 
     let page = 1;
     const load = ($state) => {
       console.log('loading...');
-
       try {
-        axios
-          .get(
-            'http://freedvs.com/benchkiller/api/offers?collection=lookfor&page=' +
-              page,
-            { headers: { Authorization: 'Bearer ' + store.state.accessToken } }
-          )
-          .then((res) => {
-            if (res.data.data[0].length < 25) $state.complete();
-            else {
-              tableData.value.push(...res.data.data);
-              $state.loaded();
-            }
-          });
+        getOffersWithPagination('lookfor', page).then((res) => {
+          if (res.data.data[0].length < 25) $state.complete();
+          else {
+            tableData.value.push(...res.data.data);
+            $state.loaded();
+          }
+        });
         page++;
       } catch (error) {
         $state.error();
       }
     };
 
-    return { tableData, t, load };
+    const getTeams = ($state) => {
+      tableData.value = [];
+      page = 1;
+      document.title = t('message.teamsTitle') + ' | Benchkiller';
+
+      try {
+        getOffersWithPagination('available', page).then((res) => {
+          if (res.data.data[0].length < 25) $state.complete();
+          else {
+            tableData.value.push(...res.data.data);
+            $state.loaded();
+          }
+        });
+        page++;
+      } catch (error) {
+        $state.error();
+      }
+    };
+
+    return { tableData, t, load, getProjects, getTeams };
   },
 };
 </script>
+
+<style scoped>
+/* .my-loading {
+  margin: 0 auto;
+  width: 2rem;
+  height: 2rem;
+  max-width: 1320px;
+  margin-top: 3rem;
+} */
+</style>
