@@ -46,7 +46,7 @@
           <span class="visually-hidden">Loading...</span>
           <InfiniteLoading
             :tableData="tableData"
-            @infinite="load"
+            @infinite="getProjects"
             style="display: none"
           />
         </div>
@@ -64,7 +64,7 @@
           <span class="visually-hidden">Loading...</span>
           <InfiniteLoading
             :tableData="tableData"
-            @infinite="load"
+            @infinite="getTeams"
             style="display: none"
           />
         </div>
@@ -91,16 +91,12 @@ export default {
 
     const tableData = ref([]);
 
-    const getProjects = () => {
-      document.title = t('message.projectsTitle') + ' | Benchkiller';
-    };
-
-    onMounted(getProjects);
-
     provide('offers', tableData);
 
     let page = 1;
-    const load = ($state) => {
+    const getProjects = ($state) => {
+      document.title = t('message.projectsTitle') + ' | Benchkiller';
+      page = 1;
       console.log('loading...');
       try {
         getOffersWithPagination('lookfor', page).then((res) => {
@@ -116,8 +112,9 @@ export default {
       }
     };
 
+    onMounted(getProjects);
+
     const getTeams = ($state) => {
-      tableData.value = [];
       page = 1;
       document.title = t('message.teamsTitle') + ' | Benchkiller';
 
@@ -135,7 +132,7 @@ export default {
       }
     };
 
-    return { tableData, t, load, getProjects, getTeams };
+    return { tableData, t, getProjects, getTeams };
   },
 };
 </script>
