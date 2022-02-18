@@ -46,7 +46,7 @@
           <span class="visually-hidden">Loading...</span>
           <InfiniteLoading
             :tableData="tableData"
-            @infinite="getProjects"
+            @infinite="loadProjects"
             style="display: none"
           />
         </div>
@@ -63,8 +63,9 @@
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
           <InfiniteLoading
+            v-if="teamsReceived"
             :tableData="tableData"
-            @infinite="getTeams"
+            @infinite="loadTeams"
             style="display: none"
           />
         </div>
@@ -79,7 +80,6 @@ import Table from '@/components/Table.vue';
 import { onMounted } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { provide, ref } from 'vue';
-// import store from '../store/index';
 import { getOffersWithPagination } from '../api/offers';
 import InfiniteLoading from 'v3-infinite-loading';
 import 'v3-infinite-loading/lib/style.css';
@@ -100,9 +100,10 @@ export default {
       page = 1;
     }
 
-    const getProjects = ($state) => {
+    const getProjects = () => {
       document.title = t('message.projectsTitle') + ' | Benchkiller';
-      console.log('loading...');
+    };
+    const loadProjects = ($state) => {
       try {
         getOffersWithPagination('lookfor', page).then((res) => {
           if (res.data.data[0].length < 25) $state.complete();
@@ -119,9 +120,12 @@ export default {
 
     onMounted(getProjects);
 
-    const getTeams = ($state) => {
+    const teamsReceived = ref(false);
+    const getTeams = () => {
       document.title = t('message.teamsTitle') + ' | Benchkiller';
-
+      teamsReceived.value = true;
+    };
+    const loadTeams = ($state) => {
       try {
         getOffersWithPagination('available', page).then((res) => {
           if (res.data.data[0].length < 25) $state.complete();
@@ -136,17 +140,16 @@ export default {
       }
     };
 
-    return { tableData, t, getProjects, getTeams, emptyData };
+    return {
+      tableData,
+      t,
+      getProjects,
+      getTeams,
+      emptyData,
+      loadProjects,
+      loadTeams,
+      teamsReceived,
+    };
   },
 };
 </script>
-
-<style scoped>
-/* .my-loading {
-  margin: 0 auto;
-  width: 2rem;
-  height: 2rem;
-  max-width: 1320px;
-  margin-top: 3rem;
-} */
-</style>
