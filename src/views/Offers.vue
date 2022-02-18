@@ -2,30 +2,30 @@
   <Header />
   <p class="h1 container pt-4">{{ $t('message.searchH') }}</p>
   <ul class="nav nav-tabs container pt-4" id="offersTabs" role="tablist">
-    <li class="nav-item" role="presentation">
+    <li class="nav-item" role="presentation" @click.prevent="emptyData">
       <button
         class="nav-link active"
-        id="home-tab"
+        id="projects-tab"
         data-bs-toggle="tab"
-        data-bs-target="#home"
+        data-bs-target="#projects"
         type="button"
         role="tab"
-        aria-controls="home"
+        aria-controls="projects"
         aria-selected="true"
         @click.prevent="getProjects"
       >
         {{ $t('message.tab1') }}
       </button>
     </li>
-    <li class="nav-item" role="presentation">
+    <li class="nav-item" role="presentation" @click.prevent="emptyData">
       <button
         class="nav-link"
-        id="profile-tab"
+        id="teams-tab"
         data-bs-toggle="tab"
-        data-bs-target="#profile"
+        data-bs-target="#teams"
         type="button"
         role="tab"
-        aria-controls="profile"
+        aria-controls="teams"
         aria-selected="false"
         @click.prevent="getTeams"
       >
@@ -36,9 +36,9 @@
   <div class="tab-content" id="offersTabsContent">
     <div
       class="tab-pane fade show active"
-      id="home"
+      id="projects"
       role="tabpanel"
-      aria-labelledby="home-tab"
+      aria-labelledby="projects-tab"
     >
       <Table />
       <div class="text-center py-5 my-loading">
@@ -54,9 +54,9 @@
     </div>
     <div
       class="tab-pane fade"
-      id="profile"
+      id="teams"
       role="tabpanel"
-      aria-labelledby="profile-tab"
+      aria-labelledby="teams-tab"
     >
       <Table />
       <div class="text-center py-5 my-loading">
@@ -94,9 +94,14 @@ export default {
     provide('offers', tableData);
 
     let page = 1;
+
+    function emptyData() {
+      tableData.value = [];
+      page = 1;
+    }
+
     const getProjects = ($state) => {
       document.title = t('message.projectsTitle') + ' | Benchkiller';
-      page = 1;
       console.log('loading...');
       try {
         getOffersWithPagination('lookfor', page).then((res) => {
@@ -115,7 +120,6 @@ export default {
     onMounted(getProjects);
 
     const getTeams = ($state) => {
-      page = 1;
       document.title = t('message.teamsTitle') + ' | Benchkiller';
 
       try {
@@ -132,7 +136,7 @@ export default {
       }
     };
 
-    return { tableData, t, getProjects, getTeams };
+    return { tableData, t, getProjects, getTeams, emptyData };
   },
 };
 </script>
