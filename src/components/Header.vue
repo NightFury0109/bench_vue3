@@ -8,18 +8,26 @@
         <div class="navbar-nav flex-row flex-grow-1">
           <router-link
             :to="{ path: '/offers' }"
-            class="nav-link d-flex justify-content-between align-items-center"
+            class="nav-link"
             aria-current="page"
+            v-show="store.state.accessToken"
           >
-            <span class="material-icons pe-1">list</span>
-            <span>{{ $t('message.navLink') }}</span>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="material-icons pe-1">list</span>
+              <span>{{ $t('message.navLink') }}</span>
+            </div>
           </router-link>
           <router-link
             :to="{ path: '/' }"
             class="nav-link ms-auto d-flex justify-content-between align-items-center"
           >
-            <span class="material-icons pe-1"> logout </span>
-            <span @click="logOut">{{ $t('message.logOut') }}</span>
+            <div
+              @click="logOut"
+              class="d-flex justify-content-between align-items-center"
+            >
+              <span class="material-icons pe-1"> logout </span>
+              <span>{{ $t('message.logOut') }}</span>
+            </div>
           </router-link>
         </div>
       </div>
