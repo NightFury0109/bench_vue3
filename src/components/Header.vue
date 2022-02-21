@@ -8,14 +8,17 @@
         <div class="navbar-nav flex-row flex-grow-1">
           <router-link
             :to="{ path: '/offers' }"
-            class="nav-link"
+            class="nav-link d-flex justify-content-between align-items-center"
             aria-current="page"
           >
-            <span v-show="store.state.accessToken">{{
-              $t('message.navLink')
-            }}</span>
+            <span class="material-icons pe-1">list</span>
+            <span>{{ $t('message.navLink') }}</span>
           </router-link>
-          <router-link :to="{ path: '/' }" class="nav-link ms-auto">
+          <router-link
+            :to="{ path: '/' }"
+            class="nav-link ms-auto d-flex justify-content-between align-items-center"
+          >
+            <span class="material-icons pe-1"> logout </span>
             <span @click="logOut">{{ $t('message.logOut') }}</span>
           </router-link>
         </div>
