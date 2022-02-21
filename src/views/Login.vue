@@ -95,10 +95,7 @@ export default {
           password: user.password,
         },
       });
-
-      if (store.state.accessToken) {
-        router.push('/offers');
-      }
+      router.push('/offers');
 
       if (_.isEmpty(user.telegram) && _.isEmpty(user.password)) {
         showToast.value = true;

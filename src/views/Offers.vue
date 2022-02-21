@@ -2,7 +2,7 @@
   <Header />
   <p class="h1 container pt-4">{{ $t('message.searchH') }}</p>
   <ul class="nav nav-tabs container pt-4" id="offersTabs" role="tablist">
-    <li class="nav-item" role="presentation" @click.prevent="emptyData">
+    <li class="nav-item" role="presentation">
       <button
         class="nav-link active"
         id="projects-tab"
@@ -17,7 +17,7 @@
         {{ $t('message.tab1') }}
       </button>
     </li>
-    <li class="nav-item" role="presentation" @click.prevent="emptyData">
+    <li class="nav-item" role="presentation">
       <button
         class="nav-link"
         id="teams-tab"
@@ -40,12 +40,12 @@
       role="tabpanel"
       aria-labelledby="projects-tab"
     >
-      <Table />
+      <Table :offers="projects" />
       <div class="text-center py-5 my-loading">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
           <InfiniteLoading
-            :tableData="tableData"
+            :tableData="projects"
             @infinite="loadProjects"
             style="display: none"
           />
@@ -58,13 +58,12 @@
       role="tabpanel"
       aria-labelledby="teams-tab"
     >
-      <Table />
+      <Table :offers="teams" />
       <div class="text-center py-5 my-loading">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
           <InfiniteLoading
-            v-if="teamsReceived"
-            :tableData="tableData"
+            :tableData="teams"
             @infinite="loadTeams"
             style="display: none"
           />
@@ -79,7 +78,7 @@ import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import { onMounted } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
-import { provide, ref } from 'vue';
+import { ref } from 'vue';
 import { getOffersWithPagination } from '../api/offers';
 import InfiniteLoading from 'v3-infinite-loading';
 import 'v3-infinite-loading/lib/style.css';
@@ -89,26 +88,36 @@ export default {
   setup() {
     const { t } = useI18n();
 
-    const tableData = ref([]);
-
-    provide('offers', tableData);
+    const projects = ref([]);
+    const teams = ref([]);
 
     let page = 1;
-
-    function emptyData() {
-      tableData.value = [];
-      page = 1;
-    }
 
     const getProjects = () => {
       document.title = t('message.projectsTitle') + ' | Benchkiller';
     };
+
     const loadProjects = ($state) => {
       try {
         getOffersWithPagination('lookfor', page).then((res) => {
           if (res.data.data[0].length < 25) $state.complete();
           else {
-            tableData.value.push(...res.data.data);
+            projects.value.push(...res.data.data);
+            $state.loaded();
+          }
+        });
+        page++;
+      } catch (error) {
+        $state.error();
+      }
+    };
+
+    const loadTeams = ($state) => {
+      try {
+        getOffersWithPagination('available', page).then((res) => {
+          if (res.data.data[0].length < 25) $state.complete();
+          else {
+            teams.value.push(...res.data.data);
             $state.loaded();
           }
         });
@@ -120,35 +129,18 @@ export default {
 
     onMounted(getProjects);
 
-    const teamsReceived = ref(false);
     const getTeams = () => {
       document.title = t('message.teamsTitle') + ' | Benchkiller';
-      teamsReceived.value = true;
-    };
-    const loadTeams = ($state) => {
-      try {
-        getOffersWithPagination('available', page).then((res) => {
-          if (res.data.data[0].length < 25) $state.complete();
-          else {
-            tableData.value.push(...res.data.data);
-            $state.loaded();
-          }
-        });
-        page++;
-      } catch (error) {
-        $state.error();
-      }
     };
 
     return {
-      tableData,
+      projects,
+      teams,
       t,
       getProjects,
       getTeams,
-      emptyData,
       loadProjects,
       loadTeams,
-      teamsReceived,
     };
   },
 };

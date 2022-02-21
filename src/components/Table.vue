@@ -39,13 +39,12 @@
 </template>
 
 <script>
-import { inject } from 'vue';
-
 export default {
+  props: {
+    offers: Array,
+  },
   setup() {
-    const offers = inject('offers');
     // const showTable = _.some([offers]);
-    return { offers };
   },
 };
 </script>
