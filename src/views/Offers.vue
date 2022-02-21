@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <p class="h1 container pt-4">{{ $t('message.searchH') }}</p>
+  <p class="h1 container pt-4">{{ t('message.searchH') }}</p>
   <ul class="nav nav-tabs container pt-4" id="offersTabs" role="tablist">
     <li class="nav-item" role="presentation">
       <button
@@ -12,9 +12,9 @@
         role="tab"
         aria-controls="projects"
         aria-selected="true"
-        @click.prevent="getProjects"
+        @click.prevent="titleProjects"
       >
-        {{ $t('message.tab1') }}
+        {{ t('message.tab1') }}
       </button>
     </li>
     <li class="nav-item" role="presentation">
@@ -27,9 +27,9 @@
         role="tab"
         aria-controls="teams"
         aria-selected="false"
-        @click.prevent="getTeams"
+        @click.prevent="titleTeams"
       >
-        {{ $t('message.tab2') }}
+        {{ t('message.tab2') }}
       </button>
     </li>
   </ul>
@@ -41,16 +41,15 @@
       aria-labelledby="projects-tab"
     >
       <Table :offers="projects" />
-      <div class="text-center py-5 my-loading">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-          <InfiniteLoading
-            :tableData="projects"
-            @infinite="loadProjects"
-            style="display: none"
-          />
-        </div>
-      </div>
+      <InfiniteLoading :tableData="projects" @infinite="loadProjects">
+        <template #spinner>
+          <div class="text-center py-5 my-loading">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </template>
+      </InfiniteLoading>
     </div>
     <div
       class="tab-pane fade"
@@ -59,16 +58,15 @@
       aria-labelledby="teams-tab"
     >
       <Table :offers="teams" />
-      <div class="text-center py-5 my-loading">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-          <InfiniteLoading
-            :tableData="teams"
-            @infinite="loadTeams"
-            style="display: none"
-          />
-        </div>
-      </div>
+      <InfiniteLoading :tableData="teams" @infinite="loadTeams">
+        <template #spinner>
+          <div class="text-center py-5 my-loading">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </template>
+      </InfiniteLoading>
     </div>
   </div>
 </template>
@@ -93,8 +91,22 @@ export default {
 
     let page = 1;
 
-    const getProjects = () => {
+    const titleProjects = () => {
       document.title = t('message.projectsTitle') + ' | Benchkiller';
+    };
+
+    // const setTitle = (tab) => {
+    //   if (tab == 'projects') {
+    //     document.title = t('message.projectsTitle') + ' | Benchkiller';
+    //   } else if (tab == 'teams') {
+    //     document.title = t('message.teamsTitle') + ' | Benchkiller';
+    //   }
+    // };
+
+    onMounted(titleProjects);
+
+    const titleTeams = () => {
+      document.title = t('message.teamsTitle') + ' | Benchkiller';
     };
 
     const loadProjects = ($state) => {
@@ -127,18 +139,12 @@ export default {
       }
     };
 
-    onMounted(getProjects);
-
-    const getTeams = () => {
-      document.title = t('message.teamsTitle') + ' | Benchkiller';
-    };
-
     return {
       projects,
       teams,
       t,
-      getProjects,
-      getTeams,
+      titleProjects,
+      titleTeams,
       loadProjects,
       loadTeams,
     };
