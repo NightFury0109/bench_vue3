@@ -6,7 +6,7 @@
       "alertMessage1": "Впервые у нас? Перейдите в нашего ",
       "botLink": "бота",
       "alertMessage2": " и сгенерируйте себе пароль.",
-      "dangerAlert": "Неверный логин или пароль",
+      "toastWrongAuth": "Неверный логин или пароль",
       "navLink": "Проекты и команды",
       "tab1": "Предложения",
       "tab2": "Команды",
@@ -16,6 +16,8 @@
       "logOut": "Выйти",
       "loginTitle": "Авторизация",
       "projectsTitle": "Проекты",
-      "teamsTitle": "Команды"
+      "teamsTitle": "Команды",
+      "toastSuccess": "Авторизация прошла успешно",
+      "toastServerError": "Серверная ошибка"
     }
   }

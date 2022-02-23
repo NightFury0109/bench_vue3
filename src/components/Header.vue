@@ -10,7 +10,7 @@
             :to="{ path: '/offers' }"
             class="nav-link"
             aria-current="page"
-            v-show="store.state.accessToken"
+            v-if="store.state.accessToken"
           >
             <div class="d-flex justify-content-between align-items-center">
               <span class="material-icons pe-1">list</span>

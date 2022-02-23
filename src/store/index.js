@@ -4,6 +4,7 @@ import * as api from '../api/api';
 export default createStore({
   state: {
     accessToken: null,
+    isAuthenticated: false,
   },
   mutations: {
     updateAccessToken: (state, accessToken) => {

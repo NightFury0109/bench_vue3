@@ -2,7 +2,9 @@
   <div class="d-flex flex-column login-flex justify-content-between">
     <Header />
     <main class="container pt-5">
-      <Toast v-if="showToast" />
+      <Toast v-if="showToast" class="alert-danger">{{
+        $t('message.toastWrongAuth')
+      }}</Toast>
       <div class="row mx-n3">
         <div class="col-lg-12">
           <div class="row">
@@ -10,7 +12,7 @@
               <form class="form mb-3" @submit.prevent="loginSubmit">
                 <div class="mb-3">
                   <label for="telegram" class="form-label">{{
-                    t('message.nickname')
+                    $t('message.nickname')
                   }}</label>
                   <input
                     type="text"
@@ -22,7 +24,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="password" class="form-label">{{
-                    t('message.password')
+                    $t('message.password')
                   }}</label>
                   <input
                     type="password"
@@ -33,19 +35,19 @@
                   />
                 </div>
                 <button type="submit" id="liveToastBtn" class="btn btn-success">
-                  {{ t('message.loginButton') }}
+                  {{ $t('message.loginButton') }}
                 </button>
               </form>
               <div class="alert alert-primary">
-                <span>{{ t('message.alertMessage1') }}</span>
+                <span>{{ $t('message.alertMessage1') }}</span>
                 <a
                   class="text-decoration-none"
                   target="_blank"
                   rel="noopener noreferrer"
                   href="https://t.me/benchkiller_test_bot"
-                  >{{ t('message.botLink') }}</a
+                  >{{ $t('message.botLink') }}</a
                 >
-                {{ t('message.alertMessage2') }}
+                {{ $t('message.alertMessage2') }}
               </div>
             </div>
           </div>
@@ -86,6 +88,7 @@ export default {
     onMounted(() => {
       document.title = t('message.loginTitle') + ' | Benchkiller';
     });
+
     computed(() => mapState(['loggedIn', 'loginError', 'accessToken']));
 
     function loginSubmit() {
