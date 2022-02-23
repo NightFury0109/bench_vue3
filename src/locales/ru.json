@@ -18,6 +18,7 @@
       "projectsTitle": "Проекты",
       "teamsTitle": "Команды",
       "toastSuccess": "Авторизация прошла успешно",
-      "toastServerError": "Серверная ошибка"
+      "toastServerError": "Серверная ошибка",
+      "filterHeader": "Поиск"
     }
   }

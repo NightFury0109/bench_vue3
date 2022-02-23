@@ -4,81 +4,91 @@
   <Toast v-if="serverError" class="alert-danger">{{
     $t('message.toastServerError')
   }}</Toast>
-  <p class="h1 container pt-4">{{ $t('message.searchH') }}</p>
-  <ul class="nav nav-tabs container pt-4" id="offersTabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link active"
-        id="projects-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#projects"
-        type="button"
-        role="tab"
-        aria-controls="projects"
-        aria-selected="true"
-        @click.prevent="titleProjects"
-      >
-        {{ $t('message.tab1') }}
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link"
-        id="teams-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#teams"
-        type="button"
-        role="tab"
-        aria-controls="teams"
-        aria-selected="false"
-        @click.prevent="titleTeams"
-      >
-        {{ $t('message.tab2') }}
-      </button>
-    </li>
-  </ul>
-  <div class="tab-content" id="offersTabsContent">
-    <div
-      class="tab-pane fade show active"
-      id="projects"
-      role="tabpanel"
-      aria-labelledby="projects-tab"
-    >
-      <Table :offers="projects" />
-      <InfiniteLoading :tableData="projects" @infinite="loadProjects">
-        <template #spinner>
-          <div class="text-center py-5 my-loading">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
+  <main class="container pt-4">
+    <div class="d-flex flex-row">
+      <div class="col-lg-9">
+        <p class="h1">{{ $t('message.searchH') }}</p>
+        <ul class="nav nav-tabs pt-4" id="offersTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="projects-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#projects"
+              type="button"
+              role="tab"
+              aria-controls="projects"
+              aria-selected="true"
+              @click.prevent="titleProjects"
+            >
+              {{ $t('message.tab1') }}
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="teams-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#teams"
+              type="button"
+              role="tab"
+              aria-controls="teams"
+              aria-selected="false"
+              @click.prevent="titleTeams"
+            >
+              {{ $t('message.tab2') }}
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content" id="offersTabsContent">
+          <div
+            class="tab-pane fade show active"
+            id="projects"
+            role="tabpanel"
+            aria-labelledby="projects-tab"
+          >
+            <Table :offers="projects" />
+            <InfiniteLoading :tableData="projects" @infinite="loadProjects">
+              <template #spinner>
+                <div class="text-center py-5 my-loading">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </template>
+            </InfiniteLoading>
           </div>
-        </template>
-      </InfiniteLoading>
-    </div>
-    <div
-      class="tab-pane fade"
-      id="teams"
-      role="tabpanel"
-      aria-labelledby="teams-tab"
-    >
-      <Table :offers="teams" />
-      <InfiniteLoading :tableData="teams" @infinite="loadTeams">
-        <template #spinner>
-          <div class="text-center py-5 my-loading">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
+          <div
+            class="tab-pane fade"
+            id="teams"
+            role="tabpanel"
+            aria-labelledby="teams-tab"
+          >
+            <Table :offers="teams" />
+            <InfiniteLoading :tableData="teams" @infinite="loadTeams">
+              <template #spinner>
+                <div class="text-center py-5 my-loading">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </template>
+            </InfiniteLoading>
           </div>
-        </template>
-      </InfiniteLoading>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <Filter />
+      </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
 import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import Toast from '@/components/Toast.vue';
+import Filter from '@/components/Filter.vue';
 import { onMounted } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
@@ -87,7 +97,7 @@ import InfiniteLoading from 'v3-infinite-loading';
 import 'v3-infinite-loading/lib/style.css';
 
 export default {
-  components: { Header, Table, InfiniteLoading, Toast },
+  components: { Header, Table, InfiniteLoading, Toast, Filter },
   setup() {
     const { t } = useI18n();
 
