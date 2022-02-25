@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr :key="i" v-for="(offer, i) in offers.flat()">
+      <tr :key="i" v-for="(offer, i) in offers">
         <td>
           <input
             class="form-check-input mt-3"

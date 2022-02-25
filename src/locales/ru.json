@@ -18,7 +18,14 @@
       "projectsTitle": "Проекты",
       "teamsTitle": "Команды",
       "toastSuccess": "Авторизация прошла успешно",
-      "toastServerError": "Серверная ошибка",
-      "filterHeader": "Поиск"
+      "toastServerError": "Серверная ошибка"
+    },
+    "filter": {
+      "filterHeader": "Поиск",
+      "inputPlaceholder": "Введите текст для поиска",
+      "regionsLabel": "Регионы сотрудничества",
+      "timeframeLabel": "Период публикации",
+      "searchBtn": "Поиск",
+      "clearBtn": "Сбросить"
     }
   }

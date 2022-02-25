@@ -18,7 +18,9 @@
       "projectsTitle": "Projects",
       "teamsTitle": "Teams",
       "toastSuccess": "Authorized",
-      "toastServerError": "Server error",
-      "filterHeader": "Search"
+      "toastServerError": "Server error"
+    },
+    "filter": {
+      "filterHeader": "Filter search"
     }
   }
