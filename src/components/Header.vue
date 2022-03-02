@@ -42,9 +42,9 @@ import { useStore } from 'vuex';
 export default {
   setup() {
     const store = useStore();
-    const logOut = () => {
-      store.dispatch('logOut');
-    };
+    async function logOut() {
+      await store.dispatch('logOut');
+    }
     return { logOut, store };
   },
 };

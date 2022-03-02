@@ -39,11 +39,14 @@
 </template>
 
 <script>
+import { onMounted, onUnmounted } from '@vue/runtime-core';
 export default {
   props: {
     offers: Array,
   },
   setup() {
+    onMounted(() => console.log('onMount'));
+    onUnmounted(() => console.log('onUnmount'));
     // const showTable = _.some([offers]);
   },
 };

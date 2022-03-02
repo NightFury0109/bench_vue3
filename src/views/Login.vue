@@ -91,8 +91,8 @@ export default {
 
     computed(() => mapState(['loggedIn', 'loginError', 'accessToken']));
 
-    function loginSubmit() {
-      store.dispatch('doLogin', {
+    async function loginSubmit() {
+      await store.dispatch('doLogin', {
         auth: {
           login: user.telegram,
           password: user.password,
