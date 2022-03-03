@@ -9,56 +9,44 @@
       <div class="col-lg-9">
         <p class="h1">{{ $t('message.searchH') }}</p>
         <ul class="nav nav-tabs pt-4" id="offersTabs" role="tablist">
-          <li class="nav-item" role="presentation">
+          <li
+            class="nav-item"
+            role="presentation"
+            v-for="(collection, i) in collections"
+            :key="i"
+          >
             <button
-              class="nav-link active"
+              @click="currentTab = collections[i].tab"
+              class="nav-link"
+              :class="{ active: currentTab == collections[i].tab }"
               id="projects-tab"
               data-bs-toggle="tab"
-              data-bs-target="#projects"
+              data-bs-target="#offers"
               type="button"
               role="tab"
-              aria-controls="projects"
-              aria-selected="true"
-              @click.prevent="titleProjects"
-            >
-              {{ $t('message.tab1') }}
-            </button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link"
-              id="teams-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#teams"
-              type="button"
-              role="tab"
-              aria-controls="teams"
+              aria-controls="offers"
               aria-selected="false"
-              @click="titleTeams"
             >
-              {{ $t('message.tab2') }}
+              {{ collection.tab }}
             </button>
           </li>
         </ul>
         <div class="tab-content" id="offersTabsContent">
           <div
-            class="tab-pane fade show active"
+            v-for="(collection, i) in collections"
+            :key="i"
+            class="tab-pane fade"
+            :class="{ 'show active': currentTab == collections[i].tab }"
             id="projects"
             role="tabpanel"
             aria-labelledby="projects-tab"
-            v-for="(collection, i) in collections"
-            :key="i"
           >
             <Table :offers="offers" />
-            <InfiniteLoading :offers="offers" @infinite="loadProjects">
-              <template #spinner>
-                <div class="text-center py-5 my-loading">
-                  <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                </div>
-              </template>
-            </InfiniteLoading>
+            <div class="text-center py-5 my-loading">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -76,51 +64,33 @@ import { computed, onMounted } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import { getOffersWithPagination } from '../api/offers';
-import InfiniteLoading from 'v3-infinite-loading';
-import 'v3-infinite-loading/lib/style.css';
 
 export default {
-  components: { Header, Table, InfiniteLoading, Toast, Filter },
+  components: { Header, Table, Toast, Filter },
   setup() {
     const { t } = useI18n();
-
-    const offers = ref([]);
-    let page = 1;
 
     const titleProjects = () => {
       document.title = t('message.projectsTitle') + ' | Benchkiller';
     };
 
-    onMounted(titleProjects);
-
     const titleTeams = () => {
       document.title = t('message.teamsTitle') + ' | Benchkiller';
     };
-    const collections = {
-      projects: 'lookfor',
-      teams: 'available',
-    };
+    const collections = [
+      { tab: t('message.tab1'), param: 'lookfor' },
+      { tab: t('message.tab2'), param: 'available' },
+    ];
+    const currentTab = collections[0].tab;
+    const offers = ref([]);
     const serverError = ref(false);
-    const loadProjects = ($state) => {
-      try {
-        getOffersWithPagination('lookfor', page)
-          .then((res) => {
-            console.log(res.data.data);
-
-            if (res.data.data.length < 25) $state.complete();
-            else if (!res.data.data) serverError.value = true;
-            else {
-              offers.value.push(...res.data.data);
-              $state.loaded();
-            }
-          })
-          .catch(() => (serverError.value = true));
-        page++;
-      } catch (error) {
-        $state.error();
-      }
-    };
-
+    // Intersection Observer API
+    let page = 1;
+    const loadOffers = onMounted(() => {
+      getOffersWithPagination('lookfor', page).then((res) => {
+        offers.value.push(...res.data.data);
+      });
+    });
     const search = ref('');
 
     const searchHandler = computed(() => {
@@ -133,9 +103,10 @@ export default {
       offers,
       collections,
       t,
+      currentTab,
       titleProjects,
       titleTeams,
-      loadProjects,
+      loadOffers,
       serverError,
       search,
       searchHandler,
