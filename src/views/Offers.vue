@@ -44,8 +44,10 @@
             role="tabpanel"
             aria-labelledby="projects-tab"
           >
-            {{ currentTab }}
-            <Table v-if="currentTab == collections[i].tab" :offers="offers" />
+            <Table
+              v-if="currentTab == collections[i].tab"
+              :collection="collections[i].param"
+            />
             <div class="text-center py-5 my-loading">
               <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -64,56 +66,41 @@ import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import Toast from '@/components/Toast.vue';
 import Filter from '@/components/Filter.vue';
-import { computed, onMounted } from '@vue/runtime-core';
+import { onMounted, reactive } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { getOffersWithPagination } from '../api/offers';
 
 export default {
   components: { Header, Table, Toast, Filter },
   setup() {
     const { t } = useI18n();
 
-    const collections = [
+    const collections = reactive([
       { tab: t('message.tab1'), param: 'lookfor' },
       { tab: t('message.tab2'), param: 'available' },
-    ];
+    ]);
 
     const setTitle = (i) => {
-      offers.value = [];
       document.title = collections[i].tab + ' | Benchkiller';
     };
 
     const currentTab = ref(collections[0].tab);
-    const offers = ref([]);
-    // Intersection Observer API
-    let page = 1;
-    const loadOffers = (collection) => {
-      getOffersWithPagination(collection, page).then((res) => {
-        offers.value.push(...res.data.data);
-      });
-    };
-    onMounted(() => {
-      loadOffers('lookfor');
-    });
 
-    const search = ref('');
+    onMounted(() => setTitle(0));
 
-    const searchHandler = computed(() => {
-      return offers.value.filter((elem) =>
-        elem.includes.toLowerCase().includes(search.value)
-      );
-    });
+    // const search = ref('');
+
+    // const searchHandler = computed(() => {
+    //   return offers.value.filter((elem) =>
+    //     elem.includes.toLowerCase().includes(search.value)
+    //   );
+    // });
 
     return {
-      offers,
       collections,
       t,
       currentTab,
       setTitle,
-      loadOffers,
-      search,
-      searchHandler,
     };
   },
 };

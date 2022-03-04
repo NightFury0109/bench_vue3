@@ -39,14 +39,31 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted } from '@vue/runtime-core';
+import { onMounted, onUnmounted, ref } from '@vue/runtime-core';
+import { getOffersWithPagination } from '../api/offers';
+
 export default {
   props: {
-    offers: Array,
+    collection: String,
   },
-  setup() {
-    onMounted(() => console.log('onMount'));
-    onUnmounted(() => console.log('onUnmount'));
+  setup(props) {
+    let page = 1;
+    const offers = ref([]);
+
+    const loadOffers = async (collection) => {
+      getOffersWithPagination(collection, page).then((res) => {
+        offers.value.push(...res.data.data);
+      });
+    };
+    onMounted(() => {
+      console.log('onMount');
+      loadOffers(props.collection);
+    });
+    onUnmounted(() => {
+      offers.value = [];
+      console.log('onUnmount');
+    });
+    return { offers, loadOffers };
     // const showTable = _.some([offers]);
   },
 };
