@@ -16,7 +16,10 @@
             :key="i"
           >
             <button
-              @click="currentTab = collections[i].tab"
+              @click="
+                currentTab = collections[i].tab;
+                setTitle(i);
+              "
               class="nav-link"
               :class="{ active: currentTab == collections[i].tab }"
               id="projects-tab"
@@ -41,7 +44,8 @@
             role="tabpanel"
             aria-labelledby="projects-tab"
           >
-            <Table :offers="offers" />
+            {{ currentTab }}
+            <Table v-if="currentTab == collections[i].tab" :offers="offers" />
             <div class="text-center py-5 my-loading">
               <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -70,27 +74,29 @@ export default {
   setup() {
     const { t } = useI18n();
 
-    const titleProjects = () => {
-      document.title = t('message.projectsTitle') + ' | Benchkiller';
-    };
-
-    const titleTeams = () => {
-      document.title = t('message.teamsTitle') + ' | Benchkiller';
-    };
     const collections = [
       { tab: t('message.tab1'), param: 'lookfor' },
       { tab: t('message.tab2'), param: 'available' },
     ];
-    const currentTab = collections[0].tab;
+
+    const setTitle = (i) => {
+      offers.value = [];
+      document.title = collections[i].tab + ' | Benchkiller';
+    };
+
+    const currentTab = ref(collections[0].tab);
     const offers = ref([]);
-    const serverError = ref(false);
     // Intersection Observer API
     let page = 1;
-    const loadOffers = onMounted(() => {
-      getOffersWithPagination('lookfor', page).then((res) => {
+    const loadOffers = (collection) => {
+      getOffersWithPagination(collection, page).then((res) => {
         offers.value.push(...res.data.data);
       });
+    };
+    onMounted(() => {
+      loadOffers('lookfor');
     });
+
     const search = ref('');
 
     const searchHandler = computed(() => {
@@ -104,10 +110,8 @@ export default {
       collections,
       t,
       currentTab,
-      titleProjects,
-      titleTeams,
+      setTitle,
       loadOffers,
-      serverError,
       search,
       searchHandler,
     };
