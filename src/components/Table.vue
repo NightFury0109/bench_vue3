@@ -36,34 +36,36 @@
       </tr>
     </tbody>
   </table>
+  <InfiniteLoading :offers="offers" @infinite="load" />
 </template>
 
 <script>
-import { onMounted, onUnmounted, ref } from '@vue/runtime-core';
+import { ref } from '@vue/runtime-core';
 import { getOffersWithPagination } from '../api/offers';
+import InfiniteLoading from 'v3-infinite-loading';
 
 export default {
   props: {
     collection: String,
   },
+  components: { InfiniteLoading },
   setup(props) {
     let page = 1;
     const offers = ref([]);
-
-    const loadOffers = async (collection) => {
-      getOffersWithPagination(collection, page).then((res) => {
-        offers.value.push(...res.data.data);
-      });
+    const load = ($state) => {
+      try {
+        getOffersWithPagination(props.collection, page).then((res) => {
+          if (res.data.data[0].length < 25) $state.complete();
+          else {
+            offers.value.push(...res.data.data);
+            $state.loaded();
+          }
+        });
+      } catch (error) {
+        $state.error();
+      }
     };
-    onMounted(() => {
-      console.log('onMount');
-      loadOffers(props.collection);
-    });
-    onUnmounted(() => {
-      offers.value = [];
-      console.log('onUnmount');
-    });
-    return { offers, loadOffers };
+    return { offers, load };
     // const showTable = _.some([offers]);
   },
 };

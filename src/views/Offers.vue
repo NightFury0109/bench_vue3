@@ -75,17 +75,16 @@ export default {
   setup() {
     const { t } = useI18n();
 
+    // Names of tabs and query params
     const collections = reactive([
       { tab: t('message.tab1'), param: 'lookfor' },
       { tab: t('message.tab2'), param: 'available' },
     ]);
+    const currentTab = ref(collections[0].tab);
 
     const setTitle = (i) => {
       document.title = collections[i].tab + ' | Benchkiller';
     };
-
-    const currentTab = ref(collections[0].tab);
-
     onMounted(() => setTitle(0));
 
     // const search = ref('');
