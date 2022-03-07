@@ -66,10 +66,10 @@
 
 <script>
 import Header from '@/components/Header.vue';
-import { ref, reactive, toRefs, computed, onMounted } from 'vue';
+import { ref, reactive, toRefs, onMounted } from 'vue';
 import Toast from '@/components/Toast';
 import _ from 'underscore';
-import { mapState, useStore } from 'vuex';
+import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -88,8 +88,6 @@ export default {
     onMounted(() => {
       document.title = t('message.loginTitle') + ' | Benchkiller';
     });
-
-    computed(() => mapState(['loggedIn', 'loginError', 'accessToken']));
 
     async function loginSubmit() {
       await store.dispatch('doLogin', {

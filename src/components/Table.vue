@@ -40,9 +40,10 @@
 </template>
 
 <script>
-import { ref } from '@vue/runtime-core';
+import { computed } from '@vue/runtime-core';
 import { getOffersWithPagination } from '../api/offers';
 import InfiniteLoading from 'v3-infinite-loading';
+import { useStore } from 'vuex';
 
 export default {
   props: {
@@ -50,8 +51,11 @@ export default {
   },
   components: { InfiniteLoading },
   setup(props) {
+    const store = useStore();
+
     let page = 1;
-    const offers = ref([]);
+    // const offers = ref([]);
+    const offers = computed(() => store.state.offers);
     const load = ($state) => {
       try {
         getOffersWithPagination(props.collection, page).then((res) => {

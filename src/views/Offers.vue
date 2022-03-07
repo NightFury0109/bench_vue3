@@ -87,14 +87,6 @@ export default {
     };
     onMounted(() => setTitle(0));
 
-    // const search = ref('');
-
-    // const searchHandler = computed(() => {
-    //   return offers.value.filter((elem) =>
-    //     elem.includes.toLowerCase().includes(search.value)
-    //   );
-    // });
-
     return {
       collections,
       t,
