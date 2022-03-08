@@ -1,5 +1,11 @@
 <template>
-  <div role="alert" aria-live="assertive" aria-atomic="true">
+  <div
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-delay="10000"
+    data-autohide="true"
+  >
     <div
       id="liveToast"
       class="toast shadow-none toast-notification show position-fixed align-items-center alert-success"

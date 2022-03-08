@@ -50,22 +50,25 @@ export default {
     collection: String,
   },
   components: { InfiniteLoading },
-  setup(props) {
+  setup(props, { emit }) {
     const store = useStore();
+    store.commit('cleanOffersData');
 
     let page = 1;
-    // const offers = ref([]);
     const offers = computed(() => store.state.offers);
     const load = ($state) => {
       try {
         getOffersWithPagination(props.collection, page).then((res) => {
           if (res.data.data[0].length < 25) $state.complete();
           else {
-            offers.value.push(...res.data.data);
+            store.commit('updateOffersData', res.data.data);
             $state.loaded();
+            console.log(res.data.data);
           }
+          page++;
         });
       } catch (error) {
+        emit('error');
         $state.error();
       }
     };

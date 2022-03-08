@@ -1,7 +1,9 @@
 <template>
   <Header />
-  <Toast class="alert-success">{{ $t('message.toastSuccess') }}</Toast>
-  <Toast v-if="serverError" class="alert-danger">{{
+  <Toast v-if="auth" class="alert-success">{{
+    $t('message.toastSuccess')
+  }}</Toast>
+  <Toast v-if="$emit('error')" class="alert-danger">{{
     $t('message.toastServerError')
   }}</Toast>
   <main class="container-fluid pt-5">
@@ -56,7 +58,9 @@
           </div>
         </div>
       </div>
-      <Filter />
+      <div class="col-lg-3">
+        <Filter />
+      </div>
     </div>
   </main>
 </template>
@@ -66,15 +70,19 @@ import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import Toast from '@/components/Toast.vue';
 import Filter from '@/components/Filter.vue';
-import { onMounted, reactive } from '@vue/runtime-core';
+import { computed, onMounted, reactive } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   components: { Header, Table, Toast, Filter },
+  emits: ['error'],
   setup() {
     const { t } = useI18n();
+    const store = useStore();
 
+    const auth = computed(() => store.state.firstAuth);
     // Names of tabs and query params
     const collections = reactive([
       { tab: t('message.tab1'), param: 'lookfor' },
@@ -92,6 +100,7 @@ export default {
       t,
       currentTab,
       setTitle,
+      auth,
     };
   },
 };
