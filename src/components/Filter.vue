@@ -4,15 +4,19 @@
     <div class="mb-3">
       <input
         type="text"
-        v-model="search"
+        v-model="searched.search"
         class="form-control"
         :placeholder="$t('filter.inputPlaceholder')"
       />
     </div>
     <div class="select mt-2">
       <label class="form-label">{{ $t('filter.regionsLabel') }}</label>
-      <select class="form-select" aria-label="Default select example">
-        <option selected="selected" value="Все регионы">Все регионы</option>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        v-model="searched.regions"
+      >
+        <option value="Все регионы">Все регионы</option>
         <option value="СНГ">СНГ</option>
         <option value="Европа">Европа</option>
         <option value="Азия">Азия</option>
@@ -42,8 +46,8 @@
     </div>
     <div class="select mt-3">
       <label class="form-label">{{ $t('filter.timeframeLabel') }}</label>
-      <select class="form-select">
-        <option value="day">День</option>
+      <select class="form-select" v-model="searched.period">
+        <option value="День">День</option>
         <option value="week">Неделя</option>
         <option value="month">Месяц</option>
         <option value="quarter">Квартал</option>
@@ -51,10 +55,18 @@
       </select>
     </div>
     <div class="buttons mt-3">
-      <button type="button" class="btn btn-primary me-2">
+      <button
+        type="button"
+        class="btn btn-primary me-2"
+        @click="$emit('search', searched)"
+      >
         {{ $t('filter.searchBtn') }}
       </button>
-      <button type="button" class="btn btn-warning">
+      <button
+        type="button"
+        class="btn btn-warning"
+        @click="$emit('search', searched)"
+      >
         {{ $t('filter.clearBtn') }}
       </button>
     </div>
@@ -62,16 +74,17 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { reactive } from 'vue';
+
 export default {
-  props: {
-    projects: Array,
-  },
   setup() {
-    const searchHandler = computed(() => {
-      return null;
+    const searched = reactive({
+      search: '',
+      regions: 'Все регионы',
+      period: 'День',
     });
-    return { searchHandler };
+
+    return { searched };
   },
 };
 </script>

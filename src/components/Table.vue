@@ -48,6 +48,7 @@ import { useStore } from 'vuex';
 export default {
   props: {
     collection: String,
+    search: Object,
   },
   components: { InfiniteLoading },
   setup(props, { emit }) {
@@ -58,12 +59,24 @@ export default {
     const offers = computed(() => store.state.offers);
     const load = ($state) => {
       try {
-        getOffersWithPagination(props.collection, page).then((res) => {
+        let options = {
+          collection: props.collection,
+          page: page,
+        };
+        if (props.search != undefined) {
+          options = {
+            ...options,
+            search: props.search.search,
+            regions: props.search.regions,
+            period: props.search.period,
+          };
+          store.commit('cleanOffersData');
+        }
+        getOffersWithPagination(options).then((res) => {
           if (res.data.data[0].length < 25) $state.complete();
           else {
             store.commit('updateOffersData', res.data.data);
             $state.loaded();
-            console.log(res.data.data);
           }
           page++;
         });

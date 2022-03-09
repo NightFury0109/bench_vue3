@@ -12,6 +12,6 @@ export const getOffers = (collection, offers) => {
   );
 };
 
-export const getOffersWithPagination = (collection, page) => {
-  return api.get('offers', { collection: collection, page: page });
+export const getOffersWithPagination = (params) => {
+  return api.get('offers', params);
 };

@@ -3,7 +3,7 @@
   <Toast v-if="auth" class="alert-success">{{
     $t('message.toastSuccess')
   }}</Toast>
-  <Toast v-if="$emit('error')" class="alert-danger">{{
+  <Toast v-if="serverError" class="alert-danger">{{
     $t('message.toastServerError')
   }}</Toast>
   <main class="container-fluid pt-5">
@@ -49,6 +49,8 @@
             <Table
               v-if="currentTab == collections[i].tab"
               :collection="collections[i].param"
+              :search="search.value"
+              @error="serverError = true"
             />
             <div class="text-center py-5 my-loading">
               <div class="spinner-border" role="status">
@@ -59,7 +61,7 @@
         </div>
       </div>
       <div class="col-lg-3">
-        <Filter />
+        <Filter @search="doSearch" />
       </div>
     </div>
   </main>
@@ -77,11 +79,10 @@ import { useStore } from 'vuex';
 
 export default {
   components: { Header, Table, Toast, Filter },
-  emits: ['error'],
+  emits: ['error', 'handleClick'],
   setup() {
     const { t } = useI18n();
     const store = useStore();
-
     const auth = computed(() => store.state.firstAuth);
     // Names of tabs and query params
     const collections = reactive([
@@ -94,13 +95,22 @@ export default {
       document.title = collections[i].tab + ' | Benchkiller';
     };
     onMounted(() => setTitle(0));
-
+    // prop passed to Table.vue
+    const search = reactive([]);
+    const doSearch = (ob) => {
+      console.log(ob);
+      search.value = ob;
+    };
+    const serverError = ref(false);
     return {
       collections,
       t,
       currentTab,
       setTitle,
       auth,
+      doSearch,
+      search,
+      serverError,
     };
   },
 };
