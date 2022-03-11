@@ -11,11 +11,7 @@
     </div>
     <div class="select mt-2">
       <label class="form-label">{{ $t('filter.regionsLabel') }}</label>
-      <select
-        class="form-select"
-        aria-label="Default select example"
-        v-model="searched.regions"
-      >
+      <select class="form-select" v-model="searched.regions">
         <option value="Все регионы">Все регионы</option>
         <option value="СНГ">СНГ</option>
         <option value="Европа">Европа</option>
@@ -47,7 +43,7 @@
     <div class="select mt-3">
       <label class="form-label">{{ $t('filter.timeframeLabel') }}</label>
       <select class="form-select" v-model="searched.period">
-        <option value="День">День</option>
+        <option>День</option>
         <option value="week">Неделя</option>
         <option value="month">Месяц</option>
         <option value="quarter">Квартал</option>

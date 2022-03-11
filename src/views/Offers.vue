@@ -49,7 +49,7 @@
             <Table
               v-if="currentTab == collections[i].tab"
               :collection="collections[i].param"
-              :search="search.value"
+              :search="search"
               @error="serverError = true"
             />
             <div class="text-center py-5 my-loading">
@@ -79,27 +79,25 @@ import { useStore } from 'vuex';
 
 export default {
   components: { Header, Table, Toast, Filter },
-  emits: ['error', 'handleClick'],
   setup() {
     const { t } = useI18n();
     const store = useStore();
     const auth = computed(() => store.state.firstAuth);
+
     // Names of tabs and query params
-    const collections = reactive([
+    const collections = ref([
       { tab: t('message.tab1'), param: 'lookfor' },
       { tab: t('message.tab2'), param: 'available' },
     ]);
-    const currentTab = ref(collections[0].tab);
+    const currentTab = ref(collections.value[0].tab);
 
     const setTitle = (i) => {
-      document.title = collections[i].tab + ' | Benchkiller';
+      document.title = collections.value[i].tab + ' | Benchkiller';
     };
     onMounted(() => setTitle(0));
-    // prop passed to Table.vue
-    const search = reactive([]);
+    let search = reactive({});
     const doSearch = (ob) => {
-      console.log(ob);
-      search.value = ob;
+      Object.assign(search, ob);
     };
     const serverError = ref(false);
     return {

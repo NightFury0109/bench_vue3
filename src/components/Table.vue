@@ -36,11 +36,11 @@
       </tr>
     </tbody>
   </table>
-  <InfiniteLoading :offers="offers" @infinite="load" />
+  <InfiniteLoading :offers="offers" :identifier="ob" @infinite="load" />
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core';
+import { computed, reactive, ref, watchEffect } from '@vue/runtime-core';
 import { getOffersWithPagination } from '../api/offers';
 import InfiniteLoading from 'v3-infinite-loading';
 import { useStore } from 'vuex';
@@ -50,28 +50,26 @@ export default {
     collection: String,
     search: Object,
   },
+  emits: ['error'],
   components: { InfiniteLoading },
   setup(props, { emit }) {
     const store = useStore();
     store.commit('cleanOffersData');
-
     let page = 1;
+    let options = reactive({ collection: props.collection, page: page });
     const offers = computed(() => store.state.offers);
+    let ob = ref(+new Date());
+    watchEffect(() => {
+      if (props.search != 'undefined') {
+        store.commit('cleanOffersData');
+        ob.value += 1;
+        console.log(ob.value);
+        options = { ...options, ...props.search };
+      }
+      console.log(options);
+    });
     const load = ($state) => {
       try {
-        let options = {
-          collection: props.collection,
-          page: page,
-        };
-        if (props.search != undefined) {
-          options = {
-            ...options,
-            search: props.search.search,
-            regions: props.search.regions,
-            period: props.search.period,
-          };
-          store.commit('cleanOffersData');
-        }
         getOffersWithPagination(options).then((res) => {
           if (res.data.data[0].length < 25) $state.complete();
           else {
@@ -85,7 +83,8 @@ export default {
         $state.error();
       }
     };
-    return { offers, load };
+
+    return { offers, load, options, ob };
     // const showTable = _.some([offers]);
   },
 };
