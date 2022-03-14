@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="col-lg-3">
-        <Filter @search="doSearch" />
+        <Filter @search="doSearch" @clean-search="cleanSearch" />
       </div>
     </div>
   </main>
@@ -99,6 +99,10 @@ export default {
     const doSearch = (ob) => {
       Object.assign(search, ob);
     };
+    const cleanSearch = (ob) => {
+      ob = {};
+      Object.assign(search, ob);
+    };
     const serverError = ref(false);
     return {
       collections,
@@ -108,6 +112,7 @@ export default {
       auth,
       doSearch,
       search,
+      cleanSearch,
       serverError,
     };
   },

@@ -4,64 +4,39 @@
     <div class="mb-3">
       <input
         type="text"
-        v-model="searched.search"
+        v-model.trim="searched.search"
         class="form-control"
         :placeholder="$t('filter.inputPlaceholder')"
       />
     </div>
     <div class="select mt-2">
       <label class="form-label">{{ $t('filter.regionsLabel') }}</label>
-      <select class="form-select" v-model="searched.regions">
-        <option value="Все регионы">Все регионы</option>
-        <option value="СНГ">СНГ</option>
-        <option value="Европа">Европа</option>
-        <option value="Азия">Азия</option>
-        <option value="Австралия">Австралия</option>
-        <option value="Азербайджан">Азербайджан</option>
-        <option value="Америка">Америка</option>
-        <option value="Армения">Армения</option>
-        <option value="Беларусь">Беларусь</option>
-        <option value="Великобритания">Великобритания</option>
-        <option value="Германия">Германия</option>
-        <option value="Грузия">Грузия</option>
-        <option value="Дания">Дания</option>
-        <option value="Израиль">Израиль</option>
-        <option value="Казахстан">Казахстан</option>
-        <option value="Канада">Канада</option>
-        <option value="Норвегия">Норвегия</option>
-        <option value="Польша">Польша</option>
-        <option value="Россия">Россия</option>
-        <option value="США">США</option>
-        <option value="Таджикистан">Таджикистан</option>
-        <option value="Узбекистан">Узбекистан</option>
-        <option value="Украина">Украина</option>
-        <option value="Финляндия">Финляндия</option>
-        <option value="Швейцария">Швейцария</option>
-        <option value="Швеция">Швеция</option>
+      <select class="form-select" v-model="searched.region">
+        <option v-for="(reg, i) in regions" :key="i" :value="reg.value">
+          {{ reg.text }}
+        </option>
       </select>
     </div>
     <div class="select mt-3">
       <label class="form-label">{{ $t('filter.timeframeLabel') }}</label>
       <select class="form-select" v-model="searched.period">
-        <option>День</option>
-        <option value="week">Неделя</option>
-        <option value="month">Месяц</option>
-        <option value="quarter">Квартал</option>
-        <option value="various_period">Произвольный период</option>
+        <option v-for="(period, i) in periods" :key="i" :value="period.value">
+          {{ period.text }}
+        </option>
       </select>
     </div>
     <div class="buttons mt-3">
       <button
         type="button"
         class="btn btn-primary me-2"
-        @click="$emit('search', searched)"
+        @click.prevent="$emit('search', searched)"
       >
         {{ $t('filter.searchBtn') }}
       </button>
       <button
         type="button"
         class="btn btn-warning"
-        @click="$emit('search', searched)"
+        @click.prevent="$emit('clean-search', searched)"
       >
         {{ $t('filter.clearBtn') }}
       </button>
@@ -70,17 +45,158 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 export default {
   setup() {
+    const regions = ref([
+      {
+        text: 'Все регионы',
+        value: 'Все регионы',
+      },
+      {
+        text: 'СНГ',
+        value: 'СНГ',
+      },
+      {
+        text: 'Европа',
+        value: 'Европа',
+      },
+      {
+        text: 'Азия',
+        value: 'Азия',
+      },
+      {
+        text: 'Австралия',
+        value: 'Австралия',
+      },
+      {
+        text: 'Азербайджан',
+        value: 'Азербайджан',
+      },
+      {
+        text: 'Все регионы',
+        value: 'Все регионы',
+      },
+      {
+        text: 'Америка',
+        value: 'Америка',
+      },
+      {
+        text: 'Армения',
+        value: 'Армения',
+      },
+      {
+        text: 'Беларусь',
+        value: 'Беларусь',
+      },
+      {
+        text: 'Все регионы',
+        value: 'Все регионы',
+      },
+      {
+        text: 'Великобритания',
+        value: 'Великобритания',
+      },
+      {
+        text: 'Все регионы',
+        value: 'Все регионы',
+      },
+      {
+        text: 'Германия',
+        value: 'Германия',
+      },
+      {
+        text: 'Грузия',
+        value: 'Грузия',
+      },
+      {
+        text: 'Дания',
+        value: 'Дания',
+      },
+      {
+        text: 'Израиль',
+        value: 'Израиль',
+      },
+      {
+        text: 'Казахстан',
+        value: 'Казахстан',
+      },
+      {
+        text: 'Канада',
+        value: 'Канада',
+      },
+      {
+        text: 'Норвегия',
+        value: 'Норвегия',
+      },
+      {
+        text: 'Польша',
+        value: 'Польша',
+      },
+      {
+        text: 'Россия',
+        value: 'Россия',
+      },
+      {
+        text: 'США',
+        value: 'США',
+      },
+      {
+        text: 'Таджикистан',
+        value: 'Таджикистан',
+      },
+      {
+        text: 'Узбекистан',
+        value: 'Узбекистан',
+      },
+      {
+        text: 'Украина',
+        value: 'Украина',
+      },
+      {
+        text: 'Финляндия',
+        value: 'Финляндия',
+      },
+      {
+        text: 'Швейцария',
+        value: 'Швейцария',
+      },
+      {
+        text: 'Швеция',
+        value: 'Швеция',
+      },
+    ]);
+    const periods = ref([
+      {
+        text: 'День',
+        value: 'day',
+      },
+      {
+        text: 'Неделя',
+        value: 'week',
+      },
+      {
+        text: 'Месяц',
+        value: 'month',
+      },
+      {
+        text: 'Квартал',
+        value: 'quarter',
+      },
+      {
+        text: 'Произвольный период',
+        value: 'various_period ',
+      },
+    ]);
+
     const searched = reactive({
       search: '',
-      regions: 'Все регионы',
+      region: 'Все регионы',
       period: 'День',
     });
 
-    return { searched };
+    return { searched, regions, periods };
   },
 };
 </script>

@@ -36,7 +36,7 @@
       </tr>
     </tbody>
   </table>
-  <InfiniteLoading :offers="offers" :identifier="ob" @infinite="load" />
+  <InfiniteLoading :offers="offers" :identifier="identifier" @infinite="load" />
 </template>
 
 <script>
@@ -58,13 +58,15 @@ export default {
     let page = 1;
     let options = reactive({ collection: props.collection, page: page });
     const offers = computed(() => store.state.offers);
-    let ob = ref(+new Date());
+    let identifier = ref(+new Date());
     watchEffect(() => {
       if (props.search != 'undefined') {
         store.commit('cleanOffersData');
-        ob.value += 1;
-        console.log(ob.value);
+        identifier.value += 1;
+        console.log(identifier.value);
         options = { ...options, ...props.search };
+      } else if (props.search == {}) {
+        options = {};
       }
       console.log(options);
     });
@@ -84,7 +86,7 @@ export default {
       }
     };
 
-    return { offers, load, options, ob };
+    return { offers, load, options, identifier };
     // const showTable = _.some([offers]);
   },
 };
