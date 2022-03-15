@@ -16,11 +16,3 @@ export const get = (path, params) => {
     },
   });
 };
-
-// const api = axios.create({
-//   baseURL: process.env.VUE_APP_API_URL,
-// });
-
-// api.defaults.headers.get['Authorization'] = `Bearer ${store.state.accessToken}`;
-
-// export default api;

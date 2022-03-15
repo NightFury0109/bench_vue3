@@ -48,10 +48,10 @@ export default {
   setup() {
     const regions = ref([]);
 
-    onMounted(async () => {
-      await api.get('regions').then((res) => {
-        regions.value.push(res.data.data);
-        console.log(regions);
+    onMounted(() => {
+      api.get('regions').then((res) => {
+        regions.value = res.data.data;
+        console.log(regions.value);
       });
     });
     const periods = ref([
