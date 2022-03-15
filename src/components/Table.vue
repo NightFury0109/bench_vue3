@@ -36,7 +36,15 @@
       </tr>
     </tbody>
   </table>
-  <InfiniteLoading :offers="offers" :identifier="identifier" @infinite="load" />
+  <InfiniteLoading :offers="offers" :identifier="identifier" @infinite="load">
+    <template #spinner>
+      <div class="col-lg-9 text-center py-5 my-loading">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </template>
+  </InfiniteLoading>
 </template>
 
 <script>
@@ -59,13 +67,14 @@ export default {
     let options = reactive({ collection: props.collection, page: page });
     const offers = computed(() => store.state.offers);
     let identifier = ref(+new Date());
+
     watchEffect(() => {
       if (props.search != 'undefined') {
         store.commit('cleanOffersData');
         identifier.value += 1;
-        console.log(identifier.value);
         options = { ...options, ...props.search };
       } else if (props.search == {}) {
+        console.log('empty');
         options = {};
       }
       console.log(options);
@@ -73,7 +82,7 @@ export default {
     const load = ($state) => {
       try {
         getOffersWithPagination(options).then((res) => {
-          if (res.data.data[0].length < 25) $state.complete();
+          if (res.data.data.length < 25) $state.complete();
           else {
             store.commit('updateOffersData', res.data.data);
             $state.loaded();

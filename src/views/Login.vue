@@ -2,9 +2,22 @@
   <div class="d-flex flex-column login-flex justify-content-between">
     <Header />
     <main class="container pt-5">
-      <Toast v-if="showToast" class="alert-danger">{{
-        $t('message.toastWrongAuth')
-      }}</Toast>
+      <Alert v-if="showToast" class="alert-danger">
+        <template v-slot:icon>
+          <svg
+            class="me-2"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 0 24 24"
+            width="24px"
+            fill="#000000"
+          >
+            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" /></svg
+        ></template>
+        <template v-slot:text>{{
+          $t('message.toastWrongAuth')
+        }}</template></Alert
+      >
       <div class="row mx-n3">
         <div class="col-lg-12">
           <div class="row">
@@ -44,7 +57,7 @@
                   class="text-decoration-none"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://t.me/benchkiller_test_bot"
+                  href="https://t.me/Benchkiller_bot"
                   >{{ $t('message.botLink') }}</a
                 >
                 {{ $t('message.alertMessage2') }}
@@ -67,14 +80,13 @@
 <script>
 import Header from '@/components/Header.vue';
 import { ref, reactive, toRefs, onMounted } from 'vue';
-import Toast from '@/components/Toast';
-import _ from 'underscore';
+import Alert from '@/components/Alert';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 export default {
-  components: { Toast, Header },
+  components: { Alert, Header },
   setup() {
     const currentYear = new Date().getFullYear();
     const showToast = ref(false);
@@ -90,18 +102,19 @@ export default {
     });
 
     async function loginSubmit() {
-      await store.dispatch('doLogin', {
-        auth: {
-          login: user.telegram,
-          password: user.password,
-        },
-      });
+      await store
+        .dispatch('doLogin', {
+          auth: {
+            login: user.telegram,
+            password: user.password,
+          },
+        })
+        .catch((e) => {
+          showToast.value = true;
+          setTimeout(() => (showToast.value = false), 10000);
+          if (process.env.NODE_ENV != 'production') console.log(e);
+        });
       router.push('/offers');
-
-      if (_.isEmpty(user.telegram) && _.isEmpty(user.password)) {
-        showToast.value = true;
-        setTimeout(() => (showToast.value = false), 10000);
-      }
     }
 
     const { t } = useI18n();

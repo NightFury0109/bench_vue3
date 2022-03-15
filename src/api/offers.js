@@ -1,17 +1,9 @@
 import * as api from '../api/api';
 
-export const getOffers = (collection, offers) => {
-  offers.value = [];
-  api.get(
-    'offers',
-    { collection: collection },
-    ({ data }) => {
-      offers.value.push(data.data);
-    },
-    (error) => console.log(error)
-  );
-};
-
-export const getOffersWithPagination = (params) => {
-  return api.get('offers', params);
+export const getOffersWithPagination = async (params) => {
+  try {
+    return await api.get('offers', params);
+  } catch (e) {
+    if (process.env.NODE_ENV != 'production') console.log(e);
+  }
 };
