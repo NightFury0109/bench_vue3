@@ -85,11 +85,7 @@
         </div>
       </div>
       <div class="col-lg-3">
-        <Filter
-          class="sticky-top pt-3"
-          @search="doSearch"
-          @clean-search="cleanSearch"
-        />
+        <Filter class="sticky-top pt-3" @search="doSearch" />
       </div>
     </div>
   </main>
@@ -123,18 +119,18 @@ export default {
       document.title = collections.value[i].tab + ' | Benchkiller';
     };
     onMounted(() => setTitle(0));
+
     let search = reactive({});
     const doSearch = (ob) => {
       Object.assign(search, ob);
     };
-    const cleanSearch = () => {
-      Object.assign(search, {});
-    };
+
     const serverError = ref(false);
     const handleError = () => {
       serverError.value = true;
       setTimeout(() => (serverError.value = false), 10000);
     };
+
     return {
       collections,
       t,
@@ -143,7 +139,6 @@ export default {
       auth,
       doSearch,
       search,
-      cleanSearch,
       serverError,
       handleError,
     };

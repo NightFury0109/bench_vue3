@@ -73,17 +73,15 @@ export default {
         store.commit('cleanOffersData');
         identifier.value += 1;
         options = { ...options, ...props.search };
-      } else if (props.search == {}) {
-        console.log('empty');
-        options = {};
       }
       console.log(options);
     });
     const load = ($state) => {
       try {
         getOffersWithPagination(options).then((res) => {
-          if (res.data.data.length < 25) $state.complete();
-          else {
+          if (res.data.data.length < 25) {
+            $state.complete();
+          } else {
             store.commit('updateOffersData', res.data.data);
             $state.loaded();
           }
@@ -96,7 +94,6 @@ export default {
     };
 
     return { offers, load, options, identifier };
-    // const showTable = _.some([offers]);
   },
 };
 </script>

@@ -43,18 +43,25 @@
 <script>
 import { onMounted, reactive, ref } from 'vue';
 import * as api from '../api/api';
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
     const regions = ref([]);
-
+    const router = useRouter();
+    const cleanSearch = () => {
+      router.go();
+    };
     onMounted(() => {
       api.get('regions').then((res) => {
         regions.value = res.data.data;
-        console.log(regions.value);
       });
     });
     const periods = ref([
+      {
+        text: 'За всё время',
+        value: 'all_time',
+      },
       {
         text: 'День',
         value: 'day',
@@ -80,13 +87,8 @@ export default {
     let searched = reactive({
       search: '',
       region: 'Все регионы',
-      period: 'day',
+      period: 'all_time',
     });
-    const cleanSearch = () => {
-      searched.search = '';
-      searched.region = 'Все регионы';
-      searched.period = 'day';
-    };
     return { searched, regions, periods, cleanSearch };
   },
 };
