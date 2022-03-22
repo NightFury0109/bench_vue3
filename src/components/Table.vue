@@ -79,14 +79,15 @@ export default {
     const load = ($state) => {
       try {
         getOffersWithPagination(options).then((res) => {
-          if (res.data.data.length < 25) {
+          console.log(res.data);
+          if (res.data.links.next == null) {
             $state.complete();
           } else {
             store.commit('updateOffersData', res.data.data);
             $state.loaded();
           }
-          page++;
         });
+        options.page++;
       } catch (error) {
         emit('error');
         $state.error();

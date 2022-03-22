@@ -20,10 +20,43 @@
     <div class="select mt-3">
       <label class="form-label">{{ $t('filter.timeframeLabel') }}</label>
       <select class="form-select" v-model="searched.period">
-        <option v-for="(period, i) in periods" :key="i" :value="period.value">
-          {{ period.text }}
+        <option value="all_time">За всё время</option>
+        <option value="day">День</option>
+        <option value="week">Неделя</option>
+        <option value="month">Месяц</option>
+        <option value="quarter">Квартал</option>
+        <option value="various_period">
+          <p>
+            <a
+              data-bs-toggle="collapse"
+              href="#collapseExample"
+              role="button"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Произвольный период
+            </a>
+          </p>
         </option>
       </select>
+    </div>
+    <div v-if="showDatepicker" class="d-flex justify-content-between mt-3">
+      <div class="me-3">
+        <Datepicker
+          v-model="searched.begin_date"
+          :enableTimePicker="false"
+          autoApply
+          :closeOnAutoApply="false"
+        />
+      </div>
+      <div>
+        <Datepicker
+          v-model="searched.end_date"
+          :enableTimePicker="false"
+          autoApply
+          :closeOnAutoApply="false"
+        />
+      </div>
     </div>
     <div class="buttons mt-3">
       <button
@@ -41,55 +74,46 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, watchEffect } from 'vue';
 import * as api from '../api/api';
 import { useRouter } from 'vue-router';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 export default {
+  components: { Datepicker },
   setup() {
     const regions = ref([]);
     const router = useRouter();
     const cleanSearch = () => {
       router.go();
     };
+
     onMounted(() => {
       api.get('regions').then((res) => {
         regions.value = res.data.data;
       });
     });
-    const periods = ref([
-      {
-        text: 'За всё время',
-        value: 'all_time',
-      },
-      {
-        text: 'День',
-        value: 'day',
-      },
-      {
-        text: 'Неделя',
-        value: 'week',
-      },
-      {
-        text: 'Месяц',
-        value: 'month',
-      },
-      {
-        text: 'Квартал',
-        value: 'quarter',
-      },
-      {
-        text: 'Произвольный период',
-        value: 'various_period ',
-      },
-    ]);
+    const showDatepicker = ref(false);
 
     let searched = reactive({
       search: '',
       region: 'Все регионы',
       period: 'all_time',
     });
-    return { searched, regions, periods, cleanSearch };
+    watchEffect(() => {
+      if (searched.period == 'various_period') {
+        showDatepicker.value = true;
+        searched['begin_date'] = ref('');
+        searched['end_date'] = ref('');
+      } else {
+        showDatepicker.value = false;
+        delete searched['begin_date'];
+        delete searched['end_date'];
+      }
+    });
+
+    return { searched, regions, cleanSearch, showDatepicker };
   },
 };
 </script>
