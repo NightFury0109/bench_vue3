@@ -26,6 +26,12 @@
       "regionsLabel": "Регионы сотрудничества",
       "timeframeLabel": "Период публикации",
       "searchBtn": "Поиск",
-      "clearBtn": "Сбросить"
+      "clearBtn": "Сбросить",
+      "allTime": "За всё время",
+      "day": "День",
+      "week": "Неделя",
+      "month": "Месяц",
+      "quarter": "Квартал",
+      "variousPeriod": "Произвольный период"
     }
   }

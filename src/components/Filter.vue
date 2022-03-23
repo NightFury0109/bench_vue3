@@ -1,5 +1,5 @@
 <template>
-  <form class="ms-4">
+  <form class="ms-4" @submit.prevent="$emit('search', searched)">
     <h3 class="pb-3">{{ $t('filter.filterHeader') }}</h3>
     <div class="mb-3">
       <input
@@ -20,11 +20,11 @@
     <div class="select mt-3">
       <label class="form-label">{{ $t('filter.timeframeLabel') }}</label>
       <select class="form-select" v-model="searched.period">
-        <option value="all_time">За всё время</option>
-        <option value="day">День</option>
-        <option value="week">Неделя</option>
-        <option value="month">Месяц</option>
-        <option value="quarter">Квартал</option>
+        <option value="all_time">{{ $t('filter.allTime') }}</option>
+        <option value="day">{{ $t('filter.day') }}</option>
+        <option value="week">{{ $t('filter.week') }}</option>
+        <option value="month">{{ $t('filter.month') }}</option>
+        <option value="quarter">{{ $t('filter.quarter') }}</option>
         <option value="various_period">
           <p>
             <a
@@ -34,7 +34,7 @@
               aria-expanded="false"
               aria-controls="collapseExample"
             >
-              Произвольный период
+              {{ $t('filter.variousPeriod') }}
             </a>
           </p>
         </option>
@@ -45,8 +45,11 @@
         <Datepicker
           v-model="searched.begin_date"
           :enableTimePicker="false"
+          :format="format"
           autoApply
           :closeOnAutoApply="false"
+          locale="ru"
+          :previewFormat="format"
         />
       </div>
       <div>
@@ -54,7 +57,10 @@
           v-model="searched.end_date"
           :enableTimePicker="false"
           autoApply
+          :format="format"
           :closeOnAutoApply="false"
+          locale="ru"
+          :previewFormat="format"
         />
       </div>
     </div>
@@ -101,6 +107,13 @@ export default {
       region: 'Все регионы',
       period: 'all_time',
     });
+
+    const format = (date) => {
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      return `${day}.${month}.${year}`;
+    };
     watchEffect(() => {
       if (searched.period == 'various_period') {
         showDatepicker.value = true;
@@ -113,7 +126,7 @@ export default {
       }
     });
 
-    return { searched, regions, cleanSearch, showDatepicker };
+    return { searched, regions, cleanSearch, showDatepicker, format };
   },
 };
 </script>

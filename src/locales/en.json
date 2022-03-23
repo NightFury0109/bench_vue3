@@ -21,6 +21,17 @@
       "toastServerError": "Server error"
     },
     "filter": {
-      "filterHeader": "Filter search"
+      "filterHeader": "Search by",
+      "inputPlaceholder": "Type search terms",
+      "regionsLabel": "Cooperation regions",
+      "timeframeLabel": "Timeframe",
+      "searchBtn": "Apply",
+      "clearBtn": "Reset",
+      "allTime": "All time",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "quarter": "Quarter",
+      "variousPeriod": "Various period"
     }
   }
