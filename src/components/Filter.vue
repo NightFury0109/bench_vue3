@@ -43,24 +43,24 @@
     <div v-if="showDatepicker" class="d-flex justify-content-between mt-3">
       <div class="me-3">
         <Datepicker
-          v-model="searched.begin_date"
+          class="input-group form-control border-"
+          v-model="start"
           :enableTimePicker="false"
-          :format="format"
           autoApply
+          :format="inputFormat"
           :closeOnAutoApply="false"
           locale="ru"
-          :previewFormat="format"
         />
       </div>
       <div>
         <Datepicker
-          v-model="searched.end_date"
+          class="input-group form-control border-0"
+          v-model="end"
           :enableTimePicker="false"
           autoApply
-          :format="format"
+          :format="inputFormat"
           :closeOnAutoApply="false"
           locale="ru"
-          :previewFormat="format"
         />
       </div>
     </div>
@@ -85,7 +85,7 @@ import * as api from '../api/api';
 import { useRouter } from 'vue-router';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-
+import moment from 'moment';
 export default {
   components: { Datepicker },
   setup() {
@@ -108,7 +108,7 @@ export default {
       period: 'all_time',
     });
 
-    const format = (date) => {
+    const inputFormat = (date) => {
       const day = date.getDate();
       const months = [
         '01',
@@ -128,11 +128,14 @@ export default {
       const year = date.getFullYear();
       return `${day}.${month}.${year}`;
     };
+
+    let start = ref('');
+    let end = ref('');
     watchEffect(() => {
       if (searched.period == 'various_period') {
         showDatepicker.value = true;
-        searched['begin_date'] = ref('');
-        searched['end_date'] = ref('');
+        searched['begin_date'] = moment(start.value).format('DD.MM.YYYY');
+        searched['end_date'] = moment(end.value).format('DD.MM.YYYY');
       } else {
         showDatepicker.value = false;
         delete searched['begin_date'];
@@ -140,7 +143,15 @@ export default {
       }
     });
 
-    return { searched, regions, cleanSearch, showDatepicker, format };
+    return {
+      searched,
+      regions,
+      cleanSearch,
+      showDatepicker,
+      inputFormat,
+      start,
+      end,
+    };
   },
 };
 </script>

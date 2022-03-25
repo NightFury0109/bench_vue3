@@ -38,7 +38,12 @@
   <main class="container-fluid pt-5">
     <div class="d-flex flex-row">
       <div class="col-lg-9">
-        <p class="h1">{{ $t('message.searchH') }}</p>
+        <div class="d-flex justify-content-between">
+          <p class="h1">{{ $t('message.searchH') }}</p>
+          <button type="button" class="btn btn-primary h-50 mt-3">
+            Сделать рассылку
+          </button>
+        </div>
         <ul class="nav nav-tabs pt-4" id="offersTabs" role="tablist">
           <li
             class="nav-item"

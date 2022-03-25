@@ -15,13 +15,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr :key="i" v-for="(offer, i) in offers">
+      <tr :key="offer.id" v-for="offer in offers">
         <td>
           <input
             class="form-check-input mt-3"
+            v-model="checkedOffers"
             type="checkbox"
-            value=""
-            id="flexCheckDefault"
+            :value="offer.attributes.title"
+            @change="updateCheckedOffers"
           />
         </td>
         <td class="p-3">
@@ -72,6 +73,7 @@ export default {
       if (props.search != 'undefined') {
         store.commit('cleanOffersData');
         identifier.value += 1;
+        options.page = 1;
         options = { ...options, ...props.search };
       }
       console.log(options);
@@ -81,6 +83,7 @@ export default {
         getOffersWithPagination(options).then((res) => {
           console.log(res.data);
           if (res.data.links.next == null) {
+            store.commit('updateOffersData', res.data.data);
             $state.complete();
           } else {
             store.commit('updateOffersData', res.data.data);
@@ -94,7 +97,18 @@ export default {
       }
     };
 
-    return { offers, load, options, identifier };
+    const checkedOffers = ref([]);
+    const updateCheckedOffers = () => {
+      store.commit('updateCheckedOffers', checkedOffers.value);
+    };
+    return {
+      offers,
+      load,
+      options,
+      identifier,
+      checkedOffers,
+      updateCheckedOffers,
+    };
   },
 };
 </script>

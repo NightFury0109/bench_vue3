@@ -10,7 +10,7 @@ import ru from './locales/ru.json';
 import en from './locales/en.json';
 
 const i18n = new createI18n({
-  locale: 'en',
+  locale: 'ru',
   messages: {
     ru,
     en,

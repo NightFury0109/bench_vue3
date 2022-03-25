@@ -13,6 +13,7 @@ export const get = (path, params) => {
     params,
     headers: {
       Authorization: 'Bearer ' + store.state.accessToken,
+      'Accept-Encoding': 'gzip, deflate, br',
     },
   });
 };

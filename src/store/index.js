@@ -6,6 +6,7 @@ export default createStore({
     accessToken: null,
     firstAuth: false,
     offers: [],
+    checkedOffers: [],
   },
   mutations: {
     updateAccessToken: (state, accessToken) => {
@@ -19,6 +20,9 @@ export default createStore({
     },
     cleanOffersData: (state) => {
       state.offers = [];
+    },
+    updateCheckedOffers: (state, payload) => {
+      state.checkedOffers.push(...payload);
     },
   },
   actions: {
