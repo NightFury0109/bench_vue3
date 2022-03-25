@@ -43,7 +43,6 @@
     <div v-if="showDatepicker" class="d-flex justify-content-between mt-3">
       <div class="me-3">
         <Datepicker
-          class="input-group form-control border-"
           v-model="start"
           :enableTimePicker="false"
           autoApply
@@ -54,7 +53,6 @@
       </div>
       <div>
         <Datepicker
-          class="input-group form-control border-0"
           v-model="end"
           :enableTimePicker="false"
           autoApply

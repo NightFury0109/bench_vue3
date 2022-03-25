@@ -40,7 +40,7 @@
       <div class="col-lg-9">
         <div class="d-flex justify-content-between">
           <p class="h1">{{ $t('message.searchH') }}</p>
-          <button type="button" class="btn btn-primary h-50 mt-3">
+          <button type="button" class="btn btn-primary h-50 mt-3 ms-3">
             Сделать рассылку
           </button>
         </div>
