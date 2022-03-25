@@ -1,4 +1,5 @@
 <template>
+  <TableAlert></TableAlert>
   <table
     class="container table table-bordered table-striped table-hover"
     v-if="offers.length"
@@ -6,14 +7,15 @@
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col" class="text-start fw-light py-4 fw-bold">
+        <th scope="col" class="text-start fw-light py-2 fw-bold">
           {{ $t('message.thead1') }}
         </th>
-        <th scope="col" class="text-center fw-light py-4 fw-bold">
+        <th scope="col" class="text-center fw-light py-2 fw-bold">
           {{ $t('message.thead2') }}
         </th>
       </tr>
     </thead>
+
     <tbody>
       <tr :key="offer.id" v-for="offer in offers">
         <td>
@@ -53,6 +55,7 @@ import { computed, reactive, ref, watchEffect } from '@vue/runtime-core';
 import { getOffersWithPagination } from '../api/offers';
 import InfiniteLoading from 'v3-infinite-loading';
 import { useStore } from 'vuex';
+import TableAlert from './TableAlert.vue';
 
 export default {
   props: {
@@ -60,7 +63,7 @@ export default {
     search: Object,
   },
   emits: ['error'],
-  components: { InfiniteLoading },
+  components: { InfiniteLoading, TableAlert },
   setup(props, { emit }) {
     const store = useStore();
     store.commit('cleanOffersData');
