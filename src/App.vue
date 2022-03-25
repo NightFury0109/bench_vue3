@@ -1,14 +1,17 @@
 <template>
-  <Login />
+  <router-view></router-view>
 </template>
 
 <script>
-import Login from "@/components/Login.vue";
+import { useStore } from 'vuex';
 export default {
-  components: { Login },
+  setup() {
+    const store = useStore();
+    store.dispatch('fetchAccessToken');
+  },
 };
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/style.scss";
+@import '@/assets/scss/style.scss';
 </style>

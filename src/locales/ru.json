@@ -6,6 +6,32 @@
       "alertMessage1": "Впервые у нас? Перейдите в нашего ",
       "botLink": "бота",
       "alertMessage2": " и сгенерируйте себе пароль.",
-      "dangerAlert": "Неверный логин или пароль"
+      "toastWrongAuth": "Неверный логин или пароль",
+      "navLink": "Проекты и команды",
+      "tab1": "Предложения",
+      "tab2": "Команды",
+      "thead1": "Содержание",
+      "thead2": "Дата",
+      "searchH": "Поиск по постам",
+      "logOut": "Выйти",
+      "loginTitle": "Авторизация",
+      "projectsTitle": "Проекты",
+      "teamsTitle": "Команды",
+      "toastSuccess": "Авторизация прошла успешно",
+      "toastServerError": "Серверная ошибка"
+    },
+    "filter": {
+      "filterHeader": "Поиск",
+      "inputPlaceholder": "Введите текст для поиска",
+      "regionsLabel": "Регионы сотрудничества",
+      "timeframeLabel": "Период публикации",
+      "searchBtn": "Поиск",
+      "clearBtn": "Сбросить",
+      "allTime": "За всё время",
+      "day": "День",
+      "week": "Неделя",
+      "month": "Месяц",
+      "quarter": "Квартал",
+      "variousPeriod": "Произвольный период"
     }
   }

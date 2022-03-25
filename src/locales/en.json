@@ -6,6 +6,32 @@
       "alertMessage1": "No account? Check out our ",
       "botLink": "bot",
       "alertMessage2": " and generate your password.",
-      "dangerAlert": "Invalid login or password"
+      "toastWrongAuth": "Invalid login or password",
+      "navLink": "Projects and Teams",
+      "tab1": "Offers",
+      "tab2": "Teams",
+      "thead1": "Content",
+      "thead2": "Date",
+      "searchH": "Search",
+      "logOut": "Log Out",
+      "loginTitle": "Login",
+      "projectsTitle": "Projects",
+      "teamsTitle": "Teams",
+      "toastSuccess": "Authorized",
+      "toastServerError": "Server error"
+    },
+    "filter": {
+      "filterHeader": "Search by",
+      "inputPlaceholder": "Type search terms",
+      "regionsLabel": "Cooperation regions",
+      "timeframeLabel": "Timeframe",
+      "searchBtn": "Apply",
+      "clearBtn": "Reset",
+      "allTime": "All time",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "quarter": "Quarter",
+      "variousPeriod": "Various period"
     }
   }
