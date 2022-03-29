@@ -18,7 +18,10 @@
       "projectsTitle": "Projects",
       "teamsTitle": "Teams",
       "toastSuccess": "Authorized",
-      "toastServerError": "Server error"
+      "toastServerError": "Server error",
+      "lookforAlert": "",
+      "availableAlert": "",
+      "noDataFound": ""
     },
     "filter": {
       "filterHeader": "Search by",
@@ -32,6 +35,8 @@
       "week": "Week",
       "month": "Month",
       "quarter": "Quarter",
-      "variousPeriod": "Various period"
+      "variousPeriod": "Various period",
+      "from": "From",
+      "to": "To"
     }
   }

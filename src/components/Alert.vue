@@ -4,7 +4,7 @@
     :="$attrs"
     role="alert"
   >
-    <slot name="icon"> </slot>
+    <slot name="icon"></slot>
     <div class="fade show">
       <slot name="text"></slot>
     </div>

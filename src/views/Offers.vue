@@ -44,7 +44,7 @@
             Сделать рассылку
           </button>
         </div>
-        <ul class="nav nav-tabs pt-4" id="offersTabs" role="tablist">
+        <ul class="container nav nav-tabs pt-4" id="offersTabs" role="tablist">
           <li
             class="nav-item"
             role="presentation"
@@ -80,6 +80,9 @@
             role="tabpanel"
             aria-labelledby="projects-tab"
           >
+            <TableAlert v-if="currentTab == collections[i].tab">{{
+              collections[i].alert
+            }}</TableAlert>
             <Table
               v-if="currentTab == collections[i].tab"
               :collection="collections[i].param"
@@ -105,9 +108,10 @@ import { computed, onMounted, reactive } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import TableAlert from '@/components/TableAlert.vue';
 
 export default {
-  components: { Header, Table, Alert, Filter },
+  components: { Header, Table, Alert, Filter, TableAlert },
   setup() {
     const { t } = useI18n();
     const store = useStore();
@@ -115,13 +119,23 @@ export default {
 
     // Names of tabs and query params
     const collections = ref([
-      { tab: t('message.tab1'), param: 'lookfor' },
-      { tab: t('message.tab2'), param: 'available' },
+      {
+        tab: t('message.tab1'),
+        title: t('message.projectsTitle'),
+        param: 'lookfor',
+        alert: t('message.lookforAlert'),
+      },
+      {
+        tab: t('message.tab2'),
+        title: t('message.teamsTitle'),
+        param: 'available',
+        alert: t('message.availableAlert'),
+      },
     ]);
     const currentTab = ref(collections.value[0].tab);
 
     const setTitle = (i) => {
-      document.title = collections.value[i].tab + ' | Benchkiller';
+      document.title = collections.value[i].title + ' | Benchkiller';
     };
     onMounted(() => setTitle(0));
 

@@ -1,7 +1,6 @@
 <template>
-  <TableAlert></TableAlert>
   <table
-    class="container table table-bordered table-striped table-hover"
+    class="container table table-bordered table-striped table-hover flex-shrink-0"
     v-if="offers.length"
   >
     <thead>
@@ -39,12 +38,22 @@
       </tr>
     </tbody>
   </table>
-  <InfiniteLoading :offers="offers" :identifier="identifier" @infinite="load">
+  <InfiniteLoading
+    class="container"
+    :offers="offers"
+    :identifier="identifier"
+    @infinite="load"
+  >
     <template #spinner>
       <div class="col-lg-9 text-center py-5 my-loading">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
+      </div>
+    </template>
+    <template #complete>
+      <div class="text-center pt-3">
+        <span>{{ $t('message.noDataFound') }}</span>
       </div>
     </template>
   </InfiniteLoading>
@@ -55,7 +64,6 @@ import { computed, reactive, ref, watchEffect } from '@vue/runtime-core';
 import { getOffersWithPagination } from '../api/offers';
 import InfiniteLoading from 'v3-infinite-loading';
 import { useStore } from 'vuex';
-import TableAlert from './TableAlert.vue';
 
 export default {
   props: {
@@ -63,7 +71,7 @@ export default {
     search: Object,
   },
   emits: ['error'],
-  components: { InfiniteLoading, TableAlert },
+  components: { InfiniteLoading },
   setup(props, { emit }) {
     const store = useStore();
     store.commit('cleanOffersData');
@@ -79,20 +87,20 @@ export default {
         options.page = 1;
         options = { ...options, ...props.search };
       }
-      console.log(options);
     });
     const load = ($state) => {
       try {
-        getOffersWithPagination(options).then((res) => {
-          console.log(res.data);
-          if (res.data.links.next == null) {
-            store.commit('updateOffersData', res.data.data);
-            $state.complete();
-          } else {
-            store.commit('updateOffersData', res.data.data);
-            $state.loaded();
-          }
-        });
+        getOffersWithPagination(options)
+          .then((res) => {
+            if (res.data.links.next == null) {
+              store.commit('updateOffersData', res.data.data);
+              $state.complete();
+            } else {
+              store.commit('updateOffersData', res.data.data);
+              $state.loaded();
+            }
+          })
+          .catch(() => emit('error'));
         options.page++;
       } catch (error) {
         emit('error');

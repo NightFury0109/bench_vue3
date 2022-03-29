@@ -1,4 +1,4 @@
-<template>
+<template class="flex-grow-0">
   <form class="ms-4" @submit.prevent="$emit('search', searched)">
     <h3 class="pb-3">{{ $t('filter.filterHeader') }}</h3>
     <div class="mb-3">
@@ -42,6 +42,7 @@
     </div>
     <div v-if="showDatepicker" class="d-flex justify-content-between mt-3">
       <div class="me-3">
+        <label class="p-1">{{ $t('filter.from') }}</label>
         <Datepicker
           v-model="start"
           :enableTimePicker="false"
@@ -52,6 +53,7 @@
         />
       </div>
       <div>
+        <label class="p-1">{{ $t('filter.to') }}</label>
         <Datepicker
           v-model="end"
           :enableTimePicker="false"

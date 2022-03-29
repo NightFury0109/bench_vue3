@@ -22,7 +22,7 @@ export default createStore({
       state.offers = [];
     },
     updateCheckedOffers: (state, payload) => {
-      state.checkedOffers.push(...payload);
+      state.checkedOffers = payload;
     },
   },
   actions: {
