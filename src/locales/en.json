@@ -21,7 +21,8 @@
       "toastServerError": "Server error",
       "lookforAlert": "",
       "availableAlert": "",
-      "noDataFound": ""
+      "noDataFound": "",
+      "mailingBtn": ""
     },
     "filter": {
       "filterHeader": "Search by",
@@ -38,5 +39,10 @@
       "variousPeriod": "Various period",
       "from": "From",
       "to": "To"
+    },
+    "mailing": {
+      "textareaLbl": "",
+      "textareaPlacehldr": "You can write in Markdown"
+
     }
   }

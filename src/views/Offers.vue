@@ -40,9 +40,11 @@
       <div class="col-lg-9">
         <div class="d-flex justify-content-between">
           <p class="h1">{{ $t('message.searchH') }}</p>
-          <button type="button" class="btn btn-primary h-50 mt-3 ms-3">
-            Сделать рассылку
-          </button>
+          <router-link :to="{ path: '/deliveries' }">
+            <button type="button" class="btn btn-primary mt-3 ms-3">
+              {{ $t('message.mailingBtn') }}
+            </button>
+          </router-link>
         </div>
         <ul class="container nav nav-tabs pt-4" id="offersTabs" role="tablist">
           <li

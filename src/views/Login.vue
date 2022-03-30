@@ -67,18 +67,13 @@
         </div>
       </div>
     </main>
-    <footer class="footer pb-3">
-      <div class="container">
-        © Benchkiller 2021<span v-if="new Date().getFullYear() > 2021">
-          - {{ currentYear }}</span
-        >
-      </div>
-    </footer>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
 import { ref, reactive, toRefs, onMounted } from 'vue';
 import Alert from '@/components/Alert';
 import { useStore } from 'vuex';
@@ -86,7 +81,7 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 export default {
-  components: { Alert, Header },
+  components: { Alert, Header, Footer },
   setup() {
     const currentYear = new Date().getFullYear();
     const showToast = ref(false);

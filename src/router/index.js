@@ -17,6 +17,11 @@ const routes = [
       else next();
     },
   },
+  {
+    path: '/deliveries',
+    name: 'Mailing',
+    component: () => import('@/views/Mailing.vue'),
+  },
 ];
 
 const router = createRouter({
