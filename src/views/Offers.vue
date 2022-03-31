@@ -45,7 +45,7 @@
       <div class="col-lg-9">
         <div class="d-flex justify-content-between">
           <p class="h1">{{ $t('message.searchH') }}</p>
-          <div class="d-flex">
+          <div class="d-flex align-items-center">
             <button
               v-show="showReset"
               @click="emptyAll"
