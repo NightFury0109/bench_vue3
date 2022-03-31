@@ -41,7 +41,9 @@
       "to": "До"
     },
     "mailing": {
+      "clearBtn": "Убрать выделение",
       "textareaLbl": "Текст рассылки",
-      "textareaPlacehldr": "Поддерживается markdown"
+      "textareaPlacehldr": "Поддерживается markdown",
+      "emptyAlert": "Вам нужно отметить предложения проектов или команд для создания рассылки"
     }
   }

@@ -3,11 +3,14 @@
 </template>
 
 <script>
+import { onMounted } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 export default {
   setup() {
     const store = useStore();
-    store.dispatch('fetchAccessToken');
+    onMounted(() => {
+      store.dispatch('fetchAccessToken');
+    });
   },
 };
 </script>

@@ -35,16 +35,35 @@
       {{ $t('message.toastServerError') }}
     </template></Alert
   >
+  <Alert v-if="emptyCheckboxes" class="alert-warning">
+    <template v-slot:text>
+      {{ $t('mailing.emptyAlert') }}
+    </template></Alert
+  >
   <main class="container-fluid pt-5">
     <div class="d-flex flex-row">
       <div class="col-lg-9">
         <div class="d-flex justify-content-between">
           <p class="h1">{{ $t('message.searchH') }}</p>
-          <router-link :to="{ path: '/deliveries' }">
-            <button type="button" class="btn btn-primary mt-3 ms-3">
-              {{ $t('message.mailingBtn') }}
+          <div class="d-flex">
+            <button
+              v-show="showReset"
+              @click="emptyAll"
+              type="button"
+              class="btn btn-warning mt-3"
+            >
+              {{ $t('mailing.clearBtn') }}
             </button>
-          </router-link>
+            <router-link :to="{ name: 'Mailing' }">
+              <button
+                @click="distribute"
+                type="button"
+                class="btn btn-primary mt-3 ms-3"
+              >
+                {{ $t('message.mailingBtn') }}
+              </button>
+            </router-link>
+          </div>
         </div>
         <ul class="container nav nav-tabs pt-4" id="offersTabs" role="tablist">
           <li
@@ -106,11 +125,12 @@ import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import Alert from '@/components/Alert.vue';
 import Filter from '@/components/Filter.vue';
-import { computed, onMounted, reactive } from '@vue/runtime-core';
+import { computed, onMounted, reactive, watchEffect } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import TableAlert from '@/components/TableAlert.vue';
+import { useRouter } from 'vue-router';
 
 export default {
   components: { Header, Table, Alert, Filter, TableAlert },
@@ -118,6 +138,7 @@ export default {
     const { t } = useI18n();
     const store = useStore();
     const auth = computed(() => store.state.firstAuth);
+    const router = useRouter();
 
     // Names of tabs and query params
     const collections = ref([
@@ -152,6 +173,22 @@ export default {
       setTimeout(() => (serverError.value = false), 10000);
     };
 
+    const emptyCheckboxes = ref(false);
+    const distribute = () => {
+      if (store.getters.isEmpty) emptyCheckboxes.value = true;
+      else emptyCheckboxes.value = false;
+    };
+
+    const showReset = ref(false);
+    watchEffect(() => {
+      if (!store.getters.isEmpty) showReset.value = true;
+      else showReset.value = false;
+    });
+    function emptyAll() {
+      store.commit('updateCheckedOffers', []);
+      router.go();
+    }
+
     return {
       collections,
       t,
@@ -162,6 +199,10 @@ export default {
       search,
       serverError,
       handleError,
+      emptyCheckboxes,
+      distribute,
+      showReset,
+      emptyAll,
     };
   },
 };

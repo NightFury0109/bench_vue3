@@ -27,7 +27,7 @@
           />
         </td>
         <td class="p-3">
-          <p class="fw-bold mb-3">{{ offer.attributes.title }}</p>
+          <p class="fw-bold mb-3">@{{ offer.attributes.title }}</p>
           <p class="fw-light" style="white-space: pre-wrap">
             {{ offer.attributes.text }}
           </p>
@@ -75,9 +75,13 @@ export default {
   setup(props, { emit }) {
     const store = useStore();
     store.commit('cleanOffersData');
+
     let page = 1;
+
     let options = reactive({ collection: props.collection, page: page });
+
     const offers = computed(() => store.state.offers);
+
     let identifier = ref(+new Date());
 
     watchEffect(() => {
@@ -88,6 +92,7 @@ export default {
         options = { ...options, ...props.search };
       }
     });
+
     const load = ($state) => {
       try {
         getOffersWithPagination(options)
@@ -109,9 +114,11 @@ export default {
     };
 
     const checkedOffers = ref([]);
+
     const updateCheckedOffers = () => {
       store.commit('updateCheckedOffers', checkedOffers.value);
     };
+
     return {
       offers,
       load,

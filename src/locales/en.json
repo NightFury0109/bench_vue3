@@ -41,8 +41,9 @@
       "to": "To"
     },
     "mailing": {
+      "clearBtn": "Clear All",
       "textareaLbl": "",
-      "textareaPlacehldr": "You can write in Markdown"
-
+      "textareaPlacehldr": "You can write in Markdown",
+      "emptyAlert": ""
     }
   }

@@ -8,6 +8,11 @@ export default createStore({
     offers: [],
     checkedOffers: [],
   },
+  getters: {
+    isEmpty(state) {
+      return state.checkedOffers.length == 0 ? true : false;
+    },
+  },
   mutations: {
     updateAccessToken: (state, accessToken) => {
       state.accessToken = accessToken;
