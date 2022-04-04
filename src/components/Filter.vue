@@ -4,6 +4,7 @@
     <div class="mb-3">
       <input
         type="text"
+        @keydown.enter="$emit('search', searched)"
         v-model.trim="searched.search"
         class="form-control"
         :placeholder="$t('filter.inputPlaceholder')"

@@ -54,15 +54,24 @@
             >
               {{ $t('mailing.clearBtn') }}
             </button>
-            <router-link :to="{ name: 'Mailing' }">
-              <button
-                @click="distribute"
-                type="button"
-                class="btn btn-primary mt-3 ms-3"
-              >
-                {{ $t('message.mailingBtn') }}
-              </button>
-            </router-link>
+            <button
+              @click="distribute"
+              type="button"
+              class="btn btn-primary mt-3 ms-3"
+              data-bs-toggle="modal"
+              data-bs-target="#mailingModal"
+            >
+              {{ $t('message.mailingBtn') }}
+            </button>
+            <div
+              v-if="openModal"
+              class="modal fade"
+              id="mailingModal"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <Mailing />
+            </div>
           </div>
         </div>
         <ul class="container nav nav-tabs pt-4" id="offersTabs" role="tablist">
@@ -125,20 +134,19 @@ import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import Alert from '@/components/Alert.vue';
 import Filter from '@/components/Filter.vue';
+import Mailing from './Mailing.vue';
 import { computed, onMounted, reactive, watchEffect } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import TableAlert from '@/components/TableAlert.vue';
-import { useRouter } from 'vue-router';
 
 export default {
-  components: { Header, Table, Alert, Filter, TableAlert },
+  components: { Header, Table, Alert, Filter, TableAlert, Mailing },
   setup() {
     const { t } = useI18n();
     const store = useStore();
     const auth = computed(() => store.state.firstAuth);
-    const router = useRouter();
 
     // Names of tabs and query params
     const collections = ref([
@@ -173,20 +181,26 @@ export default {
       setTimeout(() => (serverError.value = false), 10000);
     };
 
+    // Show alert if checkboxes aren't checked
     const emptyCheckboxes = ref(false);
-    const distribute = () => {
+    function distribute() {
       if (store.getters.isEmpty) emptyCheckboxes.value = true;
       else emptyCheckboxes.value = false;
-    };
+    }
 
     const showReset = ref(false);
+    const openModal = ref(false);
     watchEffect(() => {
-      if (!store.getters.isEmpty) showReset.value = true;
-      else showReset.value = false;
+      if (!store.getters.isEmpty) {
+        showReset.value = true;
+        openModal.value = true;
+      } else {
+        showReset.value = false;
+        openModal.value = false;
+      }
     });
     function emptyAll() {
-      store.commit('updateCheckedOffers', []);
-      router.go();
+      store.commit('cleanCheckedOffers');
     }
 
     return {
@@ -203,6 +217,7 @@ export default {
       distribute,
       showReset,
       emptyAll,
+      openModal,
     };
   },
 };

@@ -113,10 +113,12 @@ export default {
       }
     };
 
-    const checkedOffers = ref([]);
+    const checkedOffers = computed(() => store.state.checkedOffers);
 
-    const updateCheckedOffers = () => {
-      store.commit('updateCheckedOffers', checkedOffers.value);
+    const updateCheckedOffers = (e) => {
+      e.target.checked
+        ? store.commit('updateCheckedOffers', e.target.value)
+        : store.commit('removeCheckbox', e.target.value);
     };
 
     return {

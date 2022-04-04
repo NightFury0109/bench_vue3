@@ -27,7 +27,15 @@ export default createStore({
       state.offers = [];
     },
     updateCheckedOffers: (state, payload) => {
-      state.checkedOffers = payload;
+      state.checkedOffers.push(payload);
+    },
+    removeCheckbox: (state, checkedOffer) => {
+      state.checkedOffers = state.checkedOffers.filter(
+        (ch) => ch != checkedOffer
+      );
+    },
+    cleanCheckedOffers: (state) => {
+      state.checkedOffers = [];
     },
   },
   actions: {
@@ -46,6 +54,11 @@ export default createStore({
       localStorage.removeItem('accessToken');
       commit('updateAccessToken', null);
       commit('authenticated', false);
+    },
+    updateSelectedChecks({ commit }, checkedOffer) {
+      if (checkedOffer.checked)
+        commit('updateCheckedOffers', checkedOffer.value);
+      else commit('removeCheckbox', checkedOffer);
     },
   },
 });

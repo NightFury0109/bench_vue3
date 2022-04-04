@@ -7,21 +7,24 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login,
+    // beforeEnter: (to, from, next) => {
+    //   if (localStorage.getItem('accessToken')) next({ name: 'offers' });
+    // },
   },
   {
     path: '/offers',
     name: 'offers',
     component: () => import('@/views/Offers.vue'),
   },
-  {
-    path: '/deliveries',
-    name: 'Mailing',
-    component: () => import('@/views/Mailing.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.getters.isEmpty) next({ name: 'offers' });
-      else next();
-    },
-  },
+  // {
+  //   path: '/deliveries',
+  //   name: 'Mailing',
+  //   component: () => import('@/views/Mailing.vue'),
+  //   beforeEnter: (to, from, next) => {
+  //     if (store.getters.isEmpty) next({ name: 'offers' });
+  //     else next();
+  //   },
+  // },
 ];
 
 const router = createRouter({
