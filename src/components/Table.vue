@@ -93,9 +93,9 @@ export default {
       }
     });
 
-    const load = ($state) => {
+    const load = async ($state) => {
       try {
-        getOffersWithPagination(options)
+        await getOffersWithPagination(options)
           .then((res) => {
             if (res.data.links.next == null) {
               store.commit('updateOffersData', res.data.data);
@@ -114,7 +114,6 @@ export default {
     };
 
     const checkedOffers = computed(() => store.state.checkedOffers);
-
     const updateCheckedOffers = (e) => {
       e.target.checked
         ? store.commit('updateCheckedOffers', e.target.value)

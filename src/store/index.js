@@ -12,6 +12,9 @@ export default createStore({
     isEmpty(state) {
       return state.checkedOffers.length == 0 ? true : false;
     },
+    getChecked(state) {
+      return state.checkedOffers;
+    },
   },
   mutations: {
     updateAccessToken: (state, accessToken) => {
@@ -37,6 +40,14 @@ export default createStore({
     cleanCheckedOffers: (state) => {
       state.checkedOffers = [];
     },
+    // transformCheckedOffers(state) {
+    //   state.checkedOffers = state.checkedOffers.map((el) => {
+    //     return state.checkedOffers.length &&
+    //       state.checkedOffers.indexOf(el) != state.checkedOffers.length - 1
+    //       ? (el = `@${el}` + ', ')
+    //       : (el = `@${el}`);
+    //   });
+    // },
   },
   actions: {
     async doLogin({ commit }, loginData) {
@@ -54,11 +65,6 @@ export default createStore({
       localStorage.removeItem('accessToken');
       commit('updateAccessToken', null);
       commit('authenticated', false);
-    },
-    updateSelectedChecks({ commit }, checkedOffer) {
-      if (checkedOffer.checked)
-        commit('updateCheckedOffers', checkedOffer.value);
-      else commit('removeCheckbox', checkedOffer);
     },
   },
 });

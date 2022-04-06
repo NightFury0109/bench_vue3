@@ -4,7 +4,7 @@
       <div class="modal-body">
         <div class="login-flex d-flex flex-column justify-content-between">
           <form class="pt-3 container flex-grow-1 me-auto">
-            <div class="d-flex justify-content">
+            <div class="d-flex justify-content align-items-center">
               <svg
                 class="me-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,20 @@
                   </g>
                 </g>
               </svg>
-              <span>{{ mailingList }}</span>
+              <div>
+                <span
+                  v-for="(user, i) in mailingList"
+                  :key="i"
+                  class="ps-1 fw-bold"
+                  >@{{ user }}
+                  <button
+                    @click="removeUser(user)"
+                    type="button"
+                    class="btn-close me-1 my-button"
+                    aria-label="Close"
+                  ></button
+                ></span>
+              </div>
             </div>
             <div class="mt-3">
               <label for="exampleFormControlTextarea1" class="form-label">{{
@@ -59,14 +72,28 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed } from '@vue/runtime-core';
 import { useStore } from 'vuex';
 
 export default {
   setup() {
     const store = useStore();
+    let mailingList = computed(() => store.getters.getChecked);
+    // onMounted(() => store.commit('transformCheckedOffers'));
+    // let users = mailingList.map((el, i) => {
+    //   return mailingList.indexOf(el) != mailingList.length - 1
+    //     ? h('span', { key: i }, [
+    //         (el = `@${el}` + ', '),
+    //         h('button', { class: 'btn-close', ariaLabel: 'close' }, ', '),
+    //       ])
+    //     : (el = `@${el}`);
+    // });
+    function removeUser(userToRemove) {
+      store.commit('removeCheckbox', userToRemove);
+    }
     return {
-      mailingList: computed(() => store.state.checkedOffers.join(',')),
+      mailingList,
+      removeUser,
     };
   },
 };
