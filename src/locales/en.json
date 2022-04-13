@@ -42,10 +42,10 @@
     },
     "mailing": {
       "clearBtn": "Clear All",
-      "textareaLbl": "",
+      "textareaLbl": "The body of message",
       "textareaPlacehldr": "You can write in Markdown",
       "usersToSendTo": "To",
-      "emptyAlert": "",
+      "emptyAlert": "You have to select some offers to start sending out emails",
       "closeBtn": "Close",
       "sendBtn": "Send message"
     }
