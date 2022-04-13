@@ -19,15 +19,15 @@
       "teamsTitle": "Teams",
       "toastSuccess": "Authorized",
       "toastServerError": "Server error",
-      "lookforAlert": "",
-      "availableAlert": "",
-      "noDataFound": "",
-      "mailingBtn": ""
+      "lookforAlert": "Below you can see offers for outsorcing",
+      "availableAlert": "Below you can see offers for outstaffing",
+      "noDataFound": "No data Found",
+      "mailingBtn": "Send message"
     },
     "filter": {
       "filterHeader": "Search by",
       "inputPlaceholder": "Type search terms",
-      "regionsLabel": "Cooperation regions",
+      "regionsLabel": "Cooperation Regions",
       "timeframeLabel": "Timeframe",
       "searchBtn": "Apply",
       "clearBtn": "Reset",
@@ -44,6 +44,9 @@
       "clearBtn": "Clear All",
       "textareaLbl": "",
       "textareaPlacehldr": "You can write in Markdown",
-      "emptyAlert": ""
+      "usersToSendTo": "To",
+      "emptyAlert": "",
+      "closeBtn": "Close",
+      "sendBtn": "Send message"
     }
   }

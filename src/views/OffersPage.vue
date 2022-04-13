@@ -114,7 +114,7 @@
               collections[i].alert
             }}</TableAlert>
             <Table
-              v-if="currentTab == collections[i].tab"
+              v-if="currentTab === collections[i].tab"
               :collection="collections[i].param"
               :search="search"
               @error="handleError"
@@ -134,7 +134,7 @@ import Header from '@/components/Header.vue';
 import Table from '@/components/Table.vue';
 import Alert from '@/components/Alert.vue';
 import Filter from '@/components/Filter.vue';
-import Mailing from './Mailing.vue';
+import Mailing from './MailingModal.vue';
 import { computed, onMounted, reactive, watchEffect } from '@vue/runtime-core';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';

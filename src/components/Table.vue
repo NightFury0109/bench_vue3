@@ -22,7 +22,7 @@
             class="form-check-input mt-3"
             v-model="checkedOffers"
             type="checkbox"
-            :value="offer.attributes.title"
+            :value="offer.attributes.username"
             @change="updateCheckedOffers"
           />
         </td>

@@ -5,7 +5,7 @@
         <div class="container">
           <div class="row ps-0">
             <div class="col-xl-8">
-              <form class="container flex-grow-1 me-auto">
+              <form class="container">
                 <div class="mt-3">
                   <label for="exampleFormControlTextarea1" class="form-label"
                     >{{ $t('mailing.textareaLbl') }}:</label
@@ -19,13 +19,15 @@
               </form>
             </div>
             <div class="col-xl-4">
-              <label class="form-label pt-3 ps-3">Кому:</label>
-              <div class="d-flex align-items-center">
-                <ul>
+              <label class="form-label pt-3"
+                >{{ $t('mailing.usersToSendTo') }}:</label
+              >
+              <div class="d-flex justify-content-between">
+                <ul class="list-group">
                   <li
                     v-for="(user, i) in mailingList"
                     :key="i"
-                    class="li-element"
+                    class="list-group-item"
                   >
                     @{{ user }}
                     <button
@@ -42,15 +44,17 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div class="container d-flex justify-content-end me-4">
+        <div class="container d-flex justify-content-end">
           <button
             type="button"
             class="btn btn-secondary me-2"
             data-bs-dismiss="modal"
           >
-            Close
+            {{ $t('mailing.closeBtn') }}
           </button>
-          <button type="button" class="btn btn-success">Send message</button>
+          <button type="button" class="btn btn-success">
+            {{ $t('mailing.sendBtn') }}
+          </button>
         </div>
       </div>
     </div>
@@ -65,18 +69,11 @@ export default {
   setup() {
     const store = useStore();
     let mailingList = computed(() => store.getters.getChecked);
-    // onMounted(() => store.commit('transformCheckedOffers'));
-    // let users = mailingList.map((el, i) => {
-    //   return mailingList.indexOf(el) != mailingList.length - 1
-    //     ? h('span', { key: i }, [
-    //         (el = `@${el}` + ', '),
-    //         h('button', { class: 'btn-close', ariaLabel: 'close' }, ', '),
-    //       ])
-    //     : (el = `@${el}`);
-    // });
+
     function removeUser(userToRemove) {
       store.commit('removeCheckbox', userToRemove);
     }
+
     return {
       mailingList,
       removeUser,

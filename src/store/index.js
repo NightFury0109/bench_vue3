@@ -7,6 +7,20 @@ export default createStore({
     firstAuth: false,
     offers: [],
     checkedOffers: [],
+    // collections: [
+    //   {
+    //     tab: t('message.tab1'),
+    //     title: t('message.projectsTitle'),
+    //     param: 'lookfor',
+    //     alert: t('message.lookforAlert'),
+    //   },
+    //   {
+    //     tab: t('message.tab2'),
+    //     title: t('message.teamsTitle'),
+    //     param: 'available',
+    //     alert: t('message.availableAlert'),
+    //   },
+    // ],
   },
   getters: {
     isEmpty(state) {
@@ -40,14 +54,6 @@ export default createStore({
     cleanCheckedOffers: (state) => {
       state.checkedOffers = [];
     },
-    // transformCheckedOffers(state) {
-    //   state.checkedOffers = state.checkedOffers.map((el) => {
-    //     return state.checkedOffers.length &&
-    //       state.checkedOffers.indexOf(el) != state.checkedOffers.length - 1
-    //       ? (el = `@${el}` + ', ')
-    //       : (el = `@${el}`);
-    //   });
-    // },
   },
   actions: {
     async doLogin({ commit }, loginData) {

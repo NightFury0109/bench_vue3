@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '@/views/Login.vue';
+import LoginPage from '@/views/LoginPage.vue';
 import store from '../store/index';
 
 const routes = [
   {
     path: '/',
     name: 'Login',
-    component: Login,
+    component: LoginPage,
     // beforeEnter: (to, from, next) => {
     //   if (store.dispatch('fetchAccessToken')) next({ name: 'offers' });
     // },
@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/offers',
     name: 'offers',
-    component: () => import('@/views/Offers.vue'),
+    component: () => import('@/views/OffersPage.vue'),
   },
 ];
 
