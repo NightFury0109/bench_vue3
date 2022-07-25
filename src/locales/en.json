@@ -1,0 +1,52 @@
+{
+    "message": {
+      "nickname": "Your Telegram account",
+      "password": "Password",
+      "loginButton": "Log in",
+      "alertMessage1": "No account? Check out our ",
+      "botLink": "bot",
+      "alertMessage2": " and generate your password.",
+      "toastWrongAuth": "Invalid login or password",
+      "navLink": "Projects and Teams",
+      "tab1": "Looking for Developers",
+      "tab2": "Available Developers",
+      "thead1": "Content",
+      "thead2": "Created at",
+      "searchH": "Search",
+      "logOut": "Log Out",
+      "loginTitle": "Login",
+      "projectsTitle": "Projects",
+      "teamsTitle": "Teams",
+      "toastSuccess": "Authorized",
+      "toastServerError": "Server error",
+      "lookforAlert": "Below you can see offers for outsorcing",
+      "availableAlert": "Below you can see offers for outstaffing",
+      "noDataFound": "No data Found",
+      "mailingBtn": "Send message"
+    },
+    "filter": {
+      "filterHeader": "Search by",
+      "inputPlaceholder": "Type search terms",
+      "regionsLabel": "Cooperation Regions",
+      "timeframeLabel": "Timeframe",
+      "searchBtn": "Apply",
+      "clearBtn": "Reset",
+      "allTime": "All time",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "quarter": "Quarter",
+      "variousPeriod": "Various period",
+      "from": "From",
+      "to": "To"
+    },
+    "mailing": {
+      "clearBtn": "Clear All",
+      "textareaLbl": "The body of message",
+      "textareaPlacehldr": "You can write in Markdown",
+      "usersToSendTo": "To",
+      "emptyAlert": "You have to select some offers to start sending out emails",
+      "closeBtn": "Close",
+      "sendBtn": "Send message"
+    }
+  }
